@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 22:13:16 by moboulan          #+#    #+#             */
-/*   Updated: 2025/01/24 22:13:35 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/01/27 18:34:18 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,13 @@
 
 int	main(void)
 {
+	char	*line;
+
+	while (1)
+	{
+		line = readline("minishell> ");
+		printf("%s\n", line);
+		free(line);
+	}
 	return (0);
 }

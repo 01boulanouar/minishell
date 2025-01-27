@@ -11,7 +11,7 @@ OBJ = mandatory/objects/$(SRC:.c=.o)
 all : $(NAME)
 
 $(NAME) : $(OBJ)
-	$(CC) $(OBJ) -o $@
+	$(CC) $(OBJ) -lreadline -o $@
 
 mandatory/objects/%.o : mandatory/%.c mandatory/minishell.h
 	$(CC) $(CFLAGS) -c $< -o $@
