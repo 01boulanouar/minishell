@@ -1,0 +1,6 @@
+.vscode
+.DS_Store
+*.o
+minishell
+minishell_bonus
+test_commands
