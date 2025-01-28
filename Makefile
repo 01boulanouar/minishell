@@ -4,16 +4,16 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 RM = rm -f
 
-SRC = minishell.c
+SRC = minishell.c split.c
 
-OBJ = mandatory/objects/$(SRC:.c=.o)
+OBJ = $(addprefix objects/, $(SRC:.c=.o))
 
 all : $(NAME)
 
 $(NAME) : $(OBJ)
 	$(CC) $(OBJ) -lreadline -o $@
 
-mandatory/objects/%.o : mandatory/%.c mandatory/minishell.h
+objects/%.o : mandatory/%.c mandatory/minishell.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean :
