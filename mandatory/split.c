@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 00:48:17 by moboulan          #+#    #+#             */
-/*   Updated: 2025/01/29 20:14:03 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/01/29 21:37:04 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,19 +60,18 @@ char	**ft_free(char **arr, int i)
 
 static void	ft_locate_end(const char **s, const char *charset)
 {
-	while (**s && (!ft_isin(**s, charset)))
+	char quote;
+
+	while (**s && !ft_isin(**s, charset))
 	{
-		if (**s == '"')
+		if (**s == '\"' || **s == '\'')
 		{
+			quote = **s;
 			(*s)++;
-			while (**s && **s != '"')
+			while (**s && **s != quote)
 				(*s)++;
-		}
-		if (**s == '\'')
-		{
-			(*s)++;
-			while (**s && **s != '\'')
-				(*s)++;
+			// if (!(**s))
+			// 	prinft("syntax error quotes\n");
 		}
 		(*s)++;
 	}
