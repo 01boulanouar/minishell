@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 18:14:06 by moboulan          #+#    #+#             */
-/*   Updated: 2025/01/29 19:48:11 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/01/29 20:13:28 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,20 +48,4 @@ int	ft_isin(const char c, const char *charset)
 		i++;
 	}
 	return (0);
-}
-
-int	ft_count_words(const char *s, const char *charset)
-{
-	int	i;
-	int	count;
-
-	count = 0;
-	i = 0;
-	while (s[i])
-	{
-		if (!ft_isin(s[i], charset) && (i == 0 || ft_isin(s[i - 1], charset)))
-			count++;
-		i++;
-	}
-	return (count);
 }
