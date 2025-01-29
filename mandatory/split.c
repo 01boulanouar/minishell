@@ -6,13 +6,27 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 00:48:17 by moboulan          #+#    #+#             */
-/*   Updated: 2025/01/29 00:48:20 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/01/29 15:02:07 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	ft_count_words(const char *s, char c)
+static int	ft_is_in(const char c, const char *charset)
+{
+	int	i;
+
+	i = 0;
+	while (charset[i])
+	{
+		if (charset[i] == c)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+static int	ft_count_words(const char *s, const char *charset)
 {
 	int	i;
 	int	count;
@@ -21,14 +35,14 @@ static int	ft_count_words(const char *s, char c)
 	i = 0;
 	while (s[i])
 	{
-		if (s[i] != c && (i == 0 || s[i - 1] == c))
+		if (!ft_is_in(s[i], charset) && (i == 0 || ft_is_in(s[i - 1], charset)))
 			count++;
 		i++;
 	}
 	return (count);
 }
 
-static char	*ft_copy(char const *start, char const *end)
+static char	*ft_copy(const char *start, const char *end)
 {
 	int		i;
 	char	*copy;
@@ -58,24 +72,24 @@ char	**ft_free(char **arr, int i)
 	return (NULL);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(const char *s, const char *charset)
 {
 	char		**arr;
 	char const	*start;
 	int			i;
 
-	arr = (char **)malloc(sizeof(char *) * (ft_count_words(s, c) + 1));
+	arr = malloc(sizeof(char *) * (ft_count_words(s, charset) + 1));
 	if (!arr)
 		return (NULL);
 	i = 0;
 	while (*s)
 	{
-		if (*s == c)
+		if (ft_is_in(*s, charset))
 			s++;
 		else
 		{
 			start = s;
-			while (*s && *s != c)
+			while (*s && !ft_is_in(*s, charset))
 				s++;
 			arr[i] = ft_copy(start, s);
 			if (!arr[i])
