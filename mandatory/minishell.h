@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 18:00:56 by moboulan          #+#    #+#             */
-/*   Updated: 2025/01/29 19:23:56 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/01/29 19:48:25 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ typedef struct s_word_list
 
 size_t					ft_strlen(const char *s);
 char					*ft_strchr(const char *s, int c);
-
 int						ft_isin(const char c, const char *charset);
+int						ft_count_words(const char *s, const char *charset);
 char					**ft_split(char const *s, const char *charset);
 char					**ft_free(char **arr, int i);
 

@@ -6,41 +6,11 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 00:48:17 by moboulan          #+#    #+#             */
-/*   Updated: 2025/01/29 19:30:53 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/01/29 19:49:02 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	ft_isin(const char c, const char *charset)
-{
-	int	i;
-
-	i = 0;
-	while (charset[i])
-	{
-		if (charset[i] == c)
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-static int	ft_count_words(const char *s, const char *charset)
-{
-	int	i;
-	int	count;
-
-	count = 0;
-	i = 0;
-	while (s[i])
-	{
-		if (!ft_isin(s[i], charset) && (i == 0 || ft_isin(s[i - 1], charset)))
-			count++;
-		i++;
-	}
-	return (count);
-}
 
 static char	*ft_copy(const char *start, const char *end)
 {
@@ -72,15 +42,33 @@ char	**ft_free(char **arr, int i)
 	return (NULL);
 }
 
+static void	ft_skip(const char **s, char c)
+{
+	if (**s == c)
+	{
+		(*s)++;
+		while (**s && **s != c)
+			(*s)++;
+	}
+}
+
+static char	**ft_malloc(const char *s, const char *charset)
+{
+	char	**arr;
+
+	arr = malloc(sizeof(char *) * (ft_count_words(s, charset) + 1));
+	if (!arr)
+		return (NULL);
+	return (arr);
+}
+
 char	**ft_split(const char *s, const char *charset)
 {
 	char		**arr;
 	char const	*start;
 	int			i;
 
-	arr = malloc(sizeof(char *) * (ft_count_words(s, charset) + 1));
-	if (!arr)
-		return (NULL);
+	arr = ft_malloc(s, charset);
 	i = 0;
 	while (*s)
 	{
@@ -89,6 +77,8 @@ char	**ft_split(const char *s, const char *charset)
 		else
 		{
 			start = s;
+			ft_skip(&s, '"');
+			ft_skip(&s, '\'');
 			while (*s && (!ft_isin(*s, charset)))
 				s++;
 			arr[i] = ft_copy(start, s);
