@@ -4,7 +4,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 RM = rm -f
 
-SRC = minishell.c split.c
+SRC = minishell.c string.c split.c
 
 OBJ = $(addprefix objects/, $(SRC:.c=.o))
 

@@ -6,13 +6,13 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 00:48:17 by moboulan          #+#    #+#             */
-/*   Updated: 2025/01/29 15:02:07 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/01/29 19:30:53 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	ft_is_in(const char c, const char *charset)
+int	ft_isin(const char c, const char *charset)
 {
 	int	i;
 
@@ -35,7 +35,7 @@ static int	ft_count_words(const char *s, const char *charset)
 	i = 0;
 	while (s[i])
 	{
-		if (!ft_is_in(s[i], charset) && (i == 0 || ft_is_in(s[i - 1], charset)))
+		if (!ft_isin(s[i], charset) && (i == 0 || ft_isin(s[i - 1], charset)))
 			count++;
 		i++;
 	}
@@ -84,12 +84,12 @@ char	**ft_split(const char *s, const char *charset)
 	i = 0;
 	while (*s)
 	{
-		if (ft_is_in(*s, charset))
+		if (ft_isin(*s, charset))
 			s++;
 		else
 		{
 			start = s;
-			while (*s && !ft_is_in(*s, charset))
+			while (*s && (!ft_isin(*s, charset)))
 				s++;
 			arr[i] = ft_copy(start, s);
 			if (!arr[i])
