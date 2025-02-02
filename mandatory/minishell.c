@@ -6,11 +6,26 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 22:13:16 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/02 17:45:43 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/02 18:30:07 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+size_t	ft_handle_quotes(const char *line, const char quote)
+{
+	size_t	i;
+
+	i = 0;
+	if (line[i] == quote)
+	{
+		i++;
+		while (line[i] != quote)
+			i++;
+		return (i);
+	}
+	return (0);
+}
 
 void	parse_line(const char *line)
 {
@@ -21,6 +36,8 @@ void	parse_line(const char *line)
 	while (line < line + ft_strlen(line))
 	{
 		start = line;
+		line += ft_handle_quotes(line, '\"');
+		line += ft_handle_quotes(line, '\'');
 		line += ft_strcspn(line, DELIM);
 		token = ft_copy(start, line);
 		printf("%s\n", token);
