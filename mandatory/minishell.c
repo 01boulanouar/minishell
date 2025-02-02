@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 22:13:16 by moboulan          #+#    #+#             */
-/*   Updated: 2025/01/29 19:52:27 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/02 17:45:43 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,20 @@
 
 void	parse_line(const char *line)
 {
-	char	**split;
-	int		i;
+	const char	*start;
+	char		*token;
 
-	split = ft_split(line, BLANKS);
-	i = 0;
-	while (split[i])
+	line += ft_strspn(line, DELIM);
+	while (line < line + ft_strlen(line))
 	{
-		printf("%s\n", split[i]);
-		i++;
+		start = line;
+		line += ft_strcspn(line, DELIM);
+		token = ft_copy(start, line);
+		printf("%s\n", token);
+		free(token);
+		line += ft_strspn(line, DELIM);
 	}
-	ft_free(split, i);
+	return ;
 }
 
 int	main(void)
