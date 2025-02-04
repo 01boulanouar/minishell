@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 22:13:16 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/04 03:49:20 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/04 04:40:00 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,8 @@ size_t	ft_handle_quotes(const char *line)
 		while (line[i] && line[i] != quote)
 			i++;
 		i++;
-		return (i);
 	}
-	return (0);
+	return (i);
 }
 
 void	parse_line(const char *line)
