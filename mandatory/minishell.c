@@ -6,21 +6,21 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 22:13:16 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/02 18:30:07 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/04 03:40:50 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-size_t	ft_handle_quotes(const char *line, const char quote)
+size_t	ft_handle_quotes(const char *line)
 {
 	size_t	i;
 
-	i = 0;
-	if (line[i] == quote)
+	i = ft_strcspn(line, "\" ");
+	if (line[i] == '"')
 	{
 		i++;
-		while (line[i] != quote)
+		while (line[i] && line[i] != '"')
 			i++;
 		return (i);
 	}
@@ -36,8 +36,7 @@ void	parse_line(const char *line)
 	while (line < line + ft_strlen(line))
 	{
 		start = line;
-		line += ft_handle_quotes(line, '\"');
-		line += ft_handle_quotes(line, '\'');
+		line += ft_handle_quotes(line);
 		line += ft_strcspn(line, DELIM);
 		token = ft_copy(start, line);
 		printf("%s\n", token);
@@ -54,6 +53,7 @@ int	main(void)
 	while (1)
 	{
 		line = readline("minishell> ");
+		add_history(line);
 		parse_line(line);
 		free(line);
 	}
