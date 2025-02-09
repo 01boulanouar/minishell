@@ -1,19 +1,18 @@
 NAME = minishell
-
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 RM = rm -f
 
-SRC = minishell.c string.c 
-
-OBJ = $(addprefix objects/, $(SRC:.c=.o))
+SRC = main.c lexer.c lexer_utils.c utils/string.c
+OBJ = $(SRC:.c=.o)
 
 all : $(NAME)
 
 $(NAME) : $(OBJ)
 	$(CC) $(OBJ) -lreadline -o $@
+	$(RM) $(OBJ)
 
-objects/%.o : mandatory/%.c mandatory/minishell.h
+%.o : %.c minishell.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean :

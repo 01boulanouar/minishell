@@ -5,24 +5,30 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/27 18:00:56 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/02 17:19:58 by moboulan         ###   ########.fr       */
+/*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
+/*   Updated: 2025/02/09 16:49:34 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include <stdio.h>
 # include <readline/history.h>
 # include <readline/readline.h>
-# include <stdio.h>
 # include <stdlib.h>
+# include <unistd.h>
 
-# define DELIM " 	"
+// Quotes 
+# define SQUOTE '\''
+# define DQUOTE '\"'
 
-size_t					ft_strlen(const char *s);
-int						ft_isin(const char c, const char *charset);
-size_t					ft_strspn(const char *s, const char *accept);
-size_t					ft_strcspn(const char *s, const char *reject);
-char					*ft_copy(const char *start, const char *end);
+// Error codes
+# define EXIT_SYNTAX_ERROR 258
+
+void	ft_putstr_fd(char *s, int fd);
+
+int		is_valid_syntax(char *line);
+void	lexer(char *line);
+
 #endif
