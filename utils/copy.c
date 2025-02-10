@@ -1,50 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list.c                                             :+:      :+:    :+:   */
+/*   copy.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/10 13:14:43 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/10 14:57:36 by moboulan         ###   ########.fr       */
+/*   Created: 2025/02/10 14:54:54 by moboulan          #+#    #+#             */
+/*   Updated: 2025/02/10 15:11:39 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_token	*ft_lstnew(char *value, int type)
+char	*ft_strdup(const char *s1)
 {
-	t_token	*t;
+	char	*s2;
+	char	*s2_start;
+	size_t	s1_len;
 
-	t = malloc(sizeof(t_token));
-	if (!t)
+	s1_len = ft_strlen(s1);
+	s2 = malloc(s1_len + 1);
+	if (!s2)
 		return (NULL);
-	t->value = value;
-	t->type = type;
-	t->next = NULL;
-	return (t);
+	s2_start = s2;
+	while (*s1)
+		*(s2++) = *(s1++);
+	*s2 = '\0';
+	return (s2_start);
 }
 
-t_token	*ft_lstlast(t_token *lst)
+char	*ft_copy(const char *start, const char *end)
 {
-	if (!lst)
+	int		i;
+	char	*copy;
+
+	i = 0;
+	copy = malloc(end - start + 1);
+	if (!copy)
 		return (NULL);
-	while (lst->next)
-		lst = lst->next;
-	return (lst);
-}
-
-void	ft_lstadd_back(t_token **lst, t_token *new)
-{
-	t_token	*t;
-
-	if (!lst || !new)
-		return ;
-	if (*lst == NULL)
-		*lst = new;
-	else
+	while (i < end - start)
 	{
-		t = ft_lstlast(*lst);
-		t->next = new;
+		copy[i] = start[i];
+		i++;
 	}
+	copy[i] = '\0';
+	return (copy);
 }

@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:06 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/10 13:37:55 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/10 15:23:57 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,13 @@ int	lex_is_valid_quotes(const char *line)
 
 	squote = 1;
 	dquote = 1;
-	while (*line++)
+	while (*line)
 	{
 		if (*line == SQUOTE && dquote)
 			squote = !squote;
 		if (*line == DQUOTE && squote)
 			dquote = !dquote;
+		line++;
 	}
 	return (squote && dquote);
 }
@@ -32,13 +33,6 @@ int	lex_is_valid_quotes(const char *line)
 int	lex_is_valid_syntax(const char *line)
 {
 	return (lex_is_valid_quotes(line));
-}
-
-int	lex_is_token(char c)
-{
-	return (c == SQUOTE || c == DQUOTE
-		|| c == PIPE || c == LESS
-		|| c == GREATER);
 }
 
 char	*lex_trim(const char *line)
@@ -55,18 +49,16 @@ char	*lex_trim(const char *line)
 	return (ft_copy(start, end));
 }
 
-t_token_type	lex_get_token_type(char c)
+t_token_type	lex_get_token_type(const char *value)
 {
-	if (c == SQUOTE)
-		return (t_squote);
-	else if (c == DQUOTE)
-		return (t_dquote);
-	else if (c == PIPE)
-		return (t_pipe);
-	else if (c == LESS)
-		return (t_less);
-	else if (c == GREATER)
-		return (t_greater);
-	else
-		return (t_unkown);
+	if (ft_strlen(value) == 1)
+	{
+		if (value[0] == PIPE)
+			return (t_pipe);
+		else if (value[0] == LESS)
+			return (t_less);
+		else if (value[0] == GREATER)
+			return (t_greater);
+	}
+	return (t_word);
 }

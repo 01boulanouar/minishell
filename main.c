@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:08 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/09 16:52:42 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/10 15:24:27 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	main(void)
 	while (1)
 	{
 		line = readline("minishell>");
+		add_history(line);
 		lexer(line);
 		free(line);
 	}

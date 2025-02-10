@@ -6,27 +6,50 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/10 13:47:01 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/10 15:18:56 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+size_t	lex_skip_quotes(const char *line)
+{
+	size_t	i;
+	char	quote;
+
+	quote = '\0';
+	i = ft_strcspn(line, QUOTES);
+	if (line[i] == SQUOTE)
+		quote = SQUOTE;
+	else if (line[i] == DQUOTE)
+		quote = DQUOTE;
+	if (line[i] == quote)
+	{
+		i++;
+		while (line[i] && line[i] != quote)
+			i++;
+		i++;
+	}
+	return (i);
+}
+
 t_token	*lex_tokenize(char *line)
 {
-	t_token	*token;
-	int		i;
+	t_token			*token;
+	const char		*start;
+	char			*value;
+	t_token_type	type;
 
 	token = NULL;
-	i = 0;
-	while (line[i])
+	while (line < line + ft_strlen(line))
 	{
-		if (lex_is_token(line[i]))
-		{
-			ft_lstadd_back(&token, ft_lstnew(line[i],
-					lex_get_token_type(line[i])));
-		}
-		i++;
+		start = line;
+		line += lex_skip_quotes(line);
+		line += ft_strcspn(line, BLANKS);
+		value = ft_copy(start, line);
+		type = lex_get_token_type(value);
+		ft_lstadd_back(&token, ft_lstnew(value, type));
+		line += ft_strspn(line, BLANKS);
 	}
 	return (token);
 }
@@ -37,7 +60,7 @@ void	lex_print_tokens(t_token *token)
 		return ;
 	while (token)
 	{
-		printf("token [%c] type [%d]\n", token->value, token->type);
+		printf("token [%s] type [%d]\n", token->value, token->type);
 		token = token->next;
 	}
 }
