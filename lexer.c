@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/10 16:28:01 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/10 17:34:16 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ size_t	lex_skip_quotes(const char *line)
 	size_t	i;
 	char	quote;
 
+	i = 0;
 	quote = '\0';
-	i = ft_strcspn(line, QUOTES);
 	if (line[i] == SQUOTE)
 		quote = SQUOTE;
 	else if (line[i] == DQUOTE)
@@ -30,6 +30,11 @@ size_t	lex_skip_quotes(const char *line)
 			i++;
 		i++;
 	}
+	else
+	{
+		while (line[i] && !ft_isin(line[i], BLANKS_QUOTES))
+			i++;
+	}
 	return (i);
 }
 
@@ -39,16 +44,18 @@ t_token	*lex_tokenize(char *line)
 	const char		*start;
 	char			*value;
 	t_token_type	type;
+	int				token_after_space;
 
+	token_after_space = 0;
 	token = NULL;
 	while (line < line + ft_strlen(line))
 	{
 		start = line;
 		line += lex_skip_quotes(line);
-		line += ft_strcspn(line, BLANKS);
 		value = ft_copy(start, line);
 		type = lex_get_token_type(value);
-		ft_lstadd_back(&token, ft_lstnew(value, type));
+		ft_lstadd_back(&token, ft_lstnew(value, type, token_after_space));
+		token_after_space = ft_isin(*line, BLANKS);
 		line += ft_strspn(line, BLANKS);
 	}
 	return (token);
@@ -60,7 +67,8 @@ void	lex_print_tokens(t_token *token)
 		return ;
 	while (token)
 	{
-		printf("token [%s] type [%d]\n", token->value, token->type);
+		printf("token [%s] type [%d], token_after_space [%d]\n", token->value,
+			token->type, token->token_after_space);
 		token = token->next;
 	}
 }
@@ -80,8 +88,8 @@ void	lexer(char *line)
 	token = lex_tokenize(trim_line);
 	lex_print_tokens(token);
 	free(trim_line);
-	trim_line = NULL;
 	free(line);
-	line = NULL;
 	ft_lstfree(&token);
+	trim_line = NULL;
+	line = NULL;
 }

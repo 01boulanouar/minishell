@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:06 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/10 15:56:28 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/10 17:34:39 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,13 @@ t_token_type	lex_get_token_type(const char *value)
 			return (t_less);
 		else if (value[0] == GREATER)
 			return (t_greater);
+	}
+	else
+	{
+		if (value[0] == SQUOTE)
+			return (t_squote);
+		else if (value[0] == DQUOTE)
+			return (t_dquote);
 	}
 	return (t_word);
 }

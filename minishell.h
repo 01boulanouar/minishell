@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/10 16:25:58 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/10 17:35:02 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@
 
 // Separators
 # define BLANKS " 	"
-# define QUOTES "\'\" 	"
-
+# define BLANKS_QUOTES " 	\'\""
 // Error Codes
 # define EXIT_SYNTAX_ERROR 258
 
 // Error String
-# define SYNTAX_ERROR_STR "minishell: syntax error near unexpected token\n"
+# define SYNTAX_ERROR_STR \
+	"minishell: syntax error near unexpected token\n"
 
 // Token types
 typedef enum e_token_type
@@ -52,6 +52,7 @@ typedef struct s_token
 {
 	char			*value;
 	t_token_type	type;
+	int				token_after_space;
 	struct s_token	*next;
 }					t_token;
 
@@ -64,7 +65,8 @@ size_t				ft_strcspn(const char *s, const char *reject);
 char				*ft_copy(const char *start, const char *end);
 
 // List Utils
-t_token				*ft_lstnew(char *value, int type);
+t_token				*ft_lstnew(char *value, t_token_type type,
+						int token_after_space);
 void				ft_lstadd_back(t_token **lst, t_token *new);
 void				ft_lstfree(t_token **lst);
 // Lexer Functions
