@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/10 15:18:56 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/10 16:28:01 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,20 @@ void	lex_print_tokens(t_token *token)
 void	lexer(char *line)
 {
 	t_token	*token;
+	char	*trim_line;
 
+	token = NULL;
 	if (!lex_is_valid_syntax(line))
 	{
-		ft_putstr_fd("minishell: syntax error near unexpected token\n",
-			STDERR_FILENO);
+		ft_putstr_fd(SYNTAX_ERROR_STR, STDERR_FILENO);
 		exit(EXIT_SYNTAX_ERROR);
 	}
-	line = lex_trim(line);
-	token = lex_tokenize(line);
+	trim_line = lex_trim(line);
+	token = lex_tokenize(trim_line);
 	lex_print_tokens(token);
+	free(trim_line);
+	trim_line = NULL;
+	free(line);
+	line = NULL;
+	ft_lstfree(&token);
 }

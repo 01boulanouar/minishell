@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 13:14:43 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/10 14:57:36 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/10 16:28:28 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,22 @@ void	ft_lstadd_back(t_token **lst, t_token *new)
 	{
 		t = ft_lstlast(*lst);
 		t->next = new;
+	}
+}
+
+void	ft_lstfree(t_token **lst)
+{
+	t_token	*t;
+
+	t = *lst;
+	if (!lst || !*lst)
+		return ;
+	while (*lst)
+	{
+		free((*lst)->value);
+		(*lst)->value = NULL;
+		t = *lst;
+		(*lst) = (*lst)->next;
+		free(t);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:06 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/10 15:23:57 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/10 15:56:28 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	lex_is_valid_syntax(const char *line)
 	return (lex_is_valid_quotes(line));
 }
 
-char	*lex_trim(const char *line)
+char	*lex_trim(char *line)
 {
 	const char	*start;
 	const char	*end;
