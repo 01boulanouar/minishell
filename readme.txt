@@ -1,6 +1,6 @@
-LEXER // TODO show `'` token on error | check leaks
+LEXER // TODO show `'` token on error
 		$(RM) $(OBJ) // relink makefile
-		// remove printing of tokens
-		// keep check of space in tokens
+		// remove printing of tokens (header)
+		// implement command separation
 lexer -> parser -> expender -> executor
 
