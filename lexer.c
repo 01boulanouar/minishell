@@ -12,6 +12,7 @@
 
 #include "minishell.h"
 
+
 size_t	lex_skip_quotes(const char *line)
 {
 	size_t	i;
@@ -23,16 +24,17 @@ size_t	lex_skip_quotes(const char *line)
 		quote = SQUOTE;
 	else if (line[i] == DQUOTE)
 		quote = DQUOTE;
-	if (line[i] == quote)
+	if (quote)
 	{
 		i++;
 		while (line[i] && line[i] != quote)
 			i++;
-		i++;
+		if (line[i] == quote)
+			i++;
 	}
 	else
 	{
-		while (line[i] && !ft_isin(line[i], BLANKS_QUOTES))
+		while (line[i] && !ft_isin(line[i], BLANKS_QUOTES) && line[i] != '>' && line[i] != '<')
 			i++;
 	}
 	return (i);
@@ -48,20 +50,35 @@ t_token	*lex_tokenize(char *line)
 
 	token_after_space = 0;
 	token = NULL;
-	while (line < line + ft_strlen(line))
+	while (*line)
 	{
 		start = line;
-		line += lex_skip_quotes(line);
-		value = ft_copy(start, line);
-		if (!value)
-			return (token);
-		type = lex_get_token_type(value);
-		ft_lstadd_back(&token, ft_lstnew(value, type, token_after_space));
+		
+		if (*line == '>' || *line == '<')
+		{
+			value = ft_copy(line, line + 1); 
+			if (!value)
+				return (token);
+			type = lex_get_token_type(value);
+			ft_lstadd_back(&token, ft_lstnew(value, type, token_after_space));
+			line++; 
+		}
+		else
+		{
+			line += lex_skip_quotes(line);
+			value = ft_copy(start, line);
+			if (!value)
+				return (token);
+			type = lex_get_token_type(value);
+			ft_lstadd_back(&token, ft_lstnew(value, type, token_after_space));
+		}
+
 		token_after_space = ft_isin(*line, BLANKS);
 		line += ft_strspn(line, BLANKS);
 	}
 	return (token);
 }
+
 
 void	lex_print_tokens(t_token *token)
 {
