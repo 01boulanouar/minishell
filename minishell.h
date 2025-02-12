@@ -33,8 +33,7 @@
 # define EXIT_SYNTAX_ERROR 258
 
 // Error String
-# define SYNTAX_ERROR_STR \
-	"minishell: syntax error near unexpected token\n"
+# define SYNTAX_ERROR_STR "minishell: syntax error near unexpected token\n"
 
 // Token types
 typedef enum e_token_type
