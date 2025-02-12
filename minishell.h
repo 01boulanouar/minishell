@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/10 17:54:48 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/12 12:21:32 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 
 // Separators
 # define BLANKS " 	"
-# define BLANKS_QUOTES " 	\'\""
+# define SEPARATORS " 	\'\"<>"
 // Error Codes
 # define EXIT_SYNTAX_ERROR 258
 

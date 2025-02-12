@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/10 17:57:23 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/12 12:26:35 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ size_t	lex_skip_quotes(const char *line)
 	}
 	else
 	{
-		while (line[i] && !ft_isin(line[i], BLANKS_QUOTES) && line[i] != '>'
-			&& line[i] != '<')
+		while (line[i] && !ft_isin(line[i], SEPARATORS))
 			i++;
 	}
 	return (i);
@@ -54,23 +53,14 @@ t_token	*lex_tokenize(char *line)
 	{
 		start = line;
 		if (*line == '>' || *line == '<')
-		{
-			value = ft_copy(line, line + 1);
-			if (!value)
-				return (token);
-			type = lex_get_token_type(value);
-			ft_lstadd_back(&token, ft_lstnew(value, type, token_after_space));
 			line++;
-		}
 		else
-		{
 			line += lex_skip_quotes(line);
-			value = ft_copy(start, line);
-			if (!value)
-				return (token);
-			type = lex_get_token_type(value);
-			ft_lstadd_back(&token, ft_lstnew(value, type, token_after_space));
-		}
+		value = ft_copy(start, line);
+		if (!value)
+			return (token);
+		type = lex_get_token_type(value);
+		ft_lstadd_back(&token, ft_lstnew(value, type, token_after_space));
 		token_after_space = ft_isin(*line, BLANKS);
 		line += ft_strspn(line, BLANKS);
 	}
