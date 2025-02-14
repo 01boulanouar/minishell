@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:06 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/14 16:34:36 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/14 17:52:51 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,23 +30,37 @@ int	lex_is_valid_quotes(const char *line)
 	return (squote && dquote);
 }
 
-int	lex_is_valid_syntax(const char *line)
+int	lex_is_valid_pipes(const char *line)
 {
-	return (lex_is_valid_quotes(line));
+	int		pipe;
+	char	quote;
+
+	pipe = 1;
+	while (*line)
+	{
+		quote = '\0';
+		if (*line == SQUOTE)
+			quote = SQUOTE;
+		else if (*line == DQUOTE)
+			quote = DQUOTE;
+		if (quote)
+		{
+			line++;
+			while (*line && *line != quote)
+				line++;
+			if (*line == quote)
+				line++;
+		}
+		if (*line == PIPE && *(line + 1 + ft_skip_blanks(line + 1)) == PIPE)
+			pipe = 0;
+		line++;
+	}
+	return (pipe);
 }
 
-char	*lex_trim(char *line)
+int	lex_is_valid_syntax(const char *line)
 {
-	const char	*start;
-	const char	*end;
-
-	start = line;
-	end = line + ft_strlen(line);
-	while (*start && ft_isin(*start, BLANKS))
-		start++;
-	while (end >= start && ft_isin(*end, BLANKS))
-		end--;
-	return (ft_copy(start, end));
+	return (lex_is_valid_quotes(line) && lex_is_valid_pipes(line));
 }
 
 t_token_type	lex_get_token_type(const char *value)
@@ -76,16 +90,16 @@ t_token_type	lex_get_token_type(const char *value)
 
 char	*lex_print_token_type(t_token_type type)
 {
-	if (type == t_dless)
-		return ("DOUBLE LESS");
-	else if (type == t_dgreater)
-		return ("DOUBLE GREATER");
-	else if (type == t_pipe)
+	if (type == t_pipe)
 		return ("PIPE");
 	else if (type == t_less)
 		return ("LESS");
 	else if (type == t_greater)
 		return ("GREATER");
+	else if (type == t_dless)
+		return ("DOUBLE LESS");
+	else if (type == t_dgreater)
+		return ("DOUBLE GREATER");
 	else if (type == t_squote)
 		return ("SINGLE_QUOTES");
 	else if (type == t_dquote)

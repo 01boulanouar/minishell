@@ -1,0 +1,10 @@
+total 152
+-rw-r--r--  1 moboulan  wheel    378 Feb 14 16:25 Makefile
+-rw-r--r--  1 moboulan  wheel      0 Feb 14 17:22 a
+-rw-r--r--  1 moboulan  wheel   2510 Feb 14 16:56 lexer.c
+-rw-r--r--  1 moboulan  wheel   2494 Feb 14 16:57 lexer_utils.c
+-rw-r--r--  1 moboulan  wheel   1048 Feb 14 16:25 main.c
+-rwxr-xr-x  1 moboulan  wheel  50704 Feb 14 17:00 minishell
+-rw-r--r--  1 moboulan  wheel   2499 Feb 14 16:34 minishell.h
+-rw-r--r--  1 moboulan  wheel    187 Feb 14 16:25 readme.txt
+drwxr-xr-x  5 moboulan  wheel    160 Feb 14 17:00 utils

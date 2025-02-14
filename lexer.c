@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/14 16:51:47 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/14 17:53:12 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_token	*lex_tokenize(char *line)
 	while (*line)
 	{
 		start = line;
-		if ((*line == LESS || *line == GREATER))
+		if (*line == LESS || *line == GREATER || *line == PIPE)
 			line++;
 		else
 			line += lex_skip_quotes(line);
@@ -66,6 +66,20 @@ t_token	*lex_tokenize(char *line)
 		line += ft_strspn(line, BLANKS);
 	}
 	return (token);
+}
+
+char	*lex_trim(char *line)
+{
+	const char	*start;
+	const char	*end;
+
+	start = line;
+	end = line + ft_strlen(line);
+	while (*start && ft_isin(*start, BLANKS))
+		start++;
+	while (end >= start && ft_isin(*end, BLANKS))
+		end--;
+	return (ft_copy(start, end));
 }
 
 void	lex_print_tokens(t_token *token)

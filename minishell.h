@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/14 16:34:06 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/14 17:53:05 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 
 // Separators
 # define BLANKS " 	"
-# define SEPARATORS " 	\'\"<>"
+# define SEPARATORS " 	\'\"<>|"
 // Error Codes
 # define EXIT_SYNTAX_ERROR 258
 
@@ -67,6 +67,7 @@ size_t				ft_strspn(const char *s, const char *accept);
 size_t				ft_strcspn(const char *s, const char *reject);
 char				*ft_copy(const char *start, const char *end);
 int					ft_strcmp(const char *s1, const char *s2);
+int					ft_skip_blanks(const char *line);
 
 // List Utils
 t_token				*ft_lstnew(char *value, t_token_type type,
