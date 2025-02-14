@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:06 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/10 17:56:23 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/14 16:34:36 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,10 @@ t_token_type	lex_get_token_type(const char *value)
 		else if (value[0] == GREATER)
 			return (t_greater);
 	}
+	else if (!ft_strcmp(value, DLESS))
+		return (t_dless);
+	else if (!ft_strcmp(value, DGREATER))
+		return (t_dgreater);
 	else
 	{
 		if (value[0] == SQUOTE)
@@ -72,7 +76,11 @@ t_token_type	lex_get_token_type(const char *value)
 
 char	*lex_print_token_type(t_token_type type)
 {
-	if (type == t_pipe)
+	if (type == t_dless)
+		return ("DOUBLE LESS");
+	else if (type == t_dgreater)
+		return ("DOUBLE GREATER");
+	else if (type == t_pipe)
 		return ("PIPE");
 	else if (type == t_less)
 		return ("LESS");

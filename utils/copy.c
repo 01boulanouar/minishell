@@ -6,11 +6,21 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:54:54 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/10 15:11:39 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/14 16:36:25 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+size_t	ft_strlen(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
+}
 
 char	*ft_strdup(const char *s1)
 {

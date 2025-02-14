@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/12 12:26:35 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/14 16:51:47 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,15 @@ t_token	*lex_tokenize(char *line)
 	int				token_after_space;
 
 	token_after_space = 0;
-	token = NULL;
 	while (*line)
 	{
 		start = line;
-		if (*line == '>' || *line == '<')
+		if ((*line == LESS || *line == GREATER))
 			line++;
 		else
 			line += lex_skip_quotes(line);
+		if (((*line == LESS || *line == GREATER) && *line == *start))
+			line++;
 		value = ft_copy(start, line);
 		if (!value)
 			return (token);
