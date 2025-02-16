@@ -47,6 +47,7 @@ t_token	*lex_tokenize(char *line)
 	t_token_type	type;
 	int				token_after_space;
 
+	token = NULL;
 	token_after_space = 0;
 	while (*line)
 	{
