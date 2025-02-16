@@ -95,10 +95,33 @@ void	lex_print_tokens(t_token *token)
 	}
 }
 
+// To delete later
+static void	print_commands(t_comand *commands, int num_commands)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < num_commands)
+	{
+		printf("Command %d: ", i + 1);
+		j = 0;
+		while (commands[i].tokens[j])
+		{
+			printf("%s ", commands[i].tokens[j]->value);
+			j++;
+		}
+		printf("\n");
+		i++;
+	}
+}
+
 void	lexer(char *line)
 {
-	t_token	*token;
-	char	*trim_line;
+	t_token		*token;
+	char		*trim_line;
+	int			num;
+	t_comand	*comands;
 
 	token = NULL;
 	if (!lex_is_valid_syntax(line))
@@ -110,8 +133,11 @@ void	lexer(char *line)
 	free(line);
 	line = NULL;
 	token = lex_tokenize(trim_line);
+	num = number_of_commands(token);
+	comands = parse(token);
+	print_commands(comands, num);
 	free(trim_line);
 	trim_line = NULL;
-	lex_print_tokens(token);
-	ft_lstfree(&token);
+	// lex_print_tokens(token);
+	// ft_lstfree(&token);
 }

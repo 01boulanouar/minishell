@@ -82,4 +82,19 @@ int					lex_is_valid_syntax(const char *line);
 char				*lex_trim(char *line);
 void				lexer(char *line);
 
+// comand struct
+
+typedef struct s_comand
+{
+	t_token			**tokens;
+	int				fd_in;
+	int				fd_out;
+	int				fd_err;
+}					t_comand;
+
+// parser functions
+
+int					number_of_commands(t_token *token);
+t_comand			*parse(t_token *token);
+
 #endif
