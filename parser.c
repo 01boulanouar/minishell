@@ -32,7 +32,7 @@ int	number_of_commands(t_token *token)
 	return (counter);
 }
 
-int	number_of_tokens(t_token *token)
+static int	num_tokens(t_token *token)
 {
 	int	count;
 	int	redirections;
@@ -54,36 +54,30 @@ t_comand	*parse(t_token *token)
 	int			num_comands;
 	t_comand	*comands;
 	int			i;
-	t_token		*tmp;
 	int			j;
-	int			num_tokens;
 
 	num_comands = number_of_commands(token);
 	comands = malloc(num_comands * sizeof(t_comand));
 	if (!comands)
 		return (NULL);
-	i = 0;
-	while (token && i < num_comands)
+	i = -1;
+	while (token && i++ < num_comands)
 	{
-		num_tokens = number_of_tokens(token);
-		comands[i].tokens = malloc((num_tokens + 1) * sizeof(t_token *));
+		comands[i].tokens = malloc((num_tokens(token) + 1) * sizeof(t_token *));
 		if (!comands[i].tokens)
 			return (NULL);
 		j = 0;
 		while (token && token->type != t_pipe)
 		{
 			if (is_redirection(token))
-				token = token->next->next;
-			else
-			{
-				comands[i].tokens[j++] = token;
 				token = token->next;
-			}
+			else
+				comands[i].tokens[j++] = token;
+			token = token->next;
 		}
 		comands[i].tokens[j] = NULL;
 		if (token)
 			token = token->next;
-		i++;
 	}
 	return (comands);
 }
