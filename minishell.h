@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/14 17:53:05 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/17 17:42:03 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void				ft_lstfree(t_token **lst);
 
 // Lexer Functions
 char				*lex_print_token_type(t_token_type type);
-t_token_type		lex_get_token_type(const char *value);
+t_token_type		lex_t_type(const char *value);
 int					lex_is_valid_syntax(const char *line);
 char				*lex_trim(char *line);
 void				lexer(char *line);

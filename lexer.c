@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/14 17:53:12 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/17 17:44:17 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,10 @@ t_token	*lex_tokenize(char *line)
 	const char		*start;
 	t_token			*token;
 	char			*value;
-	t_token_type	type;
-	int				token_after_space;
+	int				a_space;
 
 	token = NULL;
-	token_after_space = 0;
+	a_space = 0;
 	while (*line)
 	{
 		start = line;
@@ -61,9 +60,8 @@ t_token	*lex_tokenize(char *line)
 		value = ft_copy(start, line);
 		if (!value)
 			return (token);
-		type = lex_get_token_type(value);
-		ft_lstadd_back(&token, ft_lstnew(value, type, token_after_space));
-		token_after_space = ft_isin(*line, BLANKS);
+		ft_lstadd_back(&token, ft_lstnew(value, lex_t_type(value), a_space));
+		a_space = ft_isin(*line, BLANKS);
 		line += ft_strspn(line, BLANKS);
 	}
 	return (token);
@@ -95,7 +93,6 @@ void	lex_print_tokens(t_token *token)
 	}
 }
 
-// To delete later
 static void	print_commands(t_comand *commands, int num_commands)
 {
 	int	i;
