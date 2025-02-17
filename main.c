@@ -12,15 +12,42 @@
 
 #include "minishell.h"
 
+static void	print_commands(t_comand *commands, int num_commands)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < num_commands)
+	{
+		printf("Command %d: ", i + 1);
+		j = 0;
+		while (commands[i].tokens[j])
+		{
+			printf("%s ", commands[i].tokens[j]->value);
+			j++;
+		}
+		printf("\n");
+		i++;
+	}
+}
+
 int	main(void)
 {
-	char	*line;
+	char		*line;
+	t_token		*token;
+	t_comand	*comands;
+	int			num;
 
 	while (1)
 	{
 		line = readline("minishell>");
 		add_history(line);
-		lexer(line);
+		token = lexer(line);
+		num = number_of_commands(token);
+		comands = parse(token);
+		print_commands(comands, num);
+		ft_lstfree(&token); 
 	}
 	return (0);
 }

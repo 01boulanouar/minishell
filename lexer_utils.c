@@ -63,6 +63,18 @@ int	lex_is_valid_syntax(const char *line)
 	return (lex_is_valid_quotes(line) && lex_is_valid_pipes(line));
 }
 
+int	operator_error(t_token *token)
+{
+	while (token)
+	{
+		if (token->type != t_word && (!token->next
+				|| token->next->type != t_word))
+			return (1);
+		token = token->next;
+	}
+	return (0);
+}
+
 t_token_type	lex_t_type(const char *value)
 {
 	if (ft_strlen(value) == 1)

@@ -80,7 +80,7 @@ char				*lex_print_token_type(t_token_type type);
 t_token_type		lex_t_type(const char *value);
 int					lex_is_valid_syntax(const char *line);
 char				*lex_trim(char *line);
-void				lexer(char *line);
+t_token				*lexer(char *line);
 
 // comand struct
 
@@ -96,5 +96,8 @@ typedef struct s_comand
 
 int					number_of_commands(t_token *token);
 t_comand			*parse(t_token *token);
+
+// syntax error or idk
+int					operator_error(t_token *token);
 
 #endif

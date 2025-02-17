@@ -41,10 +41,10 @@ size_t	lex_skip_quotes(const char *line)
 
 t_token	*lex_tokenize(char *line)
 {
-	const char		*start;
-	t_token			*token;
-	char			*value;
-	int				a_space;
+	const char	*start;
+	t_token		*token;
+	char		*value;
+	int			a_space;
 
 	token = NULL;
 	a_space = 0;
@@ -93,27 +93,7 @@ void	lex_print_tokens(t_token *token)
 	}
 }
 
-static void	print_commands(t_comand *commands, int num_commands)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < num_commands)
-	{
-		printf("Command %d: ", i + 1);
-		j = 0;
-		while (commands[i].tokens[j])
-		{
-			printf("%s ", commands[i].tokens[j]->value);
-			j++;
-		}
-		printf("\n");
-		i++;
-	}
-}
-
-void	lexer(char *line)
+t_token	*lexer(char *line)
 {
 	t_token		*token;
 	char		*trim_line;
@@ -130,11 +110,12 @@ void	lexer(char *line)
 	free(line);
 	line = NULL;
 	token = lex_tokenize(trim_line);
-	num = number_of_commands(token);
-	comands = parse(token);
-	print_commands(comands, num);
+	if (operator_error(token))
+	{
+		ft_putstr_fd(SYNTAX_ERROR_STR, STDERR_FILENO);
+		exit(EXIT_SYNTAX_ERROR);
+	}
 	free(trim_line);
 	trim_line = NULL;
-	// lex_print_tokens(token);
-	// ft_lstfree(&token);
+	return (token);
 }
