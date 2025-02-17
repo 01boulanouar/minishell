@@ -47,7 +47,7 @@ int	main(void)
 		num = number_of_commands(token);
 		comands = parse(token);
 		print_commands(comands, num);
-		ft_lstfree(&token); 
+		ft_lstfree(&token);
 	}
 	return (0);
 }

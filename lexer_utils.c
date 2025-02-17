@@ -63,12 +63,18 @@ int	lex_is_valid_syntax(const char *line)
 	return (lex_is_valid_quotes(line) && lex_is_valid_pipes(line));
 }
 
+int	is_operator(t_token *token)
+{
+	return (token->type == t_less || token->type == t_greater
+		|| token->type == t_dless || token->type == t_dgreater
+		|| token->type == t_pipe);
+}
+
 int	operator_error(t_token *token)
 {
 	while (token)
 	{
-		if (token->type != t_word && (!token->next
-				|| token->next->type != t_word))
+		if (is_operator(token) && (!token->next || is_operator(token->next)))
 			return (1);
 		token = token->next;
 	}
