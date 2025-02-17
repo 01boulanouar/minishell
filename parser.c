@@ -73,11 +73,7 @@ t_comand	*parse(t_token *token)
 		while (token && token->type != t_pipe)
 		{
 			if (is_redirection(token))
-			{
-				token = token->next;
-				if (token)
-					token = token->next;
-			}
+				token = token->next->next;
 			else
 			{
 				comands[i].tokens[j++] = token;
