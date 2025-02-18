@@ -28,8 +28,19 @@ static void	print_commands(t_comand *commands, int num_commands)
 			j++;
 		}
 		printf("\n");
+		printf("out_file : [%s]\n", commands[i].out.file);
+		printf("out_file_type : [%s]\n",
+			lex_print_token_type(commands[i].out.type));
+		printf("in_file : [%s]\n", commands[i].in.file);
+		printf("in_file_type : [%s]\n",
+			lex_print_token_type(commands[i].in.type));
 		i++;
 	}
+}
+
+void	f(void)
+{
+	system("leaks minishell");
 }
 
 int	main(void)
@@ -39,6 +50,7 @@ int	main(void)
 	t_comand	*comands;
 	int			num;
 
+	atexit(f);
 	while (1)
 	{
 		line = readline("minishell>");
