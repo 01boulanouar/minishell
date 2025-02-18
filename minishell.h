@@ -68,7 +68,6 @@ size_t				ft_strcspn(const char *s, const char *reject);
 char				*ft_copy(const char *start, const char *end);
 int					ft_strcmp(const char *s1, const char *s2);
 int					ft_skip_blanks(const char *line);
-
 // List Utils
 t_token				*ft_lstnew(char *value, t_token_type type,
 						int token_after_space);
@@ -95,6 +94,7 @@ typedef struct s_comand
 	t_token			**tokens;
 	t_redirect		in;
 	t_redirect		out;
+	char			**files;
 }					t_comand;
 
 // parser functions

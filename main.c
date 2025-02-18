@@ -16,24 +16,35 @@ static void	print_commands(t_comand *commands, int num_commands)
 {
 	int	i;
 	int	j;
+	int	k;
 
 	i = 0;
 	while (i < num_commands)
 	{
 		printf("Command %d: ", i + 1);
 		j = 0;
+		printf("[  ");
 		while (commands[i].tokens[j])
 		{
-			printf("%s ", commands[i].tokens[j]->value);
+			printf(" %s", commands[i].tokens[j]->value);
 			j++;
 		}
+		printf("   ]");
 		printf("\n");
-		printf("out_file : [%s]\n", commands[i].out.file);
-		printf("out_file_type : [%s]\n",
-			lex_print_token_type(commands[i].out.type));
-		printf("in_file : [%s]\n", commands[i].in.file);
-		printf("in_file_type : [%s]\n",
-			lex_print_token_type(commands[i].in.type));
+		if (commands[i].out.file)
+			printf("          out_file : [%s :] [ %s] \n", commands[i].out.file,
+				lex_print_token_type(commands[i].out.type));
+		if (commands[i].in.file)
+			printf("          in__file : [%s :] [ %s] \n", commands[i].in.file,
+				lex_print_token_type(commands[i].in.type));
+		k = 0;
+		if (commands[i].files[0])
+			printf("          --files--\n");
+		while (commands[i].files[k])
+		{
+			printf("          file [%d] : %s \n", k, commands[i].files[k]);
+			k++;
+		}
 		i++;
 	}
 }
