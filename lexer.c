@@ -97,8 +97,6 @@ t_token	*lexer(char *line)
 {
 	t_token		*token;
 	char		*trim_line;
-	int			num;
-	t_comand	*comands;
 
 	token = NULL;
 	if (!lex_is_valid_syntax(line))
