@@ -86,15 +86,15 @@ t_token				*lexer(char *line);
 typedef struct s_redirect
 {
 	char			*file;
-	t_token_type	type;
+	char			*type;
 }					t_redirect;
 
 typedef struct s_comand
 {
 	t_token			**tokens;
-	t_redirect		in;
-	t_redirect		out;
-	char			**files;
+	t_redirect		**out_files;
+	t_redirect		**in_files;
+
 }					t_comand;
 
 // parser functions

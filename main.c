@@ -31,18 +31,22 @@ static void	print_commands(t_comand *commands, int num_commands)
 		}
 		printf("   ]");
 		printf("\n");
-		if (commands[i].out.file)
-			printf("          out_file : [%s :] [ %s] \n", commands[i].out.file,
-				lex_print_token_type(commands[i].out.type));
-		if (commands[i].in.file)
-			printf("          in__file : [%s :] [ %s] \n", commands[i].in.file,
-				lex_print_token_type(commands[i].in.type));
 		k = 0;
-		if (commands[i].files[0])
-			printf("          --files--\n");
-		while (commands[i].files[k])
+		if (commands[i].in_files[0])
+			printf("          --in_files--\n");
+		while (commands[i].in_files[k])
 		{
-			printf("          file [%d] : %s \n", k, commands[i].files[k]);
+			printf("          file [%d] : %s \t %s\n", k,
+				commands[i].in_files[k]->file, commands[i].in_files[k]->type);
+			k++;
+		}
+		if (commands[i].out_files[0])
+			printf("          --out_files--\n");
+		k = 0;
+		while (commands[i].out_files[k])
+		{
+			printf("          file [%d] : %s \t %s\n", k,
+				commands[i].out_files[k]->file, commands[i].out_files[k]->type);
 			k++;
 		}
 		i++;
