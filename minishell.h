@@ -105,4 +105,14 @@ t_comand			*parse(t_token *token);
 // syntax error or idk
 int					operator_error(t_token *token);
 
+// garbage collector
+typedef struct s_node
+{
+	void			*ptr;
+	struct Node		*next;
+}					t_node;
+void				*ft_malloc(size_t size);
+void				free_all(void);
+t_node				**get_a_head(void);
+
 #endif

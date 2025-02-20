@@ -84,9 +84,7 @@ void	handle_redirection(t_comand *cmd, t_token *token, int *in_index,
 	t_redirect	*redir;
 
 	next = token->next;
-	redir = malloc(sizeof(t_redirect));
-	if (!redir)
-		return ;
+	redir = ft_malloc(sizeof(t_redirect));
 	redir->file = next->value;
 	if (token->type == t_greater)
 		redir->type = ">";
@@ -138,15 +136,14 @@ t_comand	*parse(t_token *token)
 
 	i = 0;
 	num_cmds = number_of_commands(token);
-	comands = malloc(num_cmds * sizeof(t_comand));
-	if (!comands)
-		return (NULL);
+	comands = ft_malloc(num_cmds * sizeof(t_comand));
 	while (i < num_cmds)
 	{
-		comands[i].tokens = malloc((n_tokens(token) + 1) * sizeof(t_token *));
-		comands[i].in_files = malloc((in_files_number(token) + 1)
+		comands[i].tokens = ft_malloc((n_tokens(token) + 1)
+				* sizeof(t_token *));
+		comands[i].in_files = ft_malloc((in_files_number(token) + 1)
 				* sizeof(t_redirect *));
-		comands[i].out_files = malloc((out_files_number(token) + 1)
+		comands[i].out_files = ft_malloc((out_files_number(token) + 1)
 				* sizeof(t_redirect *));
 		if (!comands[i].tokens || !comands[i].in_files || !comands[i].out_files)
 			return (NULL);

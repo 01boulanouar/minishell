@@ -36,7 +36,7 @@ static void	print_commands(t_comand *commands, int num_commands)
 			printf("          --in_files--\n");
 		while (commands[i].in_files[k])
 		{
-			printf("          file [%d] : %s \t %s\n", k,
+			printf("          file [%d] : [%s] \t [%s]\n", k,
 				commands[i].in_files[k]->file, commands[i].in_files[k]->type);
 			k++;
 		}
@@ -45,7 +45,7 @@ static void	print_commands(t_comand *commands, int num_commands)
 		k = 0;
 		while (commands[i].out_files[k])
 		{
-			printf("          file [%d] : %s \t %s\n", k,
+			printf("          file [%d] : [%s] \t [%s]\n", k,
 				commands[i].out_files[k]->file, commands[i].out_files[k]->type);
 			k++;
 		}
@@ -68,13 +68,14 @@ int	main(void)
 	atexit(f);
 	while (1)
 	{
-		line = readline("minishell>");
+		line = readline("minishell> ");
 		add_history(line);
 		token = lexer(line);
+		free(line);
 		num = number_of_commands(token);
 		comands = parse(token);
 		print_commands(comands, num);
-		ft_lstfree(&token);
+		free_all();
 	}
 	return (0);
 }

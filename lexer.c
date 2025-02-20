@@ -58,8 +58,6 @@ t_token	*lex_tokenize(char *line)
 		if (((*line == LESS || *line == GREATER) && *line == *start))
 			line++;
 		value = ft_copy(start, line);
-		if (!value)
-			return (token);
 		ft_lstadd_back(&token, ft_lstnew(value, lex_t_type(value), a_space));
 		a_space = ft_isin(*line, BLANKS);
 		line += ft_strspn(line, BLANKS);
@@ -95,8 +93,8 @@ void	lex_print_tokens(t_token *token)
 
 t_token	*lexer(char *line)
 {
-	t_token		*token;
-	char		*trim_line;
+	t_token	*token;
+	char	*trim_line;
 
 	token = NULL;
 	if (!lex_is_valid_syntax(line))
@@ -105,15 +103,11 @@ t_token	*lexer(char *line)
 		exit(EXIT_SYNTAX_ERROR);
 	}
 	trim_line = lex_trim(line);
-	free(line);
-	line = NULL;
 	token = lex_tokenize(trim_line);
 	if (operator_error(token))
 	{
 		ft_putstr_fd(SYNTAX_ERROR_STR, STDERR_FILENO);
 		exit(EXIT_SYNTAX_ERROR);
 	}
-	free(trim_line);
-	trim_line = NULL;
 	return (token);
 }

@@ -16,9 +16,7 @@ t_token	*ft_lstnew(char *value, t_token_type type, int token_after_space)
 {
 	t_token	*t;
 
-	t = malloc(sizeof(t_token));
-	if (!t)
-		return (NULL);
+	t = ft_malloc(sizeof(t_token));
 	t->value = value;
 	t->type = type;
 	t->token_after_space = token_after_space;
@@ -47,22 +45,5 @@ void	ft_lstadd_back(t_token **lst, t_token *new)
 	{
 		t = ft_lstlast(*lst);
 		t->next = new;
-	}
-}
-
-void	ft_lstfree(t_token **lst)
-{
-	t_token	*t;
-
-	t = *lst;
-	if (!lst || !*lst)
-		return ;
-	while (*lst)
-	{
-		free((*lst)->value);
-		(*lst)->value = NULL;
-		t = *lst;
-		(*lst) = (*lst)->next;
-		free(t);
 	}
 }
