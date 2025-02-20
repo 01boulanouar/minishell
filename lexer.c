@@ -6,22 +6,22 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/17 17:44:17 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/19 22:32:36 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-size_t	lex_skip_quotes(const char *line)
+size_t	lex_get_next_quote(const char *line)
 {
 	size_t	i;
 	char	quote;
-
+	
 	i = 0;
 	quote = '\0';
-	if (line[i] == SQUOTE)
+	if (line[0] == SQUOTE)
 		quote = SQUOTE;
-	else if (line[i] == DQUOTE)
+	else if (line[0] == DQUOTE)
 		quote = DQUOTE;
 	if (quote)
 	{
@@ -31,8 +31,24 @@ size_t	lex_skip_quotes(const char *line)
 		if (line[i] == quote)
 			i++;
 	}
+	return (i);
+}
+
+size_t	lex_get_next_token(const char *line)
+{
+	size_t	i;
+
+	i = 0;
+	if (!ft_strncmp(line, DLESS, 2) || !ft_strncmp(line, DGREATER, 2))
+		return (2);
+	else if (line[0] == LESS || line[0] == GREATER || line[0] == PIPE)
+		return (1);
+	else if (line[0] == SQUOTE || line[0] == DQUOTE)
+		return (lex_get_next_quote(line));
 	else
 	{
+		if (line[0] == DOLLAR)
+			i++;
 		while (line[i] && !ft_isin(line[i], SEPARATORS))
 			i++;
 	}
@@ -51,12 +67,7 @@ t_token	*lex_tokenize(char *line)
 	while (*line)
 	{
 		start = line;
-		if (*line == LESS || *line == GREATER || *line == PIPE)
-			line++;
-		else
-			line += lex_skip_quotes(line);
-		if (((*line == LESS || *line == GREATER) && *line == *start))
-			line++;
+		line += lex_get_next_token(line);
 		value = ft_copy(start, line);
 		ft_lstadd_back(&token, ft_lstnew(value, lex_t_type(value), a_space));
 		a_space = ft_isin(*line, BLANKS);

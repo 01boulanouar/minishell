@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:06 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/17 17:41:40 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/19 22:34:58 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ int	operator_error(t_token *token)
 
 t_token_type	lex_t_type(const char *value)
 {
+	if (value[0] == DOLLAR)
+		return (t_dollar);
 	if (ft_strlen(value) == 1)
 	{
 		if (value[0] == PIPE)
@@ -110,6 +112,8 @@ char	*lex_print_token_type(t_token_type type)
 {
 	if (type == t_pipe)
 		return ("PIPE");
+	else if (type == t_dollar)
+		return ("DOLLAR");
 	else if (type == t_less)
 		return ("LESS");
 	else if (type == t_greater)
