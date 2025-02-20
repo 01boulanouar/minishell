@@ -12,11 +12,11 @@
 
 #include "minishell.h"
 
-// static void	print_commands(t_comand *commands, int num_commands)
-// {
-// 	int	i;
-// 	int	j;
-// 	int	k;
+static void	print_commands(t_comand *commands, int num_commands)
+{
+	int	i;
+	int	j;
+	int	k;
 
 	i = 0;
 	while (i < num_commands)
@@ -75,7 +75,7 @@ int	main(void)
 		num = number_of_commands(token);
 		comands = parse(token);
 		print_commands(comands, num);
-		ft_lstfree(&token);
+		
 	}
 	return (0);
 }

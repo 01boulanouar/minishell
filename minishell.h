@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/17 17:42:03 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/19 22:33:41 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,11 @@
 # define GREATER '>'
 # define DGREATER ">>"
 # define DLESS "<<"
+# define DOLLAR '$'
 
 // Separators
 # define BLANKS " 	"
-# define SEPARATORS " 	\'\"<>|"
+# define SEPARATORS " 	\'\"<>|$"
 // Error Codes
 # define EXIT_SYNTAX_ERROR 258
 
@@ -48,6 +49,7 @@ typedef enum e_token_type
 	t_word,
 	t_squote,
 	t_dquote,
+	t_dollar,
 }					t_token_type;
 
 // Token struct
@@ -68,6 +70,8 @@ size_t				ft_strcspn(const char *s, const char *reject);
 char				*ft_copy(const char *start, const char *end);
 int					ft_strcmp(const char *s1, const char *s2);
 int					ft_skip_blanks(const char *line);
+int					ft_strncmp(const char *s1, const char *s2, size_t n);
+
 // List Utils
 t_token				*ft_lstnew(char *value, t_token_type type,
 						int token_after_space);
@@ -109,7 +113,7 @@ int					operator_error(t_token *token);
 typedef struct s_node
 {
 	void			*ptr;
-	struct Node		*next;
+	struct s_node		*next;
 }					t_node;
 void				*ft_malloc(size_t size);
 void				free_all(void);
