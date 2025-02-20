@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/19 22:32:36 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/20 17:00:27 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,17 +60,39 @@ t_token	*lex_tokenize(char *line)
 	const char	*start;
 	t_token		*token;
 	char		*value;
-	int			a_space;
+	char		*expanded;
+	t_token_type type;
+	int			after_space;
 
 	token = NULL;
-	a_space = 0;
+	after_space = 0;
 	while (*line)
 	{
 		start = line;
 		line += lex_get_next_token(line);
 		value = ft_copy(start, line);
-		ft_lstadd_back(&token, ft_lstnew(value, lex_t_type(value), a_space));
-		a_space = ft_isin(*line, BLANKS);
+		type = lex_t_type(value);
+		if (type == t_dollar)
+		{
+			char *expanded_start;
+			char *expanded_value;
+			expanded = getenv(++value);
+			while(expanded && *expanded)
+			{
+				expanded_start = expanded;
+				expanded += lex_get_next_token(expanded_start);
+				expanded_value = ft_copy(expanded_start, expanded);
+				ft_lstadd_back(&token, ft_lstnew(expanded_value, lex_t_type(expanded_value), after_space, 1));
+				after_space = ft_isin(*expanded, BLANKS);
+				expanded += ft_strspn(expanded, BLANKS);
+			}
+			value--;
+		}
+		if(type != t_dollar || !expanded)
+		{
+			ft_lstadd_back(&token, ft_lstnew(value, type , after_space, 0));
+			after_space = ft_isin(*line, BLANKS);
+		}
 		line += ft_strspn(line, BLANKS);
 	}
 	return (token);
@@ -96,8 +118,8 @@ void	lex_print_tokens(t_token *token)
 		return ;
 	while (token)
 	{
-		printf("[%s] %s %d\n", token->value, lex_print_token_type(token->type),
-			token->token_after_space);
+		printf("[%s] %s space %d expanded %d\n", token->value, lex_print_token_type(token->type),
+			token->after_space, token->expanded);
 		token = token->next;
 	}
 }

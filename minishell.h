@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/19 22:33:41 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/20 16:57:37 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ typedef struct s_token
 {
 	char			*value;
 	t_token_type	type;
-	int				token_after_space;
+	int				after_space;
+	int				expanded;
 	struct s_token	*next;
 }					t_token;
 
@@ -74,7 +75,7 @@ int					ft_strncmp(const char *s1, const char *s2, size_t n);
 
 // List Utils
 t_token				*ft_lstnew(char *value, t_token_type type,
-						int token_after_space);
+						int after_space, int expanded);
 void				ft_lstadd_back(t_token **lst, t_token *new);
 void				ft_lstfree(t_token **lst);
 

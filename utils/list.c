@@ -6,20 +6,21 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 13:14:43 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/10 17:33:27 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/20 16:57:27 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_token	*ft_lstnew(char *value, t_token_type type, int token_after_space)
+t_token	*ft_lstnew(char *value, t_token_type type, int after_space, int expanded)
 {
 	t_token	*t;
 
 	t = ft_malloc(sizeof(t_token));
 	t->value = value;
 	t->type = type;
-	t->token_after_space = token_after_space;
+	t->after_space = after_space;
+	t->expanded = expanded;
 	t->next = NULL;
 	return (t);
 }
