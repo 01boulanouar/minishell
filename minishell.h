@@ -74,8 +74,8 @@ int					ft_skip_blanks(const char *line);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 
 // List Utils
-t_token				*ft_lstnew(char *value, t_token_type type,
-						int after_space, int expanded);
+t_token				*ft_lstnew(char *value, t_token_type type, int after_space,
+						int expanded);
 void				ft_lstadd_back(t_token **lst, t_token *new);
 void				ft_lstfree(t_token **lst);
 
@@ -103,8 +103,13 @@ typedef struct s_comand
 }					t_comand;
 
 // parser functions
-
+int					is_redirection(t_token *token);
 int					number_of_commands(t_token *token);
+int					out_files_number(t_token *token);
+int					in_files_number(t_token *token);
+int					n_tokens(t_token *token);
+void				handle_redirection(t_comand *cmd, t_token *token,
+						int *in_index, int *out_index);
 t_comand			*parse(t_token *token);
 
 // syntax error or idk
@@ -114,7 +119,7 @@ int					operator_error(t_token *token);
 typedef struct s_node
 {
 	void			*ptr;
-	struct s_node		*next;
+	struct s_node	*next;
 }					t_node;
 void				*ft_malloc(size_t size);
 void				free_all(void);

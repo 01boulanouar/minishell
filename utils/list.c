@@ -12,7 +12,8 @@
 
 #include "../minishell.h"
 
-t_token	*ft_lstnew(char *value, t_token_type type, int after_space, int expanded)
+t_token	*ft_lstnew(char *value, t_token_type type, int after_space,
+		int expanded)
 {
 	t_token	*t;
 

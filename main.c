@@ -65,7 +65,7 @@ int	main(void)
 	t_comand	*comands;
 	int			num;
 
-	atexit(f);
+	// atexit(f);
 	while (1)
 	{
 		line = readline("minishell> ");
@@ -75,7 +75,8 @@ int	main(void)
 		num = number_of_commands(token);
 		comands = parse(token);
 		print_commands(comands, num);
-		
+		free_all();
+		// system("leaks minishell");
 	}
 	return (0);
 }

@@ -16,7 +16,7 @@ size_t	lex_get_next_quote(const char *line)
 {
 	size_t	i;
 	char	quote;
-	
+
 	i = 0;
 	quote = '\0';
 	if (line[0] == SQUOTE)
@@ -57,12 +57,14 @@ size_t	lex_get_next_token(const char *line)
 
 t_token	*lex_tokenize(char *line)
 {
-	const char	*start;
-	t_token		*token;
-	char		*value;
-	char		*expanded;
-	t_token_type type;
-	int			after_space;
+	const char		*start;
+	t_token			*token;
+	char			*value;
+	char			*expanded;
+	t_token_type	type;
+	int				after_space;
+	char			*expanded_start;
+	char			*expanded_value;
 
 	token = NULL;
 	after_space = 0;
@@ -74,23 +76,22 @@ t_token	*lex_tokenize(char *line)
 		type = lex_t_type(value);
 		if (type == t_dollar)
 		{
-			char *expanded_start;
-			char *expanded_value;
 			expanded = getenv(++value);
-			while(expanded && *expanded)
+			while (expanded && *expanded)
 			{
 				expanded_start = expanded;
 				expanded += lex_get_next_token(expanded_start);
 				expanded_value = ft_copy(expanded_start, expanded);
-				ft_lstadd_back(&token, ft_lstnew(expanded_value, lex_t_type(expanded_value), after_space, 1));
+				ft_lstadd_back(&token, ft_lstnew(expanded_value,
+						lex_t_type(expanded_value), after_space, 1));
 				after_space = ft_isin(*expanded, BLANKS);
 				expanded += ft_strspn(expanded, BLANKS);
 			}
 			value--;
 		}
-		if(type != t_dollar || !expanded)
+		if (type != t_dollar || !expanded)
 		{
-			ft_lstadd_back(&token, ft_lstnew(value, type , after_space, 0));
+			ft_lstadd_back(&token, ft_lstnew(value, type, after_space, 0));
 			after_space = ft_isin(*line, BLANKS);
 		}
 		line += ft_strspn(line, BLANKS);
@@ -118,8 +119,9 @@ void	lex_print_tokens(t_token *token)
 		return ;
 	while (token)
 	{
-		printf("[%s] %s space %d expanded %d\n", token->value, lex_print_token_type(token->type),
-			token->after_space, token->expanded);
+		printf("[%s] %s space %d expanded %d\n", token->value,
+			lex_print_token_type(token->type), token->after_space,
+			token->expanded);
 		token = token->next;
 	}
 }

@@ -65,9 +65,9 @@ int	lex_is_valid_syntax(const char *line)
 
 int	is_operator(t_token *token)
 {
-	return (token->type == t_less || token->type == t_greater
-		|| token->type == t_dless || token->type == t_dgreater
-		|| token->type == t_pipe);
+	return (!token->expanded && (token->type == t_less
+			|| token->type == t_greater || token->type == t_dless
+			|| token->type == t_dgreater || token->type == t_pipe));
 }
 
 int	operator_error(t_token *token)

@@ -3,7 +3,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 RM = rm -f
 
-SRC = main.c lexer.c lexer_utils.c utils/string.c utils/list.c utils/copy.c parser.c garbage_collector.c
+SRC = main.c lexer.c lexer_utils.c utils/string.c utils/list.c utils/copy.c parser.c garbage_collector.c parser_utils.c
 OBJ = $(SRC:.c=.o)
 
 all : $(NAME)
