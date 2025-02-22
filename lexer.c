@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/22 20:05:12 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/22 20:14:31 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,9 @@ t_token	*lex_tokenize(char *line)
 		value = ft_copy(start, line);
 		type = lex_token_type(value);
 		if (type == t_dquote)
-			value = lex_expand_dquotes(value);
+			value = lex_expand_dquotes(value); // need to add the expanded flag
 		if (type != t_dollar || !lex_expand(&token, value, after_space))
-			ft_lstadd_back(&token, ft_lstnew(value, type, after_space, 0));
+			ft_lstadd_back(&token, ft_lstnew(value, type, after_space, 0)); // need a better way
 		after_space = ft_isin(*line, BLANKS);
 		line += ft_strspn(line, BLANKS);
 	}

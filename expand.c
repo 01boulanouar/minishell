@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 16:19:28 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/22 20:08:36 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/22 20:14:00 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ int	lex_expand(t_token **token, char *name, int after_space)
 	t_token_type	type;
 	t_token			*new_token;
 
-	if (name[0] != DOLLAR)
+	if (name[0] == DOLLAR && !(name[1])) //single dollar sign should show
 		return (0);
 	name++;
 	expanded = getenv(name);
-	if (!expanded)
-		return (0);
+	if (!expanded)  //if not expanded dont add
+		return (1);
 	while (*expanded)
 	{
 		start = expanded;
@@ -48,7 +48,7 @@ char	*lex_expand_dquotes(char *line)
 	char	*expanded;
 	char	*result_start;
 
-	result = malloc(20000);
+	result = malloc(20000); // need a seperate function
 	result_start = result;
 	while (*line)
 	{
