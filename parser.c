@@ -50,6 +50,11 @@ t_token	*parse_token(t_comand *comand, t_token *token)
 			break ;
 		if (parse_is_redirection(token))
 		{
+			if(token->next && token->next->next && token->next->expanded && token->next->next->expanded)
+			{
+				printf("(%s)\n","ambiguas");
+				comand->not_to_be_executed=1; 
+			}
 			parse_handle_redirection(comand, token, &in_index, &out_index);
 			token = token->next;
 		}

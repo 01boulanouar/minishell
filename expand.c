@@ -20,6 +20,8 @@ void	lex_expand(t_token **token, char *name, int after_space)
 	t_token_type	type;
 	t_token			*new_token;
 
+	if(name[0]!=DOLLAR)
+		return ; 
 	name++;
 	expanded = getenv(name);
 	while (expanded && *expanded)

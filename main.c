@@ -12,46 +12,46 @@
 
 #include "minishell.h"
 
-// static void	print_commands(t_comand *commands, int num_commands)
-// {
-// 	int	i;
-// 	int	j;
-// 	int	k;
+static void	print_commands(t_comand *commands, int num_commands)
+{
+	int	i;
+	int	j;
+	int	k;
 
-// 	i = 0;
-// 	while (i < num_commands)
-// 	{
-// 		printf("Command %d: ", i + 1);
-// 		j = 0;
-// 		printf("[  ");
-// 		while (commands[i].tokens[j])
-// 		{
-// 			printf(" %s", commands[i].tokens[j]->value);
-// 			j++;
-// 		}
-// 		printf("   ]");
-// 		printf("\n");
-// 		k = 0;
-// 		if (commands[i].in_files[0])
-// 			printf("          --in_files--\n");
-// 		while (commands[i].in_files[k])
-// 		{
-// 			printf("          file [%d] : %s \t %s\n", k,
-// 				commands[i].in_files[k]->file, commands[i].in_files[k]->type);
-// 			k++;
-// 		}
-// 		if (commands[i].out_files[0])
-// 			printf("          --out_files--\n");
-// 		k = 0;
-// 		while (commands[i].out_files[k])
-// 		{
-// 			printf("          file [%d] : %s \t %s\n", k,
-// 				commands[i].out_files[k]->file, commands[i].out_files[k]->type);
-// 			k++;
-// 		}
-// 		i++;
-// 	}
-// }
+	i = 0;
+	while (i < num_commands)
+	{
+		printf("Command %d: ", i + 1);
+		j = 0;
+		printf("[  ");
+		while (commands[i].tokens[j])
+		{
+			printf(" %s", commands[i].tokens[j]->value);
+			j++;
+		}
+		printf("   ]");
+		printf("\n");
+		k = 0;
+		if (commands[i].in_files[0])
+			printf("          --in_files--\n");
+		while (commands[i].in_files[k])
+		{
+			printf("          file [%d] : %s \t %s\n", k,
+				commands[i].in_files[k]->file, commands[i].in_files[k]->type);
+			k++;
+		}
+		if (commands[i].out_files[0])
+			printf("          --out_files--\n");
+		k = 0;
+		while (commands[i].out_files[k])
+		{
+			printf("          file [%d] : %s \t %s\n", k,
+				commands[i].out_files[k]->file, commands[i].out_files[k]->type);
+			k++;
+		}
+		i++;
+	}
+}
 
 int	main(void)
 {
@@ -68,7 +68,7 @@ int	main(void)
 		free(line);
 		num = parse_number_of_commands(token);
 		comands = parser(token);
-		// print_commands(comands, num);
+		print_commands(comands, num);
 		ft_free();
 	}
 	return (0);

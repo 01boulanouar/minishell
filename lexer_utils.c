@@ -82,7 +82,7 @@ t_token_type	lex_token_type(const char *value)
 		{
 			if (value[1] && ('0' <= value[1] && value[1] <= '9'))
 				return (t_dollar_num);
-			else
+			else if (value[1])
 				return (t_dollar_expand);
 		}
 		if (value[0] == SQUOTE)
