@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/20 17:00:27 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/22 16:23:35 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,9 @@ t_token	*lex_tokenize(char *line)
 {
 	const char		*start;
 	t_token			*token;
-	char			*value;
-	char			*expanded;
 	t_token_type	type;
+	char			*value;
 	int				after_space;
-	char			*expanded_start;
-	char			*expanded_value;
 
 	token = NULL;
 	after_space = 0;
@@ -73,23 +70,8 @@ t_token	*lex_tokenize(char *line)
 		start = line;
 		line += lex_get_next_token(line);
 		value = ft_copy(start, line);
-		type = lex_t_type(value);
-		if (type == t_dollar)
-		{
-			expanded = getenv(++value);
-			while (expanded && *expanded)
-			{
-				expanded_start = expanded;
-				expanded += lex_get_next_token(expanded_start);
-				expanded_value = ft_copy(expanded_start, expanded);
-				ft_lstadd_back(&token, ft_lstnew(expanded_value,
-						lex_t_type(expanded_value), after_space, 1));
-				after_space = ft_isin(*expanded, BLANKS);
-				expanded += ft_strspn(expanded, BLANKS);
-			}
-			value--;
-		}
-		if (type != t_dollar || !expanded)
+		type = lex_token_type(value);
+		if (type != t_dollar || !lex_expand(&token, value))
 		{
 			ft_lstadd_back(&token, ft_lstnew(value, type, after_space, 0));
 			after_space = ft_isin(*line, BLANKS);
@@ -111,19 +93,6 @@ char	*lex_trim(char *line)
 	while (end >= start && ft_isin(*end, BLANKS))
 		end--;
 	return (ft_copy(start, end));
-}
-
-void	lex_print_tokens(t_token *token)
-{
-	if (!token)
-		return ;
-	while (token)
-	{
-		printf("[%s] %s space %d expanded %d\n", token->value,
-			lex_print_token_type(token->type), token->after_space,
-			token->expanded);
-		token = token->next;
-	}
 }
 
 t_token	*lexer(char *line)

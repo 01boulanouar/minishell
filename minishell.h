@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/20 16:57:37 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/22 16:25:45 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,28 @@ typedef struct s_token
 	struct s_token	*next;
 }					t_token;
 
+// comand struct
+typedef struct s_redirect
+{
+	char			*file;
+	char			*type;
+}					t_redirect;
+
+typedef struct s_comand
+{
+	t_token			**tokens;
+	t_redirect		**out_files;
+	t_redirect		**in_files;
+
+}					t_comand;
+
+typedef struct s_node
+{
+	void			*ptr;
+	struct s_node	*next;
+
+}					t_node;
+
 // String Utils
 size_t				ft_strlen(const char *s);
 void				ft_putstr_fd(const char *s, int fd);
@@ -81,48 +103,29 @@ void				ft_lstfree(t_token **lst);
 
 // Lexer Functions
 char				*lex_print_token_type(t_token_type type);
-t_token_type		lex_t_type(const char *value);
+t_token_type		lex_token_type(const char *value);
 int					lex_is_valid_syntax(const char *line);
 char				*lex_trim(char *line);
 t_token				*lexer(char *line);
-
-// comand struct
-
-typedef struct s_redirect
-{
-	char			*file;
-	char			*type;
-}					t_redirect;
-
-typedef struct s_comand
-{
-	t_token			**tokens;
-	t_redirect		**out_files;
-	t_redirect		**in_files;
-
-}					t_comand;
+int					lex_is_valid_pipes(const char *line);
+size_t				lex_get_next_token(const char *line);
+int					lex_expand(t_token **token, char *name);
 
 // parser functions
-int					is_redirection(t_token *token);
-int					number_of_commands(t_token *token);
-int					out_files_number(t_token *token);
-int					in_files_number(t_token *token);
-int					n_tokens(t_token *token);
-void				handle_redirection(t_comand *cmd, t_token *token,
+int					parse_is_redirection(t_token *token);
+int					parse_number_of_commands(t_token *token);
+int					parse_out_files_number(t_token *token);
+int					parse_in_files_number(t_token *token);
+int					parse_n_tokens(t_token *token);
+void				parse_handle_redirection(t_comand *cmd, t_token *token,
 						int *in_index, int *out_index);
-t_comand			*parse(t_token *token);
+t_comand			*parser(t_token *token);
 
-// syntax error or idk
+// syntax error
 int					operator_error(t_token *token);
 
 // garbage collector
-typedef struct s_node
-{
-	void			*ptr;
-	struct s_node	*next;
-}					t_node;
 void				*ft_malloc(size_t size);
-void				free_all(void);
-t_node				**get_a_head(void);
+void				ft_free(void);
 
 #endif

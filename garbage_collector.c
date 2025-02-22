@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   garbage_collector.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkadir <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 14:58:36 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/02/20 14:58:37 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/02/22 15:51:33 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_node	**get_a_head(void)
+static t_node	**get_head(void)
 {
 	static t_node	*head;
 
@@ -22,10 +22,10 @@ t_node	**get_a_head(void)
 void	*ft_malloc(size_t size)
 {
 	t_node	**head;
-	void	*ptr;
 	t_node	*new_node;
+	void	*ptr;
 
-	head = get_a_head();
+	head = get_head();
 	ptr = malloc(size);
 	if (!ptr)
 	{
@@ -44,14 +44,14 @@ void	*ft_malloc(size_t size)
 	return (ptr);
 }
 
-void	free_all(void)
+void	ft_free(void)
 {
 	t_node	**head;
 	t_node	*curr;
 	t_node	*temp;
 
 	head = NULL;
-	head = get_a_head();
+	head = get_head();
 	curr = *head;
 	while (curr)
 	{

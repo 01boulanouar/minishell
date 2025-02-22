@@ -6,19 +6,11 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:49:15 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/19 22:16:20 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/22 15:50:31 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	ft_putstr_fd(const char *s, int fd)
-{
-	if (!s)
-		return ;
-	while (*s)
-		write(fd, s++, 1);
-}
 
 int	ft_isin(const char c, const char *charset)
 {

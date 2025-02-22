@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:08 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/19 22:16:50 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/22 15:58:42 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,6 @@ static void	print_commands(t_comand *commands, int num_commands)
 	}
 }
 
-void	f(void)
-{
-	system("leaks minishell");
-}
-
 int	main(void)
 {
 	char		*line;
@@ -65,18 +60,16 @@ int	main(void)
 	t_comand	*comands;
 	int			num;
 
-	// atexit(f);
 	while (1)
 	{
 		line = readline("minishell> ");
 		add_history(line);
 		token = lexer(line);
 		free(line);
-		num = number_of_commands(token);
-		comands = parse(token);
+		num = parse_number_of_commands(token);
+		comands = parser(token);
 		print_commands(comands, num);
-		free_all();
-		// system("leaks minishell");
+		ft_free();
 	}
 	return (0);
 }
