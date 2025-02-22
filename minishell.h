@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/22 16:25:45 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/22 17:21:59 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,9 @@ char				*lex_trim(char *line);
 t_token				*lexer(char *line);
 int					lex_is_valid_pipes(const char *line);
 size_t				lex_get_next_token(const char *line);
-int					lex_expand(t_token **token, char *name);
+int					lex_expand(t_token **token, char *name, int after_space);
+void				lex_print_tokens(t_token *token);
+char				*lex_expand_dquotes(char *line);
 
 // parser functions
 int					parse_is_redirection(t_token *token);

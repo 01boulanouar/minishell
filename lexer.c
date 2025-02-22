@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/22 16:23:35 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/22 20:05:12 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,11 @@ t_token	*lex_tokenize(char *line)
 		line += lex_get_next_token(line);
 		value = ft_copy(start, line);
 		type = lex_token_type(value);
-		if (type != t_dollar || !lex_expand(&token, value))
-		{
+		if (type == t_dquote)
+			value = lex_expand_dquotes(value);
+		if (type != t_dollar || !lex_expand(&token, value, after_space))
 			ft_lstadd_back(&token, ft_lstnew(value, type, after_space, 0));
-			after_space = ft_isin(*line, BLANKS);
-		}
+		after_space = ft_isin(*line, BLANKS);
 		line += ft_strspn(line, BLANKS);
 	}
 	return (token);
@@ -113,5 +113,6 @@ t_token	*lexer(char *line)
 		ft_putstr_fd(SYNTAX_ERROR_STR, STDERR_FILENO);
 		exit(EXIT_SYNTAX_ERROR);
 	}
+	lex_print_tokens(token);
 	return (token);
 }
