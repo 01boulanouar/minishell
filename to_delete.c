@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 15:53:33 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/22 15:56:37 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/22 21:19:50 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@ char	*lex_print_token_type(t_token_type type)
 		return ("PIPE");
 	else if (type == t_dollar)
 		return ("DOLLAR");
+	else if (type == t_dollar_num)
+		return ("DOLLAR NUM");
+	else if (type == t_dollar_expand)
+		return ("DOLLAR EXPAND");
 	else if (type == t_less)
 		return ("LESS");
 	else if (type == t_greater)
@@ -34,34 +38,6 @@ char	*lex_print_token_type(t_token_type type)
 		return ("WORD");
 	else
 		return ("UNKOWN");
-}
-
-int	lex_is_valid_pipes(const char *line)
-{
-	int		pipe;
-	char	quote;
-
-	pipe = 1;
-	while (*line)
-	{
-		quote = '\0';
-		if (*line == SQUOTE)
-			quote = SQUOTE;
-		else if (*line == DQUOTE)
-			quote = DQUOTE;
-		if (quote)
-		{
-			line++;
-			while (*line && *line != quote)
-				line++;
-			if (*line == quote)
-				line++;
-		}
-		if (*line == PIPE && *(line + 1 + ft_skip_blanks(line + 1)) == PIPE)
-			pipe = 0;
-		line++;
-	}
-	return (pipe);
 }
 
 void	lex_print_tokens(t_token *token)

@@ -68,7 +68,7 @@ int	main(void)
 		free(line);
 		num = parse_number_of_commands(token);
 		comands = parser(token);
-		//print_commands(comands, num);
+		// print_commands(comands, num);
 		ft_free();
 	}
 	return (0);

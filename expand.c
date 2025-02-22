@@ -6,13 +6,13 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 16:19:28 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/22 20:14:00 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/22 21:16:34 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	lex_expand(t_token **token, char *name, int after_space)
+void	lex_expand(t_token **token, char *name, int after_space)
 {
 	char			*expanded;
 	char			*start;
@@ -20,13 +20,9 @@ int	lex_expand(t_token **token, char *name, int after_space)
 	t_token_type	type;
 	t_token			*new_token;
 
-	if (name[0] == DOLLAR && !(name[1])) //single dollar sign should show
-		return (0);
 	name++;
 	expanded = getenv(name);
-	if (!expanded)  //if not expanded dont add
-		return (1);
-	while (*expanded)
+	while (expanded && *expanded)
 	{
 		start = expanded;
 		expanded += lex_get_next_token(start);
@@ -37,27 +33,57 @@ int	lex_expand(t_token **token, char *name, int after_space)
 		after_space = ft_isin(*expanded, BLANKS);
 		expanded += ft_strspn(expanded, BLANKS);
 	}
-	return (1);
+	return ;
+}
+
+int	lex_expand_len(char *line)
+{
+	char	*start;
+	char	*expanded;
+	int		len;
+
+	len = 0;
+	while (*line)
+	{
+		if (*line == DOLLAR && *(line + 1) && !ft_isin(*(line + 1), SEPARATORS))
+		{
+			start = ++line;
+			if ('0' <= *line && *line <= '9')
+				line++;
+			else
+				line += ft_strcspn(line, SEPARATORS);
+			expanded = getenv(ft_copy(start, line));
+			if (expanded)
+				len += ft_strlen(expanded);
+		}
+		else
+		{
+			line++;
+			len++;
+		}
+	}
+	return (len);
 }
 
 char	*lex_expand_dquotes(char *line)
 {
 	char	*result;
 	char	*start;
-	char	*name;
 	char	*expanded;
 	char	*result_start;
 
-	result = malloc(20000); // need a seperate function
+	result = malloc(lex_expand_len(line) + 1);
 	result_start = result;
 	while (*line)
 	{
 		if (*line == DOLLAR && *(line + 1) && !ft_isin(*(line + 1), SEPARATORS))
 		{
 			start = ++line;
-			line += ft_strcspn(line, SEPARATORS);
-			name = ft_copy(start, line);
-			expanded = getenv(name);
+			if ('0' <= *line && *line <= '9')
+				line++;
+			else
+				line += ft_strcspn(line, SEPARATORS);
+			expanded = getenv(ft_copy(start, line));
 			while (expanded && *expanded)
 				*(result++) = *(expanded++);
 		}

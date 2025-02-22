@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/22 17:21:59 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/22 21:26:15 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 // Separators
 # define BLANKS " 	"
 # define SEPARATORS " 	\'\"<>|$"
+
 // Error Codes
 # define EXIT_SYNTAX_ERROR 258
 
@@ -50,6 +51,8 @@ typedef enum e_token_type
 	t_squote,
 	t_dquote,
 	t_dollar,
+	t_dollar_num,
+	t_dollar_expand,
 }					t_token_type;
 
 // Token struct
@@ -109,7 +112,7 @@ char				*lex_trim(char *line);
 t_token				*lexer(char *line);
 int					lex_is_valid_pipes(const char *line);
 size_t				lex_get_next_token(const char *line);
-int					lex_expand(t_token **token, char *name, int after_space);
+void				lex_expand(t_token **token, char *name, int after_space);
 void				lex_print_tokens(t_token *token);
 char				*lex_expand_dquotes(char *line);
 

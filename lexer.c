@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/22 20:14:31 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/22 21:18:34 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,19 @@ size_t	lex_get_next_token(const char *line)
 	i = 0;
 	if (!ft_strncmp(line, DLESS, 2) || !ft_strncmp(line, DGREATER, 2))
 		return (2);
-	else if (line[0] == LESS || line[0] == GREATER || line[0] == PIPE)
+	else if (line[0] == LESS || line[0] == GREATER || line[0] == PIPE
+		|| (line[0] == DOLLAR && !line[1]))
 		return (1);
 	else if (line[0] == SQUOTE || line[0] == DQUOTE)
 		return (lex_get_next_quote(line));
 	else
 	{
 		if (line[0] == DOLLAR)
+		{
+			if ('0' <= line[1] && line[1] <= '9')
+				return (2);
 			i++;
+		}
 		while (line[i] && !ft_isin(line[i], SEPARATORS))
 			i++;
 	}
@@ -72,9 +77,10 @@ t_token	*lex_tokenize(char *line)
 		value = ft_copy(start, line);
 		type = lex_token_type(value);
 		if (type == t_dquote)
-			value = lex_expand_dquotes(value); // need to add the expanded flag
-		if (type != t_dollar || !lex_expand(&token, value, after_space))
-			ft_lstadd_back(&token, ft_lstnew(value, type, after_space, 0)); // need a better way
+			value = lex_expand_dquotes(value);
+		lex_expand(&token, value, after_space);
+		if ((type != t_dollar_expand && type != t_dollar_num))
+			ft_lstadd_back(&token, ft_lstnew(value, type, after_space, 0));
 		after_space = ft_isin(*line, BLANKS);
 		line += ft_strspn(line, BLANKS);
 	}

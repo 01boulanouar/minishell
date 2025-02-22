@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:06 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/22 15:56:25 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/22 21:25:08 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	lex_is_valid_quotes(const char *line)
 
 int	lex_is_valid_syntax(const char *line)
 {
-	return (lex_is_valid_quotes(line) && lex_is_valid_pipes(line));
+	return (lex_is_valid_quotes(line));
 }
 
 int	is_operator(t_token *token)
@@ -44,21 +44,27 @@ int	is_operator(t_token *token)
 
 int	operator_error(t_token *token)
 {
+	int begining_pipe;
+
+	begining_pipe = 1; 
 	while (token)
 	{
+		if(token->type == t_pipe && begining_pipe)
+			return (1);
 		if (is_operator(token) && (!token->next || is_operator(token->next)))
 			return (1);
 		token = token->next;
+		begining_pipe = 0;
 	}
 	return (0);
 }
 
 t_token_type	lex_token_type(const char *value)
 {
-	if (value[0] == DOLLAR)
-		return (t_dollar);
 	if (ft_strlen(value) == 1)
 	{
+		if (value[0] == DOLLAR)
+			return (t_dollar);
 		if (value[0] == PIPE)
 			return (t_pipe);
 		else if (value[0] == LESS)
@@ -72,6 +78,13 @@ t_token_type	lex_token_type(const char *value)
 		return (t_dgreater);
 	else
 	{
+		if (value[0] == DOLLAR)
+		{
+			if (value[1] && ('0' <= value[1] && value[1] <= '9'))
+				return (t_dollar_num);
+			else
+				return (t_dollar_expand);
+		}
 		if (value[0] == SQUOTE)
 			return (t_squote);
 		else if (value[0] == DQUOTE)
