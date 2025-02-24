@@ -119,6 +119,6 @@ t_token	*lexer(char *line)
 		ft_putstr_fd(SYNTAX_ERROR_STR, STDERR_FILENO);
 		exit(EXIT_SYNTAX_ERROR);
 	}
-	lex_print_tokens(token);
+	// lex_print_tokens(token);
 	return (token);
 }

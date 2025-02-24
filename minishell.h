@@ -77,7 +77,7 @@ typedef struct s_comand
 	t_token			**tokens;
 	t_redirect		**out_files;
 	t_redirect		**in_files;
-	int 			not_to_be_executed;
+	int				not_to_be_executed;
 }					t_comand;
 
 typedef struct s_node

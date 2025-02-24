@@ -8,8 +8,6 @@ lexer -> parser -> expender -> executor
 
 
 
-
-
-// we need to add some stx_e | or > followed by nothing or op followed by op .. 
-
  // pip at the beginning 
+
+// $ followed by "sdsdsd"

@@ -18,10 +18,9 @@ void	lex_expand(t_token **token, char *name, int after_space)
 	char			*start;
 	char			*value;
 	t_token_type	type;
-	t_token			*new_token;
 
-	if(name[0]!=DOLLAR)
-		return ; 
+	if (name[0] != DOLLAR)
+		return ;
 	name++;
 	expanded = getenv(name);
 	while (expanded && *expanded)
@@ -30,8 +29,7 @@ void	lex_expand(t_token **token, char *name, int after_space)
 		expanded += lex_get_next_token(start);
 		value = ft_copy(start, expanded);
 		type = lex_token_type(value);
-		new_token = ft_lstnew(value, type, after_space, 1);
-		ft_lstadd_back(token, new_token);
+		ft_lstadd_back(token, ft_lstnew(value, type, after_space, 1));
 		after_space = ft_isin(*expanded, BLANKS);
 		expanded += ft_strspn(expanded, BLANKS);
 	}

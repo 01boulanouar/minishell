@@ -44,12 +44,12 @@ int	is_operator(t_token *token)
 
 int	operator_error(t_token *token)
 {
-	int begining_pipe;
+	int	begining_pipe;
 
-	begining_pipe = 1; 
+	begining_pipe = 1;
 	while (token)
 	{
-		if(token->type == t_pipe && begining_pipe)
+		if (token->type == t_pipe && begining_pipe)
 			return (1);
 		if (is_operator(token) && (!token->next || is_operator(token->next)))
 			return (1);
