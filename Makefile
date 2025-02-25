@@ -1,25 +1,31 @@
-NAME = minishell
 CC = cc
-CFLAGS = -Wall -Wextra -Werror 
+CFLAGS = -Wall -Wextra -Werror
+SANITIZE = -fsanitize=address -g
+NAME = minishell
 RM = rm -f
 
-SRC = main.c lexer.c lexer_utils.c expand.c utils/string.c utils/print.c utils/list.c utils/copy.c parser.c garbage_collector.c parser_utils.c to_delete.c
+
+SRC_HELPER = helper/get_number_of.c helper/is.c helper/get.c
+SRC_UTILS = utils/copy.c utils/list.c utils/print.c utils/string.c
+
+SRC = main.c lexer.c parser.c expander.c syntax_error.c garbage_collector.c \
+		$(SRC_HELPER) $(SRC_UTILS) to_delete.c
 OBJ = $(SRC:.c=.o)
 
 all : $(NAME)
 
 $(NAME) : $(OBJ)
-	$(CC)  -fsanitize=address -g $(OBJ) -lreadline -o $@  
-	$(RM) $(OBJ)
+	$(CC) $(OBJ) -lreadline -o $@ $(SANITIZE)
+	@$(RM) $(OBJ) # to remove
 
 %.o : %.c minishell.h
-	$(CC) -fsanitize=address $(CFLAGS) -c $< -o $@  
+	$(CC) $(CFLAGS) -c $< -o $@ $(SANITIZE)
 
 clean :
-	$(RM) $(OBJ)
+	@$(RM) $(OBJ)
 
 fclean : clean
-	$(RM) $(NAME)
+	@$(RM) $(NAME)
 
 re : fclean all
 

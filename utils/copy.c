@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:54:54 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/14 17:47:58 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/25 14:10:48 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,16 @@ char	*ft_copy(const char *start, const char *end)
 	return (copy);
 }
 
-int	ft_skip_blanks(const char *line)
+char	*ft_trim(char *line)
 {
-	int	i;
+	const char	*start;
+	const char	*end;
 
-	i = 0;
-	while (ft_isin(line[i], BLANKS))
-		i++;
-	return (i);
+	start = line;
+	end = line + ft_strlen(line);
+	while (*start && ft_isin(*start, BLANKS))
+		start++;
+	while (end >= start && ft_isin(*end, BLANKS))
+		end--;
+	return (ft_copy(start, end));
 }

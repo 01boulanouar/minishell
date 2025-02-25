@@ -1,25 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_utils.c                                     :+:      :+:    :+:   */
+/*   get_number_of.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/20 15:58:30 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/02/22 15:54:31 by moboulan         ###   ########.fr       */
+/*   Created: 2025/02/25 14:14:15 by moboulan          #+#    #+#             */
+/*   Updated: 2025/02/25 14:39:03 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-int	parse_is_redirection(t_token *token)
-{
-	return (!token->expanded && (token->type == t_less
-			|| token->type == t_greater || token->type == t_dless
-			|| token->type == t_dgreater));
-}
-
-int	parse_number_of_commands(t_token *token)
+int	get_number_of_commands(t_token *token)
 {
 	int	counter;
 
@@ -33,7 +26,7 @@ int	parse_number_of_commands(t_token *token)
 	return (counter);
 }
 
-int	parse_out_files_number(t_token *token)
+int	get_number_of_outfiles(t_token *token)
 {
 	int	count;
 
@@ -43,14 +36,14 @@ int	parse_out_files_number(t_token *token)
 		if (token->type == t_pipe && !token->expanded)
 			break ;
 		if (!token->expanded && (token->type == t_greater
-				|| token->type == t_dgreater))
+				|| token->type == t_double_greater))
 			count++;
 		token = token->next;
 	}
 	return (count);
 }
 
-int	parse_in_files_number(t_token *token)
+int	get_number_of_infiles(t_token *token)
 {
 	int	count;
 
@@ -60,14 +53,14 @@ int	parse_in_files_number(t_token *token)
 		if (token->type == t_pipe && !token->expanded)
 			break ;
 		if (!token->expanded && (token->type == t_less
-				|| token->type == t_dless))
+				|| token->type == t_double_less))
 			count++;
 		token = token->next;
 	}
 	return (count);
 }
 
-int	parse_n_tokens(t_token *token)
+int	get_number_of_tokens(t_token *token)
 {
 	int	count;
 	int	redirections;
@@ -79,7 +72,7 @@ int	parse_n_tokens(t_token *token)
 		if (token->type == t_pipe && !token->expanded)
 			break ;
 		count++;
-		if (parse_is_redirection(token))
+		if (is_redirection(token))
 			redirections++;
 		token = token->next;
 	}

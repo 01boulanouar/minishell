@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/22 21:26:15 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/25 14:40:50 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@
 # include <unistd.h>
 
 // Tokens
-# define SQUOTE '\''
-# define DQUOTE '\"'
+# define SINGLE_QUOTE '\''
+# define DOUBLE_QUOTE '\"'
 # define PIPE '|'
 # define LESS '<'
 # define GREATER '>'
-# define DGREATER ">>"
-# define DLESS "<<"
+# define DOUBLE_GREATER ">>"
+# define DOUBLE_LESS "<<"
 # define DOLLAR '$'
 
 // Separators
@@ -42,15 +42,15 @@
 // Token types
 typedef enum e_token_type
 {
+	t_word,
 	t_pipe,
 	t_less,
 	t_greater,
-	t_dless,
-	t_dgreater,
-	t_word,
-	t_squote,
-	t_dquote,
-	t_dollar,
+	t_double_less,
+	t_double_greater,
+	t_single_quote,
+	t_double_quote,
+	t_single_dollar,
 	t_dollar_num,
 	t_dollar_expand,
 }					t_token_type;
@@ -87,50 +87,47 @@ typedef struct s_node
 
 }					t_node;
 
-// String Utils
 size_t				ft_strlen(const char *s);
-void				ft_putstr_fd(const char *s, int fd);
 int					ft_isin(const char c, const char *charset);
 size_t				ft_strspn(const char *s, const char *accept);
 size_t				ft_strcspn(const char *s, const char *reject);
-char				*ft_copy(const char *start, const char *end);
-int					ft_strcmp(const char *s1, const char *s2);
-int					ft_skip_blanks(const char *line);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
+char				*ft_copy(const char *start, const char *end);
+char				*ft_trim(char *line);
 
-// List Utils
+void				ft_putstr_fd(const char *s, int fd);
+
 t_token				*ft_lstnew(char *value, t_token_type type, int after_space,
 						int expanded);
 void				ft_lstadd_back(t_token **lst, t_token *new);
 void				ft_lstfree(t_token **lst);
 
-// Lexer Functions
-char				*lex_print_token_type(t_token_type type);
-t_token_type		lex_token_type(const char *value);
-int					lex_is_valid_syntax(const char *line);
-char				*lex_trim(char *line);
-t_token				*lexer(char *line);
-int					lex_is_valid_pipes(const char *line);
-size_t				lex_get_next_token(const char *line);
-void				lex_expand(t_token **token, char *name, int after_space);
-void				lex_print_tokens(t_token *token);
-char				*lex_expand_dquotes(char *line);
+int					is_redirection(t_token *token);
+int					is_operator(t_token *token);
 
-// parser functions
-int					parse_is_redirection(t_token *token);
-int					parse_number_of_commands(t_token *token);
-int					parse_out_files_number(t_token *token);
-int					parse_in_files_number(t_token *token);
-int					parse_n_tokens(t_token *token);
-void				parse_handle_redirection(t_comand *cmd, t_token *token,
+int					get_number_of_tokens(t_token *token);
+int					get_number_of_infiles(t_token *token);
+int					get_number_of_outfiles(t_token *token);
+int					get_number_of_commands(t_token *token);
+
+t_token_type		get_token_type(const char *value);
+
+int					is_valid_quotes(const char *line);
+t_token				*lexer(char *line);
+size_t				get_next_token(const char *line);
+void				expand_token(t_token **token, char *name, int after_space);
+char				*expand_double_quotes(char *line);
+
+void				handle_redirection(t_comand *cmd, t_token *token,
 						int *in_index, int *out_index);
 t_comand			*parser(t_token *token);
 
-// syntax error
 int					operator_error(t_token *token);
 
-// garbage collector
 void				*ft_malloc(size_t size);
 void				ft_free(void);
 
+char				*print_token_type(t_token_type type);
+void				print_tokens(t_token *token);
+void				print_commands(t_comand *commands, int num_commands);
 #endif

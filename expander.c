@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand.c                                           :+:      :+:    :+:   */
+/*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 16:19:28 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/22 21:16:34 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/25 14:26:53 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	lex_expand(t_token **token, char *name, int after_space)
+void	expand_token(t_token **token, char *name, int after_space)
 {
 	char			*expanded;
 	char			*start;
@@ -26,9 +26,9 @@ void	lex_expand(t_token **token, char *name, int after_space)
 	while (expanded && *expanded)
 	{
 		start = expanded;
-		expanded += lex_get_next_token(start);
+		expanded += get_next_token(start);
 		value = ft_copy(start, expanded);
-		type = lex_token_type(value);
+		type = get_token_type(value);
 		ft_lstadd_back(token, ft_lstnew(value, type, after_space, 1));
 		after_space = ft_isin(*expanded, BLANKS);
 		expanded += ft_strspn(expanded, BLANKS);
@@ -36,7 +36,7 @@ void	lex_expand(t_token **token, char *name, int after_space)
 	return ;
 }
 
-int	lex_expand_len(char *line)
+int	get_expand_len(char *line)
 {
 	char	*start;
 	char	*expanded;
@@ -65,14 +65,14 @@ int	lex_expand_len(char *line)
 	return (len);
 }
 
-char	*lex_expand_dquotes(char *line)
+char	*expand_double_quotes(char *line)
 {
 	char	*result;
 	char	*start;
 	char	*expanded;
 	char	*result_start;
 
-	result = malloc(lex_expand_len(line) + 1);
+	result = malloc(get_expand_len(line) + 1);
 	result_start = result;
 	while (*line)
 	{
