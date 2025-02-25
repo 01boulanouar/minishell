@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/25 17:12:00 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/25 18:18:32 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,8 @@ t_token	*tokenize(char *line)
 		if (type == t_dollar_expand || type == t_dollar_num)
 			expand_token(&token, value, after_space);
 		if (type != t_dollar_expand && type != t_dollar_num)
-			ft_lstadd_back(&token, ft_lstnew(value, type, after_space, 0));
+			ft_lstadd_back_token(&token, ft_lstnew_token(value, type,
+					after_space, 0));
 		after_space = ft_isin(*line, BLANKS);
 		line += ft_strspn(line, BLANKS);
 	}

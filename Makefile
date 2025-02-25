@@ -10,7 +10,7 @@ SRC_UTILS = utils/copy.c utils/list.c utils/print.c utils/string.c
 SRC_BUILTINS = builtins/cd.c builtins/echo.c builtins/env.c \
 			   builtins/exit.c builtins/export.c builtins/pwd.c builtins/unset.c  builtins/builtin.c
 
-SRC = main.c lexer.c parser.c expander.c syntax_error.c garbage_collector.c exec.c \
+SRC = main.c lexer.c environment.c parser.c expander.c syntax_error.c garbage_collector.c exec.c \
 		$(SRC_BUILTINS) $(SRC_HELPER) $(SRC_UTILS) to_delete.c
 OBJ = $(SRC:.c=.o)
 

@@ -6,19 +6,17 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:18:13 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/25 17:05:26 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/25 18:37:51 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	pwd(void)
+int	pwd_builtin(void)
 {
-	char	*cwd;
+	char	cwd[PATH_MAX];
 
-	cwd = NULL;
-	getcwd(cwd, PATH_MAX);
-	if (cwd)
+	if (getcwd(cwd, PATH_MAX))
 	{
 		ft_putendl_fd(cwd, STDOUT_FILENO);
 		return (EXIT_SUCCESS);

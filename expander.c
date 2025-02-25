@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 16:19:28 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/25 15:17:00 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/25 18:15:11 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void	expand_token(t_token **token, char *name, int after_space)
 		expanded += get_next_token_len(start);
 		value = ft_copy(start, expanded);
 		type = get_token_type(value);
-		ft_lstadd_back(token, ft_lstnew(value, type, after_space, 1));
+		ft_lstadd_back_token(token, ft_lstnew_token(value, type, after_space,
+				1));
 		after_space = ft_isin(*expanded, BLANKS);
 		expanded += ft_strspn(expanded, BLANKS);
 	}

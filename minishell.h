@@ -6,25 +6,26 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/25 17:12:46 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/25 18:37:46 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include <limits.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <limits.h>
 
 // Tokens
 # define PIPE '|'
 # define LESS '<'
 # define GREATER '>'
 # define DOLLAR '$'
+# define EQUAL '='
 
 # define DOUBLE_GREATER ">>"
 # define DOUBLE_LESS "<<"
@@ -58,7 +59,6 @@ typedef enum e_token_type
 	t_dollar_expand,
 }					t_token_type;
 
-// Token struct
 typedef struct s_token
 {
 	char			*value;
@@ -68,7 +68,6 @@ typedef struct s_token
 	struct s_token	*next;
 }					t_token;
 
-// command struct
 typedef struct s_redirect
 {
 	char			*file;
@@ -83,12 +82,20 @@ typedef struct s_command
 	int				not_to_be_executed;
 }					t_command;
 
-typedef struct s_node
+typedef struct s_env
+{
+	char			*key;
+	char			*value;
+	struct s_env	*next;
+
+}					t_env;
+
+typedef struct s_gc
 {
 	void			*ptr;
-	struct s_node	*next;
+	struct s_gc		*next;
 
-}					t_node;
+}					t_gc;
 
 size_t				ft_strlen(const char *s);
 int					ft_isin(const char c, const char *charset);
@@ -99,14 +106,18 @@ int					ft_strncmp(const char *s1, const char *s2, size_t n);
 char				*ft_copy(const char *start, const char *end);
 char				*ft_trim(char *line);
 
+void				ft_putchar_fd(char c, int fd);
 void				ft_putstr_fd(const char *s, int fd);
 void				ft_putendl_fd(char *s, int fd);
 int					ft_isdigit(int c);
 
-t_token				*ft_lstnew(char *value, t_token_type type, int after_space,
-						int expanded);
-void				ft_lstadd_back(t_token **lst, t_token *new);
-void				ft_lstfree(t_token **lst);
+t_token				*ft_lstnew_token(char *value, t_token_type type,
+						int after_space, int expanded);
+t_env				*ft_lstnew_env(char *key, char *value);
+void				ft_lstadd_back_token(t_token **lst, t_token *new);
+void				ft_lstadd_back_env(t_env **lst, t_env *new);
+
+t_env				*handle_env(char **line);
 
 int					is_redirection(t_token *token);
 int					is_operator(t_token *token);
@@ -133,11 +144,12 @@ int					operator_error(t_token *token);
 void				*ft_malloc(size_t size);
 void				ft_free(void);
 
-int					pwd(void);
+int					pwd_builtin(void);
+int					env_builtin(t_env *env);
 int					is_builtin(t_command command);
-int					exec_builtin(t_command command);
+int					exec_builtin(t_command command, t_env *env);
 
-void				exec(t_command	*commands, t_token *tokens);
+void				exec(t_command *commands, t_token *tokens, t_env *env);
 
 char				*print_token_type(t_token_type type);
 void				print_tokens(t_token *token);

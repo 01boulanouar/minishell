@@ -1,26 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.c                                             :+:      :+:    :+:   */
+/*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/25 16:55:42 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/25 18:35:18 by moboulan         ###   ########.fr       */
+/*   Created: 2025/02/25 18:04:28 by moboulan          #+#    #+#             */
+/*   Updated: 2025/02/25 18:44:30 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	exec(t_command *commands, t_token *tokens, t_env *env)
+t_env	*handle_env(char **line)
 {
-	int	i;
+	t_env	*env;
+	int		i;
+	char	*start;
+	char	*key;
+	char	*value;
 
 	i = 0;
-	while (i < get_number_of_commands(tokens))
+	env = NULL;
+	while (line[i])
 	{
-		if (is_builtin(commands[i]))
-			exec_builtin(commands[i], env);
+		start = line[i];
+		while (*line[i] && *line[i] != EQUAL)
+			line[i]++;
+		key = ft_copy(start, line[i]);
+		if (*line[i] == EQUAL)
+			line[i]++;
+		start = line[i];
+		while (*line[i])
+			line[i]++;
+		value = ft_copy(start, line[i]);
+		ft_lstadd_back_env(&env, ft_lstnew_env(key, value));
 		i++;
 	}
+	return (env);
 }
