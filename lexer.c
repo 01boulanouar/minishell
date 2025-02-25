@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/25 14:40:12 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/25 15:02:13 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ size_t	get_next_token(const char *line)
 	{
 		if (line[0] == DOLLAR)
 		{
-			if ('0' <= line[1] && line[1] <= '9')
+			if (ft_isdigit(line[1]))
 				return (2);
 			i++;
 		}

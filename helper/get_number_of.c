@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 14:14:15 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/25 14:39:03 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/25 14:44:45 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 int	get_number_of_commands(t_token *token)
 {
-	int	counter;
+	int	count;
 
-	counter = 1;
+	count = 1;
 	while (token)
 	{
 		if (token->type == t_pipe && !token->expanded)
-			counter++;
+			count++;
 		token = token->next;
 	}
-	return (counter);
+	return (count);
 }
 
 int	get_number_of_outfiles(t_token *token)

@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/25 14:40:50 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/25 15:02:13 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,16 @@
 # include <unistd.h>
 
 // Tokens
-# define SINGLE_QUOTE '\''
-# define DOUBLE_QUOTE '\"'
 # define PIPE '|'
 # define LESS '<'
 # define GREATER '>'
+# define DOLLAR '$'
+
 # define DOUBLE_GREATER ">>"
 # define DOUBLE_LESS "<<"
-# define DOLLAR '$'
+
+# define SINGLE_QUOTE '\''
+# define DOUBLE_QUOTE '\"'
 
 // Separators
 # define BLANKS " 	"
@@ -96,6 +98,7 @@ char				*ft_copy(const char *start, const char *end);
 char				*ft_trim(char *line);
 
 void				ft_putstr_fd(const char *s, int fd);
+int					ft_isdigit(int c);
 
 t_token				*ft_lstnew(char *value, t_token_type type, int after_space,
 						int expanded);

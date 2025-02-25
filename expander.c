@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 16:19:28 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/25 14:26:53 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/25 15:02:13 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	get_expand_len(char *line)
 		if (*line == DOLLAR && *(line + 1) && !ft_isin(*(line + 1), SEPARATORS))
 		{
 			start = ++line;
-			if ('0' <= *line && *line <= '9')
+			if (ft_isdigit(*line))
 				line++;
 			else
 				line += ft_strcspn(line, SEPARATORS);
@@ -79,7 +79,7 @@ char	*expand_double_quotes(char *line)
 		if (*line == DOLLAR && *(line + 1) && !ft_isin(*(line + 1), SEPARATORS))
 		{
 			start = ++line;
-			if ('0' <= *line && *line <= '9')
+			if (ft_isdigit(*line))
 				line++;
 			else
 				line += ft_strcspn(line, SEPARATORS);

@@ -5,7 +5,7 @@ NAME = minishell
 RM = rm -f
 
 
-SRC_HELPER = helper/get_number_of.c helper/is.c helper/get.c
+SRC_HELPER = helper/get_number_of.c helper/is.c helper/get_token_type.c
 SRC_UTILS = utils/copy.c utils/list.c utils/print.c utils/string.c
 
 SRC = main.c lexer.c parser.c expander.c syntax_error.c garbage_collector.c \
