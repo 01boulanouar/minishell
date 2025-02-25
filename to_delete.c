@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 15:53:33 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/25 14:40:42 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/25 16:34:38 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,12 @@ void	print_tokens(t_token *token)
 	while (token)
 	{
 		printf("[%s] %s space %d expanded %d\n", token->value,
-			print_token_type(token->type), token->after_space,
-			token->expanded);
+			print_token_type(token->type), token->after_space, token->expanded);
 		token = token->next;
 	}
 }
 
-void	print_commands(t_comand *commands, int num_commands)
+void	print_commands(t_command *commands, int num_commands)
 {
 	int	i;
 	int	j;

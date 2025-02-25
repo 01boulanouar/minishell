@@ -6,13 +6,13 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 20:33:07 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/02/25 14:27:04 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/25 16:34:38 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	handle_redirection(t_comand *cmd, t_token *token, int *in_index,
+void	handle_redirection(t_command *cmd, t_token *token, int *in_index,
 		int *out_index)
 {
 	t_token		*next;
@@ -35,7 +35,7 @@ void	handle_redirection(t_comand *cmd, t_token *token, int *in_index,
 		cmd->in_files[(*in_index)++] = redir;
 }
 
-t_token	*parse_token(t_comand *comand, t_token *token)
+t_token	*parse_token(t_command *command, t_token *token)
 {
 	int	j;
 	int	in_index;
@@ -52,41 +52,42 @@ t_token	*parse_token(t_comand *comand, t_token *token)
 		{
 			if (token->next && token->next->next && token->next->expanded
 				&& token->next->next->expanded)
-				comand->not_to_be_executed = 1;
-			handle_redirection(comand, token, &in_index, &out_index);
+				command->not_to_be_executed = 1;
+			handle_redirection(command, token, &in_index, &out_index);
 			token = token->next;
 		}
 		else
-			comand->tokens[j++] = token;
+			command->tokens[j++] = token;
 		token = token->next;
 	}
-	return (comand->tokens[j] = NULL, comand->in_files[in_index] = NULL,
-		comand->out_files[out_index] = NULL, token);
+	return (command->tokens[j] = NULL, command->in_files[in_index] = NULL,
+		command->out_files[out_index] = NULL, token);
 }
 
-t_comand	*parser(t_token *token)
+t_command	*parser(t_token *token)
 {
 	int			num_cmds;
-	t_comand	*comands;
+	t_command	*commands;
 	int			i;
 
 	i = 0;
 	num_cmds = get_number_of_commands(token);
-	comands = ft_malloc(num_cmds * sizeof(t_comand));
+	commands = ft_malloc(num_cmds * sizeof(t_command));
 	while (i < num_cmds)
 	{
-		comands[i].tokens = ft_malloc((get_number_of_tokens(token) + 1)
+		commands[i].tokens = ft_malloc((get_number_of_tokens(token) + 1)
 				* sizeof(t_token *));
-		comands[i].in_files = ft_malloc((get_number_of_infiles(token) + 1)
+		commands[i].in_files = ft_malloc((get_number_of_infiles(token) + 1)
 				* sizeof(t_redirect *));
-		comands[i].out_files = ft_malloc((get_number_of_outfiles(token) + 1)
+		commands[i].out_files = ft_malloc((get_number_of_outfiles(token) + 1)
 				* sizeof(t_redirect *));
-		if (!comands[i].tokens || !comands[i].in_files || !comands[i].out_files)
+		if (!commands[i].tokens || !commands[i].in_files
+			|| !commands[i].out_files)
 			return (NULL);
-		token = parse_token(&comands[i], token);
+		token = parse_token(&commands[i], token);
 		if (token)
 			token = token->next;
 		i++;
 	}
-	return (comands);
+	return (commands);
 }

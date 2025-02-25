@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/25 15:27:39 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/25 17:12:00 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ size_t	get_next_token_len(const char *line)
 	size_t	i;
 
 	i = 0;
-	if (!ft_strncmp(line, DOUBLE_LESS, 2)
-		|| !ft_strncmp(line, DOUBLE_GREATER, 2))
+	if (!ft_strncmp(line, DOUBLE_LESS, 2) || !ft_strncmp(line, DOUBLE_GREATER,
+			2))
 		return (2);
 	else if (line[0] == LESS || line[0] == GREATER || line[0] == PIPE
 		|| (line[0] == DOLLAR && !line[1]))
@@ -97,16 +97,16 @@ t_token	*lexer(char *line)
 	token = NULL;
 	if (!is_valid_quotes(line))
 	{
-		ft_putstr_fd(SYNTAX_ERROR_STR, STDERR_FILENO);
+		ft_putendl_fd(SYNTAX_ERROR_STR, STDERR_FILENO);
 		exit(EXIT_SYNTAX_ERROR);
 	}
 	trim_line = ft_trim(line);
 	token = tokenize(trim_line);
 	if (operator_error(token))
 	{
-		ft_putstr_fd(SYNTAX_ERROR_STR, STDERR_FILENO);
+		ft_putendl_fd(SYNTAX_ERROR_STR, STDERR_FILENO);
 		exit(EXIT_SYNTAX_ERROR);
 	}
-	print_tokens(token);
+	// print_tokens(token);
 	return (token);
 }

@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:08 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/25 15:23:54 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/25 17:11:33 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,20 @@
 int	main(void)
 {
 	char		*line;
-	t_token		*token;
-	t_comand	*comands;
+	t_token		*tokens;
+	t_command	*commands;
 	int			num;
 
 	while (1)
 	{
 		line = readline("minishell> ");
 		add_history(line);
-		token = lexer(line);
+		tokens = lexer(line);
 		free(line);
-		num = get_number_of_commands(token);
-		comands = parser(token);
-		print_commands(comands, num);
+		num = get_number_of_commands(tokens);
+		commands = parser(tokens);
+		exec(commands, tokens);
+		// print_commands(commands, num);
 		ft_free();
 	}
 	return (0);

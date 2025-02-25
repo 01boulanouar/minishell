@@ -1,37 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print.c                                            :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/25 14:09:07 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/25 16:25:53 by moboulan         ###   ########.fr       */
+/*   Created: 2025/02/25 16:18:06 by moboulan          #+#    #+#             */
+/*   Updated: 2025/02/25 16:49:27 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-int	ft_isdigit(int c)
-{
-	return ('0' <= c && c <= '9');
-}
-
-void	ft_putchar_fd(char c, int fd)
-{
-	write(fd, &c, 1);
-}
-
-void	ft_putstr_fd(const char *s, int fd)
-{
-	if (!s)
-		return ;
-	while (*s)
-		write(fd, s++, 1);
-}
-
-void	ft_putendl_fd(char *s, int fd)
-{
-	ft_putstr_fd(s, fd);
-	ft_putchar_fd('\n', fd);
-}
