@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/25 15:12:43 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/25 15:27:39 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ size_t	get_next_quote_token(const char *line)
 	return (i);
 }
 
-size_t	get_next_token(const char *line)
+size_t	get_next_token_len(const char *line)
 {
 	size_t	i;
 
@@ -74,14 +74,14 @@ t_token	*tokenize(char *line)
 	while (*line)
 	{
 		start = line;
-		line += get_next_token(line);
+		line += get_next_token_len(line);
 		value = ft_copy(start, line);
 		type = get_token_type(value);
 		if (type == t_double_quote)
 			value = expand_double_quotes(value);
-		else if (type == t_dollar_expand || type == t_dollar_num)
+		if (type == t_dollar_expand || type == t_dollar_num)
 			expand_token(&token, value, after_space);
-		else
+		if (type != t_dollar_expand && type != t_dollar_num)
 			ft_lstadd_back(&token, ft_lstnew(value, type, after_space, 0));
 		after_space = ft_isin(*line, BLANKS);
 		line += ft_strspn(line, BLANKS);

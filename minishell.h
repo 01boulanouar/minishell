@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/25 15:02:13 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/25 15:17:00 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ t_token_type		get_token_type(const char *value);
 
 int					is_valid_quotes(const char *line);
 t_token				*lexer(char *line);
-size_t				get_next_token(const char *line);
+size_t				get_next_token_len(const char *line);
 void				expand_token(t_token **token, char *name, int after_space);
 char				*expand_double_quotes(char *line);
 
