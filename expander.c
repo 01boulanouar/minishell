@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 16:19:28 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/25 15:02:13 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/25 15:07:55 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ void	expand_token(t_token **token, char *name, int after_space)
 	char			*value;
 	t_token_type	type;
 
-	if (name[0] != DOLLAR)
-		return ;
 	name++;
 	expanded = getenv(name);
 	while (expanded && *expanded)
