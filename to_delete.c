@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 15:53:33 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/25 16:34:38 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/25 21:11:18 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ void	print_commands(t_command *commands, int num_commands)
 			printf("          --in_files--\n");
 		while (commands[i].in_files[k])
 		{
-			printf("          file [%d] : %s \t %s\n", k,
-				commands[i].in_files[k]->file, commands[i].in_files[k]->type);
+			// printf("          file [%d] : %s \t %s\n", k,
+			// 	commands[i].in_files[k]->file, commands[i].in_files[k]->type);
 			k++;
 		}
 		if (commands[i].out_files[0])
@@ -85,8 +85,8 @@ void	print_commands(t_command *commands, int num_commands)
 		k = 0;
 		while (commands[i].out_files[k])
 		{
-			printf("          file [%d] : %s \t %s\n", k,
-				commands[i].out_files[k]->file, commands[i].out_files[k]->type);
+			// printf("          file [%d] : %s \t %s\n", k,
+			// 	commands[i].out_files[k]->file, commands[i].out_files[k]->type);
 			k++;
 		}
 		i++;

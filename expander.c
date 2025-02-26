@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 16:19:28 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/25 18:15:11 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/26 10:25:20 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	expand_token(t_token **token, char *name, int after_space)
 	{
 		start = expanded;
 		expanded += get_next_token_len(start);
-		value = ft_copy(start, expanded);
+		value = ft_copy(start, expanded, 1);
 		type = get_token_type(value);
 		ft_lstadd_back_token(token, ft_lstnew_token(value, type, after_space,
 				1));
@@ -51,7 +51,7 @@ int	get_expand_len(char *line)
 				line++;
 			else
 				line += ft_strcspn(line, SEPARATORS);
-			expanded = getenv(ft_copy(start, line));
+			expanded = getenv(ft_copy(start, line, 1));
 			if (expanded)
 				len += ft_strlen(expanded);
 		}
@@ -82,7 +82,7 @@ char	*expand_double_quotes(char *line)
 				line++;
 			else
 				line += ft_strcspn(line, SEPARATORS);
-			expanded = getenv(ft_copy(start, line));
+			expanded = getenv(ft_copy(start, line, 1));
 			while (expanded && *expanded)
 				*(result++) = *(expanded++);
 		}
