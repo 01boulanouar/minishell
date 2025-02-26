@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 20:33:07 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/02/25 16:34:38 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/25 20:54:46 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,7 @@ void	handle_redirection(t_command *cmd, t_token *token, int *in_index,
 	next = token->next;
 	redir = ft_malloc(sizeof(t_redirect));
 	redir->file = next->value;
-	if (token->type == t_greater)
-		redir->type = ">";
-	if (token->type == t_less)
-		redir->type = "<";
-	if (token->type == t_double_greater)
-		redir->type = ">>";
-	if (token->type == t_double_less)
-		redir->type = "<<";
+	redir->type = token->type;
 	if (token->type == t_greater || token->type == t_double_greater)
 		cmd->out_files[(*out_index)++] = redir;
 	else

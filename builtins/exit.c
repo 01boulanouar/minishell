@@ -6,8 +6,13 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:18:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/25 17:18:03 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/26 10:36:17 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int	exit_builtin(void)
+{
+	return (EXIT_FAILURE);
+}

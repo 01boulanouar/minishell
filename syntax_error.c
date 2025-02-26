@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 14:04:08 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/25 14:39:32 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/25 22:18:24 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	is_valid_quotes(const char *line)
 
 	squote = 1;
 	dquote = 1;
-	while (*line)
+	while (line && *line)
 	{
 		if (*line == SINGLE_QUOTE && dquote)
 			squote = !squote;
