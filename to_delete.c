@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 15:53:33 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/25 21:11:18 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/26 14:34:28 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ char	*print_token_type(t_token_type type)
 		return ("DOLLAR NUM");
 	else if (type == t_dollar_expand)
 		return ("DOLLAR EXPAND");
+	else if (type == t_exit_status)
+		return ("EXIT STATUS");
 	else if (type == t_less)
 		return ("LESS");
 	else if (type == t_greater)

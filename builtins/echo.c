@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:18:03 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/26 12:09:29 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/26 13:28:52 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,5 @@ int	echo_builtin(t_command command)
 		i++;
 	}
 	ft_putchar_fd('\n', STDOUT_FILENO);
-	return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }

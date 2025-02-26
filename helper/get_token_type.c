@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 14:36:18 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/26 12:05:26 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/26 14:36:28 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ static t_token_type	get_dollar_type(const char *value)
 {
 	if (ft_isdigit(value[1]))
 		return (t_dollar_num);
+	else if (!ft_strncmp(value, EXIT_STATUS, 2))
+		return (t_exit_status);
 	else
 		return (t_dollar_expand);
 }

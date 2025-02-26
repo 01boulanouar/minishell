@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/26 13:19:15 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/26 14:34:04 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 
 # define DOUBLE_GREATER ">>"
 # define DOUBLE_LESS "<<"
+# define EXIT_STATUS "$?"
 
 # define SINGLE_QUOTE '\''
 # define DOUBLE_QUOTE '\"'
@@ -57,6 +58,7 @@ typedef enum e_token_type
 	t_single_dollar,
 	t_dollar_num,
 	t_dollar_expand,
+	t_exit_status,
 }					t_token_type;
 
 typedef struct s_token
