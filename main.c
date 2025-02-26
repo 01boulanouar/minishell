@@ -34,8 +34,8 @@ int	main(int argc, char **argv, char **env)
 		num = get_number_of_commands(tokens);
 		commands = parser(tokens);
 		exec(commands, tokens, envs);
-		// print_commands(commands, num);
-		//ft_free();
+		print_commands(commands, num);
+		// ft_free();
 	}
 	return (0);
 }

@@ -94,7 +94,7 @@ t_token	*lexer(char *line)
 {
 	t_token	*token;
 	char	*trim_line;
-
+	char 	*tmp ; 
 	token = NULL;
 	if (!is_valid_quotes(line))
 	{
@@ -102,6 +102,12 @@ t_token	*lexer(char *line)
 		exit(EXIT_SYNTAX_ERROR);
 	}
 	trim_line = ft_trim(line);
+	while (trim_line[ft_strlen(trim_line)-1]=='|')
+	{
+		tmp = readline("pipe> ");
+		trim_line = ft_trim((ft_strjoin(trim_line,tmp)));
+	}
+	
 	token = tokenize(trim_line);
 	if (operator_error(token))
 	{

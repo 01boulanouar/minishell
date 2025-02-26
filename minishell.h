@@ -105,6 +105,7 @@ int					ft_strcmp(const char *s1, const char *s2);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 char				*ft_copy(const char *start, const char *end);
 char				*ft_trim(char *line);
+char				*ft_strjoin(char const *s1, char const *s2);
 
 void				ft_putchar_fd(char c, int fd);
 void				ft_putstr_fd(const char *s, int fd);
