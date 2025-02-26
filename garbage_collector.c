@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 14:58:36 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/02/25 18:06:04 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/26 14:49:39 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,10 @@ void	*ft_malloc(size_t size)
 	head = get_head();
 	ptr = malloc(size);
 	if (!ptr)
-	{
-		printf("malloc failed a jmi");
 		exit(1);
-	}
 	new_node = malloc(sizeof(t_gc));
 	if (!new_node)
-	{
-		printf("malloc failed a jmi");
 		exit(1);
-	}
 	new_node->ptr = ptr;
 	new_node->next = *head;
 	*head = new_node;

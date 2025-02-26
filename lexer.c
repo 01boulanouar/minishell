@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/26 14:37:33 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/26 15:10:55 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,9 @@ t_token	*lexer(char *line)
 		exit(EXIT_SYNTAX_ERROR);
 	}
 	trim_line = ft_trim(line);
-	while (trim_line[ft_strlen(trim_line) - 1] == '|')
+	if (!trim_line)
+		return (token);
+	while (ft_strlen(trim_line) && trim_line[ft_strlen(trim_line) - 1] == '|')
 	{
 		tmp = readline("pipe> ");
 		trim_line = ft_trim((ft_strjoin(trim_line, tmp)));
