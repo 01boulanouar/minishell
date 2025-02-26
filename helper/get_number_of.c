@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 14:14:15 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/25 17:07:50 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/26 11:26:23 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,18 @@ int	get_number_of_commands(t_token *token)
 		token = token->next;
 	}
 	return (count);
+}
+
+int	get_number_of_arguments(t_command command)
+{
+	int	i;
+
+	if (!command.tokens)
+		return (0);
+	i = 1;
+	while (command.tokens[i])
+		i++;
+	return (i - 1);
 }
 
 int	get_number_of_outfiles(t_token *token)

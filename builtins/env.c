@@ -6,19 +6,26 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:18:06 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/25 22:55:11 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/26 13:05:03 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	env_builtin(t_env **env)
+int	env_builtin(t_command command)
 {
+	t_env	**env;
 	t_env	*node;
 
+	env = get_env_head();
 	node = *env;
 	if (!node)
 		return (EXIT_FAILURE);
+	if (get_number_of_arguments(command))
+	{
+		ft_putendl_fd("too may arguments", STDERR_FILENO);
+		return (EXIT_FAILURE);
+	}
 	while (node)
 	{
 		ft_putstr_fd(node->key, STDOUT_FILENO);

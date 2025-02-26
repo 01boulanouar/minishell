@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/26 10:31:05 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/26 13:19:15 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,10 @@ size_t				ft_strspn(const char *s, const char *accept);
 size_t				ft_strcspn(const char *s, const char *reject);
 int					ft_strcmp(const char *s1, const char *s2);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
-char				*ft_copy(const char *start, const char *end, int ft);
+char				*ft_copy(const char *start, const char *end);
+char				*ft_copy_env(const char *start, const char *end);
 char				*ft_trim(char *line);
+char				*ft_strdup(const char *s1);
 char				*ft_strjoin(char const *s1, char const *s2);
 
 void				ft_putchar_fd(char c, int fd);
@@ -116,11 +118,13 @@ t_token				*ft_lstnew_token(char *value, t_token_type type,
 						int after_space, int expanded);
 t_env				*ft_lstnew_env(char *key, char *value);
 void				ft_lstadd_back_token(t_token **lst, t_token *new);
-void				ft_lstadd_back_env(t_env **lst, t_env *new);
-void				ft_lstremove_env(t_env **env, char *key);
-void				ft_lstfree_env(t_env **env);
+void				ft_lstadd_back_env(t_env *new);
+void				ft_lstremove_env(char *key);
+void				ft_lstfree_env(void);
 
-t_env				*handle_env(char **line);
+void				init_env(char **line);
+t_env				**get_env_head(void);
+char				*ft_getenv(char *name);
 
 int					is_redirection(t_token *token);
 int					is_operator(t_token *token);
@@ -129,6 +133,7 @@ int					get_number_of_tokens(t_token *token);
 int					get_number_of_infiles(t_token *token);
 int					get_number_of_outfiles(t_token *token);
 int					get_number_of_commands(t_token *token);
+int					get_number_of_arguments(t_command command);
 
 t_token_type		get_token_type(const char *value);
 
@@ -148,16 +153,16 @@ void				*ft_malloc(size_t size);
 void				ft_free(void);
 
 int					cd_builtin(void);
-int					echo_builtin(void);
+int					echo_builtin(t_command command);
 int					pwd_builtin(void);
-int					env_builtin(t_env **env);
+int					env_builtin(t_command command);
 int					export_builtin(void);
 int					exit_builtin(void);
-int					unset_builtin(t_command command, t_env **env);
+int					unset_builtin(t_command command);
 int					is_builtin(t_command command);
-int					exec_builtin(t_command command, t_env **env);
+int					exec_builtin(t_command command);
 
-void				exec(t_command *commands, t_env **env);
+void				exec(t_command *commands);
 
 char				*print_token_type(t_token_type type);
 void				print_tokens(t_token *token);

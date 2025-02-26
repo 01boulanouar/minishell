@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 13:14:43 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/26 10:37:04 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/26 13:14:32 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,12 @@ t_env	*ft_lstnew_env(char *key, char *value)
 	return (t);
 }
 
-void	ft_lstadd_back_env(t_env **lst, t_env *new)
+void	ft_lstadd_back_env(t_env *new)
 {
 	t_env	*t;
+	t_env	**lst;
 
+	lst = get_env_head();
 	if (!lst || !new)
 		return ;
 	t = (*lst);
@@ -42,30 +44,35 @@ void	ft_lstadd_back_env(t_env **lst, t_env *new)
 	}
 }
 
-void	ft_lstremove_env(t_env **env, char *key)
+void	ft_lstremove_env(char *key)
 {
 	t_env	*tmp;
+	t_env	**env;
 
+	env = get_env_head();
 	if (!env || !(*env))
 		return ;
-	if (!ft_strcmp(key, (*env)->key))
+	while (*env)
 	{
-		tmp = *env;
-		*env = (*env)->next;
-		free(tmp->key);
-		free(tmp->value);
-		free(tmp);
-		tmp = NULL;
-		ft_lstremove_env(env, key);
+		if (!ft_strcmp(key, (*env)->key))
+		{
+			tmp = *env;
+			*env = (*env)->next;
+			free(tmp->key);
+			free(tmp->value);
+			free(tmp);
+		}
+		else
+			env = &(*env)->next;
 	}
-	else
-		ft_lstremove_env(&(*env)->next, key);
 }
 
-void	ft_lstfree_env(t_env **env)
+void	ft_lstfree_env(void)
 {
+	t_env	**env;
 	t_env	*tmp;
 
+	env = get_env_head();
 	while (*env)
 	{
 		tmp = *env;

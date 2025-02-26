@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/26 10:25:24 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/26 13:22:44 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ t_token	*tokenize(char *line)
 	{
 		start = line;
 		line += get_next_token_len(line);
-		value = ft_copy(start, line, 1);
+		value = ft_copy(start, line);
 		type = get_token_type(value);
 		if (type == t_double_quote)
 			value = expand_double_quotes(value);
@@ -94,7 +94,8 @@ t_token	*lexer(char *line)
 {
 	t_token	*token;
 	char	*trim_line;
-	char 	*tmp ; 
+	char	*tmp;
+
 	token = NULL;
 	if (!is_valid_quotes(line))
 	{
@@ -102,12 +103,11 @@ t_token	*lexer(char *line)
 		exit(EXIT_SYNTAX_ERROR);
 	}
 	trim_line = ft_trim(line);
-	while (trim_line[ft_strlen(trim_line)-1]=='|')
+	while (trim_line[ft_strlen(trim_line) - 1] == '|')
 	{
 		tmp = readline("pipe> ");
-		trim_line = ft_trim((ft_strjoin(trim_line,tmp)));
+		trim_line = ft_trim((ft_strjoin(trim_line, tmp)));
 	}
-	
 	token = tokenize(trim_line);
 	if (operator_error(token))
 	{

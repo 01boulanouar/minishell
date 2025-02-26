@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 14:36:18 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/25 15:10:24 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/26 12:05:26 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,6 @@ static t_token_type	get_dollar_type(const char *value)
 		return (t_dollar_expand);
 }
 
-static t_token_type	get_redirection_type(const char *value)
-{
-	if (!ft_strncmp(value, DOUBLE_LESS, 2))
-		return (t_double_less);
-	else if (!ft_strncmp(value, DOUBLE_GREATER, 2))
-		return (t_double_greater);
-	return (t_word);
-}
-
 static t_token_type	get_quotes_type(const char *value)
 {
 	if (*value == SINGLE_QUOTE)
@@ -49,6 +40,15 @@ static t_token_type	get_quotes_type(const char *value)
 	else if (*value == DOUBLE_QUOTE)
 		return (t_double_quote);
 	return (t_word);
+}
+
+static t_token_type	get_redirection_type(const char *value)
+{
+	if (!ft_strncmp(value, DOUBLE_LESS, 2))
+		return (t_double_less);
+	else if (!ft_strncmp(value, DOUBLE_GREATER, 2))
+		return (t_double_greater);
+	return (get_quotes_type(value));
 }
 
 t_token_type	get_token_type(const char *value)
