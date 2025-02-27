@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/26 15:10:55 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/26 15:16:33 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,8 @@ size_t	get_next_token_len(const char *line)
 	size_t	i;
 
 	i = 0;
-	if (!ft_strncmp(line, DOUBLE_LESS, 2)
-		|| !ft_strncmp(line, DOUBLE_GREATER, 2)
-		|| !ft_strncmp(line, EXIT_STATUS, 2))
+	if (!ft_strncmp(line, DOUBLE_LESS, 2) || !ft_strncmp(line, DOUBLE_GREATER,
+			2) || !ft_strncmp(line, EXIT_STATUS, 2))
 		return (2);
 	else if (line[0] == LESS || line[0] == GREATER || line[0] == PIPE
 		|| (line[0] == DOLLAR && !line[1]))
@@ -117,6 +116,6 @@ t_token	*lexer(char *line)
 		ft_putendl_fd(SYNTAX_ERROR_STR, STDERR_FILENO);
 		exit(EXIT_SYNTAX_ERROR);
 	}
-	print_tokens(token);
+	// print_tokens(token);
 	return (token);
 }
