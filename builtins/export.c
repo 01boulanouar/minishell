@@ -32,6 +32,7 @@ static void	ft_update_env(char *key, char *value, int append)
 {
 	t_env	**env;
 	t_env	*node;
+	char	*tmp;
 
 	env = get_env_head();
 	node = *env;
@@ -39,10 +40,12 @@ static void	ft_update_env(char *key, char *value, int append)
 	{
 		if (node->key && !ft_strcmp(node->key, key))
 		{
+			tmp = node->value;
 			if (append)
 				node->value = ft_strjoin_env(node->value, value);
 			else
 				node->value = value;
+			free(tmp);
 		}
 		node = node->next;
 	}
@@ -58,7 +61,7 @@ static void	handle_export_argument(char **pair)
 	operation = pair[1];
 	value = pair[2];
 	if (!key || !ft_strcmp(key, "_") || !ft_strlen(operation))
-		return ;
+		return (free(key), free(operation), free(value));
 	else if (key && ft_isin_env(key))
 	{
 		if (!ft_strcmp(operation, "="))
@@ -68,6 +71,7 @@ static void	handle_export_argument(char **pair)
 	}
 	else
 		ft_lstadd_back_env(ft_lstnew_env(key, value));
+	return (free(key), free(operation));
 }
 
 static int	print_export(void)
@@ -100,6 +104,7 @@ int	export_builtin(t_command command)
 		pair = get_key_value(arg);
 		if (!is_valid_env_key(pair[0]))
 		{
+			(free(pair[0]), free(pair[1]), free(pair[2]));
 			printf("export: `%s': not a valid identifier\n", arg);
 			ret = EXIT_FAILURE;
 		}

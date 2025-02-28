@@ -88,6 +88,26 @@ t_token	*tokenize(char *line)
 	return (token);
 }
 
+void	join_token(t_token **token)
+{
+	t_token	*current;
+	t_token	*next_token;
+
+	current = *token;
+	while (current && current->next)
+	{
+		next_token = current->next;
+		if (next_token && current->before_space == 0 && !is_operator(current)
+			&& !is_operator(next_token))
+		{
+			current->value = ft_strjoin(current->value, next_token->value, 0);
+			current->next = next_token->next;
+		}
+		else
+			current = current->next;
+	}
+}
+
 t_token	*lexer(void)
 {
 	t_token	*token;
@@ -102,9 +122,17 @@ t_token	*lexer(void)
 	while (1)
 	{
 		if (inside_pipe)
-			line = readline("> ");
+		{
+			tmp = readline("> ");
+			line = ft_strdup(tmp);
+			free(tmp);
+		}
 		else
-			line = readline("minishell> ");
+		{
+			tmp = readline("minishell> ");
+			line = ft_strdup(tmp);
+			free(tmp);
+		}
 		trim_line = ft_strjoin(trim_line, line, 1);
 		if (!trim_line)
 			return (token);
@@ -121,6 +149,7 @@ t_token	*lexer(void)
 	}
 	add_history(trim_line);
 	token = tokenize(trim_line);
-	// print_tokens(token);
+	join_token(&token);
+	print_tokens(token);
 	return (token);
 }

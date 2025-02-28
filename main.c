@@ -17,6 +17,7 @@ int	main(int argc, char **argv, char **env)
 	t_token		*tokens;
 	t_command	*commands;
 
+	(void)env;
 	(void)argv;
 	if (argc != 1)
 		exit(EXIT_FAILURE);

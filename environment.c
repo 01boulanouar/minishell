@@ -24,7 +24,7 @@ char	**get_key_value(char *argument)
 	char	**pair;
 	char	*start;
 
-	pair = ft_malloc(sizeof(char *) * 4);
+	pair = ft_malloc(sizeof(char *) * 3);
 	start = argument;
 	while (*argument)
 	{
@@ -44,7 +44,6 @@ char	**get_key_value(char *argument)
 	while (*argument)
 		argument++;
 	pair[2] = ft_copy_env(start, argument);
-	pair[3] = NULL;
 	return (pair);
 }
 
@@ -76,6 +75,7 @@ void	init_env(char **line)
 		start = line[i];
 		pair = get_key_value(line[i]);
 		ft_lstadd_back_env(ft_lstnew_env(pair[0], pair[2]));
+		free(pair[1]);
 		i++;
 	}
 }
