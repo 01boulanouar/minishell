@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 15:53:33 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/26 14:34:28 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/26 15:54:45 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,27 @@
 char	*print_token_type(t_token_type type)
 {
 	if (type == t_pipe)
-		return ("PIPE");
+		return ("|");
 	else if (type == t_single_dollar)
-		return ("DOLLAR");
+		return ("$");
 	else if (type == t_dollar_num)
 		return ("DOLLAR NUM");
 	else if (type == t_dollar_expand)
 		return ("DOLLAR EXPAND");
 	else if (type == t_exit_status)
-		return ("EXIT STATUS");
+		return ("$?");
 	else if (type == t_less)
-		return ("LESS");
+		return ("<");
 	else if (type == t_greater)
-		return ("GREATER");
+		return (">");
 	else if (type == t_double_less)
-		return ("DOUBLE LESS");
+		return ("<<");
 	else if (type == t_double_greater)
-		return ("DOUBLE GREATER");
+		return (">>");
 	else if (type == t_single_quote)
-		return ("SINGLE_QUOTES");
+		return ("\'");
 	else if (type == t_double_quote)
-		return ("DOUBLE_QUOTES");
+		return ("\"");
 	else if (type == t_word)
 		return ("WORD");
 	else
@@ -78,8 +78,9 @@ void	print_commands(t_command *commands, int num_commands)
 			printf("          --in_files--\n");
 		while (commands[i].in_files[k])
 		{
-			// printf("          file [%d] : %s \t %s\n", k,
-			// 	commands[i].in_files[k]->file, commands[i].in_files[k]->type);
+			printf("          file [%d] : %s \t %s\n", k,
+				commands[i].in_files[k]->file,
+				print_token_type(commands[i].in_files[k]->type));
 			k++;
 		}
 		if (commands[i].out_files[0])
@@ -87,8 +88,9 @@ void	print_commands(t_command *commands, int num_commands)
 		k = 0;
 		while (commands[i].out_files[k])
 		{
-			// printf("          file [%d] : %s \t %s\n", k,
-			// 	commands[i].out_files[k]->file, commands[i].out_files[k]->type);
+			printf("          file [%d] : %s \t %s\n", k,
+				commands[i].out_files[k]->file,
+				print_token_type(commands[i].out_files[k]->type));
 			k++;
 		}
 		i++;
