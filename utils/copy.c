@@ -46,12 +46,12 @@ char	*ft_trim(char *line)
 	if (!line)
 		return (NULL);
 	start = line;
-	end = line + ft_strlen(line);
+	end = line + ft_strlen(line) - 1;
 	while (*start && ft_isin(*start, BLANKS))
 		start++;
-	while (end >= start && ft_isin(*end, BLANKS))
+	while (end > start && ft_isin(*end, BLANKS))
 		end--;
-	return (ft_copy(start, end));
+	return (ft_copy(start, end + 1));
 }
 
 char	*ft_copy_env(const char *start, const char *end)

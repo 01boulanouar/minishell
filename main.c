@@ -14,7 +14,6 @@
 
 int	main(int argc, char **argv, char **env)
 {
-	char		*line;
 	t_token		*tokens;
 	t_command	*commands;
 
@@ -24,15 +23,10 @@ int	main(int argc, char **argv, char **env)
 	init_env(env);
 	while (1)
 	{
-		line = readline("minishell> ");
-		if (!line)
-			return (EXIT_SUCCESS);
-		add_history(line);
-		tokens = lexer(line);
-		free(line);
+		tokens = lexer();
 		commands = parser(tokens);
 		exec(commands);
-		// print_commands(commands, num);
+		print_commands(commands, get_number_of_commands(tokens));
 		ft_free();
 	}
 	ft_lstfree_env();

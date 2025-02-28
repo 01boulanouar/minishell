@@ -90,33 +90,37 @@ t_token	*tokenize(char *line)
 	}
 	return (token);
 }
-
-t_token	*lexer(char *line)
+t_token    *lexer()
 {
-	t_token	*token;
-	char	*trim_line;
-	char	*tmp;
-
-	token = NULL;
-	if (!is_valid_quotes(line))
-	{
-		ft_putendl_fd(SYNTAX_ERROR_STR, STDERR_FILENO);
-		exit(EXIT_SYNTAX_ERROR);
-	}
-	trim_line = ft_trim(line);
-	if (!trim_line)
-		return (token);
-	while (ft_strlen(trim_line) && trim_line[ft_strlen(trim_line) - 1] == '|')
-	{
-		tmp = readline("pipe> ");
-		trim_line = ft_trim((ft_strjoin(trim_line, tmp)));
-	}
-	token = tokenize(trim_line);
-	if (operator_error(token))
-	{
-		ft_putendl_fd(SYNTAX_ERROR_STR, STDERR_FILENO);
-		exit(EXIT_SYNTAX_ERROR);
-	}
-	print_tokens(token);
-	return (token);
+    t_token    *token;
+    char    *trim_line;
+    char *line; 
+    int inside_pipe;
+    
+    
+    token = NULL;
+    trim_line = NULL;
+    inside_pipe = 0;
+    while (1)
+    {
+        if(inside_pipe)
+            line = readline("> ");
+        else
+            line = readline("minishell> ");
+        trim_line = ft_strjoin_space(trim_line, line);
+        if (!trim_line)
+            return (token);
+        if (!is_valid_quotes(line) || (line && ft_trim(line)[0]=='|'))
+        {
+            ft_putendl_fd(SYNTAX_ERROR_STR, STDERR_FILENO);
+            exit(EXIT_SYNTAX_ERROR);
+        }
+        char *tmp = ft_trim(trim_line);
+        if((ft_strlen(tmp) && tmp[ft_strlen(tmp) - 1] != '|'  )|| !ft_strlen(line))
+            break ;
+        inside_pipe = 1; 
+    }
+    add_history(trim_line);
+    token = tokenize(trim_line);
+    return (token);
 }

@@ -110,6 +110,7 @@ char				*ft_copy_env(const char *start, const char *end);
 char				*ft_trim(char *line);
 char				*ft_strdup(const char *s1);
 char				*ft_strjoin(char const *s1, char const *s2);
+char				*ft_strjoin_space(char const *s1, char const *s2);
 
 void				ft_putchar_fd(char c, int fd);
 void				ft_putstr_fd(const char *s, int fd);
@@ -140,7 +141,7 @@ int					get_number_of_arguments(t_command command);
 t_token_type		get_token_type(const char *value);
 
 int					is_valid_quotes(const char *line);
-t_token				*lexer(char *line);
+t_token				*lexer();
 size_t				get_next_token_len(const char *line);
 void				expand_token(t_token **token, char *name, int after_space);
 char				*expand_double_quotes(char *line);

@@ -65,13 +65,13 @@ void	print_commands(t_command *commands, int num_commands)
 	{
 		printf("Command %d: ", i + 1);
 		j = 0;
-		printf("[  ");
+		printf("[  --");
 		while (commands[i].tokens[j])
 		{
-			printf(" %s", commands[i].tokens[j]->value);
+			printf("%s ", commands[i].tokens[j]->value);
 			j++;
 		}
-		printf("   ]");
+		printf("--   ]");
 		printf("\n");
 		k = 0;
 		if (commands[i].in_files[0])
