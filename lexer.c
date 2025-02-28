@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/28 15:13:18 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/28 17:11:26 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,9 @@ t_token	*tokenize(char *line)
 	t_token			*token;
 	t_token_type	type;
 	char			*value;
-	int				after_space;
 
 	token = NULL;
-	after_space = 0;
+	line += ft_strspn(line, BLANKS);
 	while (*line)
 	{
 		start = line;
@@ -80,11 +79,10 @@ t_token	*tokenize(char *line)
 		if (type == t_double_quote)
 			value = expand_double_quotes(value);
 		if (type == t_dollar_expand || type == t_dollar_num)
-			expand_token(&token, value, after_space);
+			expand_token(&token, value, ft_isin(*line, BLANKS));
 		if (type != t_dollar_expand && type != t_dollar_num)
 			ft_lstadd_back_token(&token, ft_lstnew_token(value, type,
-					after_space, 0));
-		after_space = ft_isin(*line, BLANKS);
+					ft_isin(*line, BLANKS), 0));
 		line += ft_strspn(line, BLANKS);
 	}
 	return (token);
@@ -123,5 +121,6 @@ t_token	*lexer(void)
 	}
 	add_history(trim_line);
 	token = tokenize(trim_line);
+	// print_tokens(token);
 	return (token);
 }

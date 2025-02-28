@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/28 15:02:03 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/28 17:06:54 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define GREATER '>'
 # define DOLLAR '$'
 # define EQUAL '='
+# define PLUS '+'
 # define UNDERSCORE '_'
 
 # define DOUBLE_GREATER ">>"
@@ -66,7 +67,7 @@ typedef struct s_token
 {
 	char			*value;
 	t_token_type	type;
-	int				after_space;
+	int				before_space;
 	int				expanded;
 	struct s_token	*next;
 }					t_token;
@@ -111,6 +112,7 @@ char				*ft_copy_env(const char *start, const char *end);
 char				*ft_trim(char *line);
 char				*ft_strdup(const char *s1);
 char				*ft_strjoin(char const *s1, char const *s2);
+char				*ft_strjoin_env(char const *s1, char const *s2);
 char				*ft_strjoin_space(char const *s1, char const *s2);
 
 void				ft_putchar_fd(char c, int fd);
@@ -122,7 +124,7 @@ int					ft_isalpha(int c);
 int					ft_isalnum(int c);
 
 t_token				*ft_lstnew_token(char *value, t_token_type type,
-						int after_space, int expanded);
+						int before_space, int expanded);
 t_env				*ft_lstnew_env(char *key, char *value);
 void				ft_lstadd_back_token(t_token **lst, t_token *new);
 void				ft_lstadd_back_env(t_env *new);
@@ -149,7 +151,7 @@ t_token_type		get_token_type(const char *value);
 int					is_valid_quotes(const char *line);
 t_token				*lexer(void);
 size_t				get_next_token_len(const char *line);
-void				expand_token(t_token **token, char *name, int after_space);
+void				expand_token(t_token **token, char *name, int before_space);
 char				*expand_double_quotes(char *line);
 
 void				handle_redirection(t_command *cmd, t_token *token,

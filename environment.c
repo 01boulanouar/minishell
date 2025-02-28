@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 18:04:28 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/28 15:13:11 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/28 16:36:11 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,42 @@ char	**get_key_value(char *argument)
 	char	**pair;
 	char	*start;
 
-	pair = ft_malloc(sizeof(char *) * 3);
+	pair = ft_malloc(sizeof(char *) * 4);
 	start = argument;
-	while (*argument && *argument != EQUAL)
+	while (*argument)
+	{
+		if (*argument == EQUAL || (*argument == PLUS && (*(argument + 1)
+					&& *(argument + 1) == EQUAL)))
+			break ;
 		argument++;
+	}
 	pair[0] = ft_copy_env(start, argument);
+	start = argument;
+	if (*argument == PLUS && (*(argument + 1) && *(argument + 1) == EQUAL))
+		argument++;
 	if (*argument == EQUAL)
 		argument++;
+	pair[1] = ft_copy_env(start, argument);
 	start = argument;
 	while (*argument)
 		argument++;
-	pair[1] = ft_copy_env(start, argument);
-	pair[2] = NULL;
+	pair[2] = ft_copy_env(start, argument);
+	pair[3] = NULL;
 	return (pair);
+}
+
+int	is_valid_env_key(char *key)
+{
+	size_t	i;
+
+	i = 0;
+	if (key[0] == SINGLE_QUOTE)
+		return (0);
+	if (!ft_isalpha(key[0]) && key[0] != UNDERSCORE)
+		return (0);
+	while (ft_isalnum(key[i]) || key[i] == UNDERSCORE)
+		i++;
+	return (ft_strlen(key) == i);
 }
 
 void	init_env(char **line)
@@ -52,7 +75,7 @@ void	init_env(char **line)
 	{
 		start = line[i];
 		pair = get_key_value(line[i]);
-		ft_lstadd_back_env(ft_lstnew_env(pair[0], pair[1]));
+		ft_lstadd_back_env(ft_lstnew_env(pair[0], pair[2]));
 		i++;
 	}
 }
