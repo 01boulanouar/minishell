@@ -71,7 +71,7 @@ char	*ft_strjoin_space(char const *s1, char const *s2)
 		return (NULL);
 	while (*s1)
 		str[i++] = *(s1++);
-	str[i++]=' ';
+	str[i++] = ' ';
 	while (*s2)
 		str[i++] = *(s2++);
 	str[i] = '\0';

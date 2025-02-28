@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/09 16:24:08 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/28 14:40:38 by moboulan         ###   ########.fr       */
+/*   Created: 2025/02/28 14:27:34 by moboulan          #+#    #+#             */
+/*   Updated: 2025/02/28 15:12:11 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-int	main(int argc, char **argv, char **env)
+int	ft_isalpha(int c)
 {
-	t_token		*tokens;
-	t_command	*commands;
+	return (('A' <= c && c <= 'Z') || ('a' <= c && c <= 'z'));
+}
 
-	(void)argv;
-	if (argc != 1)
-		exit(EXIT_FAILURE);
-	init_env(env);
-	while (1)
-	{
-		tokens = lexer();
-		commands = parser(tokens);
-		exec(commands);
-		// print_commands(commands, get_number_of_commands(tokens));
-		ft_free();
-	}
-	ft_lstfree_env();
-	return (EXIT_SUCCESS);
+int	ft_isdigit(int c)
+{
+	return ('0' <= c && c <= '9');
+}
+
+int	ft_isalnum(int c)
+{
+	return (ft_isalpha(c) || ft_isdigit(c));
+}
+
+void	ft_putchar_fd(char c, int fd)
+{
+	write(fd, &c, 1);
 }

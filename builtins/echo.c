@@ -21,7 +21,7 @@ static int	is_n(char *str)
 		return (0);
 	if (str[0] == '-')
 		str++;
-	while(str[i] == 'n')
+	while (str[i] == 'n')
 		i++;
 	return (ft_strlen(str) == i);
 }
@@ -33,7 +33,8 @@ int	echo_builtin(t_command command)
 
 	n_flag = 0;
 	i = 1;
-	while (command.tokens[i] && command.tokens[i]->value && is_n(command.tokens[i]->value))
+	while (command.tokens[i] && command.tokens[i]->value
+		&& is_n(command.tokens[i]->value))
 	{
 		n_flag++;
 		i++;

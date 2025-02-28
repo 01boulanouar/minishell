@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 18:04:28 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/26 13:23:45 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/28 15:13:11 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,29 +19,40 @@ t_env	**get_env_head(void)
 	return (&env);
 }
 
+char	**get_key_value(char *argument)
+{
+	char	**pair;
+	char	*start;
+
+	pair = ft_malloc(sizeof(char *) * 3);
+	start = argument;
+	while (*argument && *argument != EQUAL)
+		argument++;
+	pair[0] = ft_copy_env(start, argument);
+	if (*argument == EQUAL)
+		argument++;
+	start = argument;
+	while (*argument)
+		argument++;
+	pair[1] = ft_copy_env(start, argument);
+	pair[2] = NULL;
+	return (pair);
+}
+
 void	init_env(char **line)
 {
 	t_env	**env;
 	int		i;
 	char	*start;
-	char	*key;
-	char	*value;
+	char	**pair;
 
 	i = 0;
 	env = get_env_head();
 	while (line[i])
 	{
 		start = line[i];
-		while (*line[i] && *line[i] != EQUAL)
-			line[i]++;
-		key = ft_copy_env(start, line[i]);
-		if (*line[i] == EQUAL)
-			line[i]++;
-		start = line[i];
-		while (*line[i])
-			line[i]++;
-		value = ft_copy_env(start, line[i]);
-		ft_lstadd_back_env(ft_lstnew_env(key, value));
+		pair = get_key_value(line[i]);
+		ft_lstadd_back_env(ft_lstnew_env(pair[0], pair[1]));
 		i++;
 	}
 }

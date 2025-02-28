@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/26 14:34:04 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/28 15:02:03 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define GREATER '>'
 # define DOLLAR '$'
 # define EQUAL '='
+# define UNDERSCORE '_'
 
 # define DOUBLE_GREATER ">>"
 # define DOUBLE_LESS "<<"
@@ -115,7 +116,10 @@ char				*ft_strjoin_space(char const *s1, char const *s2);
 void				ft_putchar_fd(char c, int fd);
 void				ft_putstr_fd(const char *s, int fd);
 void				ft_putendl_fd(char *s, int fd);
+
 int					ft_isdigit(int c);
+int					ft_isalpha(int c);
+int					ft_isalnum(int c);
 
 t_token				*ft_lstnew_token(char *value, t_token_type type,
 						int after_space, int expanded);
@@ -126,11 +130,13 @@ void				ft_lstremove_env(char *key);
 void				ft_lstfree_env(void);
 
 void				init_env(char **line);
+char				**get_key_value(char *argument);
 t_env				**get_env_head(void);
 char				*ft_getenv(char *name);
 
 int					is_redirection(t_token *token);
 int					is_operator(t_token *token);
+int					is_valid_env_key(char *key);
 
 int					get_number_of_tokens(t_token *token);
 int					get_number_of_infiles(t_token *token);
@@ -141,7 +147,7 @@ int					get_number_of_arguments(t_command command);
 t_token_type		get_token_type(const char *value);
 
 int					is_valid_quotes(const char *line);
-t_token				*lexer();
+t_token				*lexer(void);
 size_t				get_next_token_len(const char *line);
 void				expand_token(t_token **token, char *name, int after_space);
 char				*expand_double_quotes(char *line);
@@ -159,7 +165,7 @@ int					cd_builtin(void);
 int					echo_builtin(t_command command);
 int					pwd_builtin(void);
 int					env_builtin(t_command command);
-int					export_builtin(void);
+int					export_builtin(t_command command);
 int					exit_builtin(void);
 int					unset_builtin(t_command command);
 int					is_builtin(t_command command);

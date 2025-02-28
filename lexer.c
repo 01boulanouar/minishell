@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/26 15:16:33 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/28 15:13:18 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,37 +89,39 @@ t_token	*tokenize(char *line)
 	}
 	return (token);
 }
-t_token    *lexer()
+
+t_token	*lexer(void)
 {
-    t_token    *token;
-    char    *trim_line;
-    char *line; 
-    int inside_pipe;
-    
-    
-    token = NULL;
-    trim_line = NULL;
-    inside_pipe = 0;
-    while (1)
-    {
-        if(inside_pipe)
-            line = readline("> ");
-        else
-            line = readline("minishell> ");
-        trim_line = ft_strjoin_space(trim_line, line);
-        if (!trim_line)
-            return (token);
-        if (!is_valid_quotes(line) || (line && ft_trim(line)[0]=='|'))
-        {
-            ft_putendl_fd(SYNTAX_ERROR_STR, STDERR_FILENO);
-            exit(EXIT_SYNTAX_ERROR);
-        }
-        char *tmp = ft_trim(trim_line);
-        if((ft_strlen(tmp) && tmp[ft_strlen(tmp) - 1] != '|'  )|| !ft_strlen(line))
-            break ;
-        inside_pipe = 1; 
-    }
-    add_history(trim_line);
-    token = tokenize(trim_line);
-    return (token);
+	t_token	*token;
+	char	*trim_line;
+	char	*line;
+	int		inside_pipe;
+	char	*tmp;
+
+	token = NULL;
+	trim_line = NULL;
+	inside_pipe = 0;
+	while (1)
+	{
+		if (inside_pipe)
+			line = readline("> ");
+		else
+			line = readline("minishell> ");
+		trim_line = ft_strjoin_space(trim_line, line);
+		if (!trim_line)
+			return (token);
+		if (!is_valid_quotes(line) || (line && ft_trim(line)[0] == '|'))
+		{
+			ft_putendl_fd(SYNTAX_ERROR_STR, STDERR_FILENO);
+			exit(EXIT_SYNTAX_ERROR);
+		}
+		tmp = ft_trim(trim_line);
+		if ((ft_strlen(tmp) && tmp[ft_strlen(tmp) - 1] != '|')
+			|| !ft_strlen(line))
+			break ;
+		inside_pipe = 1;
+	}
+	add_history(trim_line);
+	token = tokenize(trim_line);
+	return (token);
 }
