@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/28 17:11:26 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/28 17:15:42 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ t_token	*lexer(void)
 			line = readline("> ");
 		else
 			line = readline("minishell> ");
-		trim_line = ft_strjoin_space(trim_line, line);
+		trim_line = ft_strjoin(trim_line, line, 1);
 		if (!trim_line)
 			return (token);
 		if (!is_valid_quotes(line) || (line && ft_trim(line)[0] == '|'))

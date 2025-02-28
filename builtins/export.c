@@ -6,13 +6,13 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:18:09 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/28 16:56:59 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/02/28 17:47:15 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_isin_env(char *key)
+static int	ft_isin_env(char *key)
 {
 	t_env	**env;
 	t_env	*node;
@@ -28,7 +28,7 @@ int	ft_isin_env(char *key)
 	return (0);
 }
 
-void	ft_update_env(char *key, char *value, int append)
+static void	ft_update_env(char *key, char *value, int append)
 {
 	t_env	**env;
 	t_env	*node;
@@ -48,46 +48,68 @@ void	ft_update_env(char *key, char *value, int append)
 	}
 }
 
+static void	handle_export_argument(char **pair)
+{
+	char	*key;
+	char	*operation;
+	char	*value;
+
+	key = pair[0];
+	operation = pair[1];
+	value = pair[2];
+	if (!key || !ft_strcmp(key, "_") || !ft_strlen(operation))
+		return ;
+	else if (key && ft_isin_env(key))
+	{
+		if (!ft_strcmp(operation, "="))
+			ft_update_env(key, value, 0);
+		else if (!ft_strcmp(operation, "+="))
+			ft_update_env(key, value, 1);
+	}
+	else
+		ft_lstadd_back_env(ft_lstnew_env(key, value));
+}
+
+static int	print_export(void)
+{
+	t_env	*env;
+
+	env = sort_env();
+	while (env)
+	{
+		printf("declare -x %s=\"%s\"\n", env->key, env->value);
+		env = env->next;
+	}
+	return (EXIT_SUCCESS);
+}
+
 int	export_builtin(t_command command)
 {
-	t_env	**env;
-	char	*arg;
 	char	**pair;
+	char	*arg;
 	int		ret;
 	int		i;
 
 	ret = EXIT_SUCCESS;
-	env = get_env_head();
 	i = 1;
+	if (!get_number_of_arguments(command))
+		return (print_export());
 	while (command.tokens[i] && command.tokens[i]->value)
 	{
 		arg = command.tokens[i]->value;
 		pair = get_key_value(arg);
-		printf("[%s] [%s] [%s]\n", pair[0], pair[1], pair[2]);
 		if (!is_valid_env_key(pair[0]))
 		{
 			printf("export: `%s': not a valid identifier\n", arg);
 			ret = EXIT_FAILURE;
 		}
-		else if (pair[0] && !ft_strlen(pair[1]))
-		{
-			i++;
-			continue ;
-		}
-		if (ft_isin_env(pair[0]))
-		{
-			if (!ft_strcmp(pair[1], "="))
-				ft_update_env(pair[0], pair[2], 0);
-			else if (!ft_strcmp(pair[1], "+="))
-				ft_update_env(pair[0], pair[2], 1);
-		}
 		else
-			ft_lstadd_back_env(ft_lstnew_env(pair[0], pair[2]));
+			handle_export_argument(pair);
 		i++;
 	}
 	return (ret);
 }
 
-// do export '_' does nothing
-// do export show sorted list
+// overhall printing
+// change with put endl
 // make lexer join stuff
