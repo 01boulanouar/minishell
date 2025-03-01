@@ -40,7 +40,9 @@ int	operator_error(t_token *token)
 		if (token->type == t_pipe && begining_pipe)
 			return (1);
 		if (is_operator(token) && (!token->next || is_operator(token->next)))
-			return (1);
+			if (!(token->type == t_pipe && token->next
+					&& is_redirection(token->next)))
+				return (1);
 		token = token->next;
 		begining_pipe = 0;
 	}
