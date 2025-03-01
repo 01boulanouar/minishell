@@ -25,7 +25,6 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		tokens = lexer();
-		print_tokens(tokens);
 		commands = parser(tokens);
 		exec(commands);
 		// print_commands(commands, get_number_of_commands(tokens));
