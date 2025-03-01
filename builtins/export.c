@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 13:38:53 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/01 15:00:18 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/01 23:33:33 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	ft_isin_env(char *key)
 	return (0);
 }
 
-static void	ft_update_env(char *key, char *value, int append)
+void	ft_update_env(char *key, char *value, int append)
 {
 	t_env	**env;
 	t_env	*node;
@@ -112,6 +112,5 @@ int	export_builtin(t_command command)
 
 // overhall printing
 // change with put endl
-// update path in cd
+// handle errors
 // handle <<- as tab skip
-// handle edge case of env -i

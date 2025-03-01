@@ -3,16 +3,55 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:18:02 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/26 10:36:15 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/01 23:56:07 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	cd_builtin(void)
+int ft_chdir(char *path)
 {
-	return (EXIT_FAILURE);
+	char pwd[PATH_MAX];
+	struct stat stat_path;
+
+	if (stat(path, &stat_path) == -1)
+	{
+		printf("cd: %s: No such file or directory\n", path);
+		return (EXIT_FAILURE);
+	}
+	if (!S_ISDIR(stat_path.st_mode))
+	{
+		printf("cd: %s: Not a directory\n", path);
+		return (EXIT_FAILURE);
+	}
+	if (chdir(path) == -1)
+	{
+		perror("cd");
+		return (EXIT_FAILURE);
+	}
+	if (getcwd(pwd, PATH_MAX))
+	{
+		ft_update_env("OLDPWD", ft_getenv("PWD"), 0);
+		ft_update_env("PWD", pwd, 0);
+	}
+	return (EXIT_SUCCESS);
+}
+
+int	cd_builtin(t_command command)
+{
+	char 	*home;
+	int		ret;
+	
+	ret = EXIT_SUCCESS;
+	if (!get_number_of_arguments(command) || (command.tokens[1] && !ft_strcmp(command.tokens[1]->value, "--")))
+	{
+		home = ft_getenv("HOME");
+		ret = ft_chdir(home);
+	}
+	else if(command.tokens[1] && command.tokens[1]->value)
+		ret = ft_chdir(command.tokens[1]->value);
+	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/01 22:37:11 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/01 23:49:33 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+#include <sys/stat.h>
 
 // Tokens
 # define PIPE '|'
@@ -125,6 +126,8 @@ int					ft_isalpha(int c);
 int					ft_isalnum(int c);
 int					ft_isvalid(int c);
 
+
+void				ft_update_env(char *key, char *value, int append);
 t_token				*ft_lstnew_token(char *value, t_token_type type,
 						int before_space, int expanded);
 t_env				*ft_lstnew_env(char *key, char *operator, char * value);
@@ -168,7 +171,7 @@ int					operator_error(t_token *token);
 void				*ft_malloc(size_t size);
 void				ft_free(void);
 
-int					cd_builtin(void);
+int					cd_builtin(t_command command);
 int					echo_builtin(t_command command);
 int					pwd_builtin(void);
 int					env_builtin(t_command command);

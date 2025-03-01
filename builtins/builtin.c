@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:29:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/28 14:56:39 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/01 23:10:22 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	exec_builtin(t_command command)
 		return (EXIT_FAILURE);
 	value = command.tokens[0]->value;
 	if (!ft_strcmp(value, "cd"))
-		return (cd_builtin());
+		return (cd_builtin(command));
 	if (!ft_strcmp(value, "echo"))
 		return (echo_builtin(command));
 	else if (!ft_strcmp(value, "env"))

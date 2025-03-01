@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 18:04:28 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/01 22:48:29 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/01 23:00:37 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,10 @@ void	init_env(char **line)
 	{
 		node = ft_lstnew_env_from_str("OLDPWD");
 		ft_lstadd_back_env(node);
-		node = ft_lstnew_env_from_str("PATH=mnbe3d");
+		node = ft_lstnew_env_from_str("PATH=/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:.");
 		ft_lstadd_back_env(node);
-		node = ft_lstnew_env_from_str(ft_strjoin("PWD=", getcwd(cwd, PATH_MAX), 0));
+		node = ft_lstnew_env_from_str(ft_strjoin("PWD=", getcwd(cwd, PATH_MAX),
+					0));
 		ft_lstadd_back_env(node);
 		node = ft_lstnew_env_from_str("SHLVL=1");
 		ft_lstadd_back_env(node);
