@@ -71,7 +71,12 @@ static int	print_export(void)
 	while (env)
 	{
 		if (ft_strcmp(env->key, "_"))
-			printf("declare -x %s=\"%s\"\n", env->key, env->value);
+		{
+			printf("declare -x %s", env->key);
+			if (ft_strcmp(env->value, ""))
+				printf("=\"%s\"", env->value);
+			printf("\n");
+		}
 		env = env->next;
 	}
 	ft_lstfree_copy_env(&env);
@@ -107,4 +112,6 @@ int	export_builtin(t_command command)
 
 // overhall printing
 // change with put endl
-//update path in cd
+// update path in cd
+// handle <<- as tab skip
+// handle edge case of env -i

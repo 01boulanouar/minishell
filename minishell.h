@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/01 14:56:06 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/01 22:37:11 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,9 @@ char				*ft_copy(const char *start, const char *end);
 char				*ft_trim(char *line);
 char				*ft_strdup(const char *s1);
 char				*ft_strjoin(char const *s1, char const *s2, int space);
+
+int					ft_atoi(const char *nbr);
+char				*ft_itoa(int n);
 
 void				ft_putchar_fd(char c, int fd);
 void				ft_putstr_fd(const char *s, int fd);
