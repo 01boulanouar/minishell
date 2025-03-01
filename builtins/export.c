@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 13:38:53 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/01 14:07:24 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/01 14:41:42 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ int	export_builtin(t_command command)
 		{
 			printf("export: `%s': not a valid identifier\n", arg);
 			ret = EXIT_FAILURE;
+			(free(node->key), free(node->operator), free(node->value), free(node));
 		}
 		else
 			handle_export_argument(node);
@@ -109,6 +110,5 @@ int	export_builtin(t_command command)
 // sort the export list
 // overhall printing
 // change with put endl
-// fix valide parsing name
-// fix broken export
-// free export list at exit
+// do not show _ in declare
+//update path in cd

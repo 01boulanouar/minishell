@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/01 13:39:16 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/01 14:24:32 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,7 @@ int					get_number_of_commands(t_token *token);
 int					get_number_of_arguments(t_command command);
 
 t_token_type		get_token_type(const char *value);
+size_t				get_next_token_len(const char *line);
 
 int					is_valid_quotes(const char *line);
 t_token				*lexer(void);
