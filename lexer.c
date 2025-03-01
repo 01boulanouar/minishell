@@ -150,6 +150,6 @@ t_token	*lexer(void)
 	add_history(trim_line);
 	token = tokenize(trim_line);
 	join_token(&token);
-	print_tokens(token);
+	// print_tokens(token);
 	return (token);
 }

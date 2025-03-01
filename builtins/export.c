@@ -70,7 +70,10 @@ static void	handle_export_argument(char **pair)
 			ft_update_env(key, value, 1);
 	}
 	else
+	{
 		ft_lstadd_back_env(ft_lstnew_env(key, value));
+		return (free(key), free(operation), free(value));
+	}
 	return (free(key), free(operation));
 }
 
