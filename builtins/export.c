@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 13:38:53 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/01 13:42:45 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/01 14:07:24 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,12 @@ static void	handle_export_argument(t_env *node)
 	else if (node->key && ft_isin_env(node->key))
 	{
 		if (!ft_strcmp(node->operator, "="))
-			ft_update_env(node->key, node->value, 0);
+		ft_update_env(node->key, node->value, 0);
 		else if (!ft_strcmp(node->operator, "+="))
-			ft_update_env(node->key, node->value, 1);
+		ft_update_env(node->key, node->value, 1);
 	}
 	else
-		ft_lstadd_back_env(ft_lstnew_env(node->key, node->operator,
-				node->value));
+		ft_lstadd_back_env(node);
 }
 
 static int	print_export(void)
@@ -102,7 +101,6 @@ int	export_builtin(t_command command)
 		}
 		else
 			handle_export_argument(node);
-		(free(node->key), free(node->operator), free(node->value), free(node));
 		i++;
 	}
 	return (ret);
@@ -113,3 +111,4 @@ int	export_builtin(t_command command)
 // change with put endl
 // fix valide parsing name
 // fix broken export
+// free export list at exit
