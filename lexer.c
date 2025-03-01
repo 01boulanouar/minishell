@@ -48,11 +48,12 @@ void	join_token(t_token **token)
 	while (current && current->next)
 	{
 		next_token = current->next;
-		if (next_token && current->before_space == 0 && !is_operator(current)
+		if (next_token && !current->before_space && !is_operator(current)
 			&& !is_operator(next_token))
 		{
 			current->value = ft_strjoin(current->value, next_token->value, 0);
 			current->next = next_token->next;
+			current->before_space=next_token->before_space;
 		}
 		else
 			current = current->next;
