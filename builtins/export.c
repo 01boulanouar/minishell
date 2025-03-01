@@ -70,9 +70,11 @@ static int	print_export(void)
 	env = sort_env();
 	while (env)
 	{
-		printf("declare -x %s=\"%s\"\n", env->key, env->value);
+		if (ft_strcmp(env->key, "_"))
+			printf("declare -x %s=\"%s\"\n", env->key, env->value);
 		env = env->next;
 	}
+	ft_lstfree_copy_env(&env);
 	return (EXIT_SUCCESS);
 }
 
@@ -103,8 +105,6 @@ int	export_builtin(t_command command)
 	return (ret);
 }
 
-// sort the export list
 // overhall printing
 // change with put endl
-// do not show _ in declare
 //update path in cd

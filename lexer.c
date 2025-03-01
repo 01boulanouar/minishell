@@ -99,7 +99,8 @@ t_token	*lexer(void)
 			break ;
 		inside_pipe = 1;
 	}
-	add_history(trim_line);
+	if (trim_line && ft_strlen(trim_line))
+		add_history(trim_line);
 	token = tokenize(trim_line);
 	join_token(&token);
 	if (operator_error(token))

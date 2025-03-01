@@ -129,7 +129,7 @@ t_env				*ft_lstnew_env_from_str(char *str);
 void				ft_lstadd_back_token(t_token **lst, t_token *new);
 void				ft_lstadd_back_env(t_env *new);
 void				ft_lstremove_env(char *key);
-void				ft_lstfree_env(void);
+void				ft_lstfree_copy_env(t_env **env);
 
 char				*ft_strdup_env(const char *s1);
 void				init_env(char **line);
