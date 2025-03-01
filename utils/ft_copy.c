@@ -53,3 +53,43 @@ char	*ft_trim(char *line)
 		end--;
 	return (ft_copy(start, end + 1));
 }
+
+char	*ft_strdup(const char *s1)
+{
+	char	*s2;
+	char	*s2_start;
+	size_t	s1_len;
+
+	s1_len = ft_strlen(s1);
+	s2 = ft_malloc(s1_len + 1);
+	s2_start = s2;
+	while (*s1)
+		*(s2++) = *(s1++);
+	*s2 = '\0';
+	return (s2_start);
+}
+
+char	*ft_strjoin(char const *s1, char const *s2, int space)
+{
+	size_t	len;
+	size_t	i;
+	char	*str;
+
+	if (!s1 && !s2)
+		return (NULL);
+	if (s1 == NULL)
+		return ((char *)s2);
+	if (s2 == NULL)
+		return ((char *)s1);
+	len = ft_strlen(s1) + ft_strlen(s2);
+	i = 0;
+	str = (char *)ft_malloc(len + 2);
+	while (*s1)
+		str[i++] = *(s1++);
+	if (space)
+		str[i++] = ' ';
+	while (*s2)
+		str[i++] = *(s2++);
+	str[i] = '\0';
+	return (str);
+}

@@ -1,13 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export->c                                           :+:      :+:    :+:   */
+/*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student->42->fr>          +#+  +:+      
-	+#+        */
+/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/25 16:18:09 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/01 11:36:24 by moboulan         ###   ########->fr       */
+/*   Created: 2025/03/01 13:38:53 by moboulan          #+#    #+#             */
+/*   Updated: 2025/03/01 13:42:45 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +108,8 @@ int	export_builtin(t_command command)
 	return (ret);
 }
 
+// sort the export list
 // overhall printing
 // change with put endl
 // fix valide parsing name
+// fix broken export

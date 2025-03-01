@@ -14,13 +14,11 @@
 
 int	unset_builtin(t_command command)
 {
-	t_env	**env;
 	char	*arg;
 	int		ret;
 	int		i;
 
 	ret = EXIT_SUCCESS;
-	env = get_env_head();
 	i = 1;
 	while (command.tokens[i] && command.tokens[i]->value)
 	{

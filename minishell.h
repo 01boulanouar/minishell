@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/01 12:05:33 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/01 13:39:16 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ int					ft_isvalid(int c);
 
 t_token				*ft_lstnew_token(char *value, t_token_type type,
 						int before_space, int expanded);
-t_env				*ft_lstnew_env(char *key, char *operator, char * value);
+t_env				*ft_lstnew_env(char *key, char *operator, char *value);
 t_env				*ft_lstnew_env_from_str(char *str);
 void				ft_lstadd_back_token(t_token **lst, t_token *new);
 void				ft_lstadd_back_env(t_env *new);

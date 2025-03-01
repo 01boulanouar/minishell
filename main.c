@@ -30,6 +30,5 @@ int	main(int argc, char **argv, char **env)
 		// print_commands(commands, get_number_of_commands(tokens));
 		ft_free();
 	}
-	ft_lstfree_env();
 	return (EXIT_SUCCESS);
 }

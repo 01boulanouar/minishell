@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/01 11:44:14 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/01 13:40:38 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,7 @@ size_t	get_next_token_len(const char *line)
 				return (2);
 			i++;
 		}
-		while (line[i] && !ft_isin(line[i], SEPARATORS)) //
-			&& ft_isvalid(line[i]) need to be a valid expand value
+		while (line[i] && !ft_isin(line[i], SEPARATORS))
 			i++;
 	}
 	return (i);

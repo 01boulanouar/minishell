@@ -6,13 +6,13 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 13:14:43 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/01 11:53:20 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/01 13:37:32 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_env	*ft_lstnew_env(char *key, char *operator, char * value)
+t_env	*ft_lstnew_env(char *key, char *operator, char *value)
 {
 	t_env	*t;
 
@@ -21,7 +21,7 @@ t_env	*ft_lstnew_env(char *key, char *operator, char * value)
 		return (NULL);
 	t->key = key;
 	t->value = value;
-	t->operator= operator;
+	t->operator = operator;
 	t->next = NULL;
 	return (t);
 }
@@ -47,7 +47,7 @@ t_env	*ft_lstnew_env_from_str(char *str)
 		str++;
 	if (*str == EQUAL)
 		str++;
-	operator= ft_copy_env(start, str);
+	operator = ft_copy_env(start, str);
 	start = str;
 	while (*str)
 		str++;
