@@ -1,12 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export.c                                           :+:      :+:    :+:   */
+/*   export->c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moboulan <moboulan@student->42->fr>          +#+  +:+      
+	+#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:18:09 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/28 17:47:15 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/01 11:36:24 by moboulan         ###   ########->fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,34 +45,27 @@ static void	ft_update_env(char *key, char *value, int append)
 			if (append)
 				node->value = ft_strjoin_env(node->value, value);
 			else
-				node->value = value;
+				node->value = ft_strdup_env(value);
 			free(tmp);
 		}
 		node = node->next;
 	}
 }
 
-static void	handle_export_argument(char **pair)
+static void	handle_export_argument(t_env *node)
 {
-	char	*key;
-	char	*operation;
-	char	*value;
-
-	key = pair[0];
-	operation = pair[1];
-	value = pair[2];
-	if (!key || !ft_strcmp(key, "_") || !ft_strlen(operation))
-		return (free(key), free(operation), free(value));
-	else if (key && ft_isin_env(key))
+	if (!node->key || !ft_strcmp(node->key, "_") || !ft_strlen(node->operator))
+		return ;
+	else if (node->key && ft_isin_env(node->key))
 	{
-		if (!ft_strcmp(operation, "="))
-			ft_update_env(key, value, 0);
-		else if (!ft_strcmp(operation, "+="))
-			ft_update_env(key, value, 1);
+		if (!ft_strcmp(node->operator, "="))
+			ft_update_env(node->key, node->value, 0);
+		else if (!ft_strcmp(node->operator, "+="))
+			ft_update_env(node->key, node->value, 1);
 	}
 	else
-		ft_lstadd_back_env(ft_lstnew_env(key, value));
-	return (free(key), free(operation));
+		ft_lstadd_back_env(ft_lstnew_env(node->key, node->operator,
+				node->value));
 }
 
 static int	print_export(void)
@@ -89,7 +83,7 @@ static int	print_export(void)
 
 int	export_builtin(t_command command)
 {
-	char	**pair;
+	t_env	*node;
 	char	*arg;
 	int		ret;
 	int		i;
@@ -101,15 +95,15 @@ int	export_builtin(t_command command)
 	while (command.tokens[i] && command.tokens[i]->value)
 	{
 		arg = command.tokens[i]->value;
-		pair = get_key_value(arg);
-		if (!is_valid_env_key(pair[0]))
+		node = ft_lstnew_env_from_str(arg);
+		if (!is_valid_env_key(node->key))
 		{
-			(free(pair[0]), free(pair[1]), free(pair[2]));
 			printf("export: `%s': not a valid identifier\n", arg);
 			ret = EXIT_FAILURE;
 		}
 		else
-			handle_export_argument(pair);
+			handle_export_argument(node);
+		(free(node->key), free(node->operator), free(node->value), free(node));
 		i++;
 	}
 	return (ret);
@@ -117,4 +111,4 @@ int	export_builtin(t_command command)
 
 // overhall printing
 // change with put endl
-// make lexer join stuff
+// fix valide parsing name

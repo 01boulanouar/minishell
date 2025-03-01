@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   copy.c                                             :+:      :+:    :+:   */
+/*   ft_copy.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:54:54 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/26 13:20:01 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/01 11:45:44 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,22 +52,4 @@ char	*ft_trim(char *line)
 	while (end > start && ft_isin(*end, BLANKS))
 		end--;
 	return (ft_copy(start, end + 1));
-}
-
-char	*ft_copy_env(const char *start, const char *end)
-{
-	int		i;
-	char	*copy;
-
-	i = 0;
-	copy = malloc(end - start + 1);
-	if (!copy)
-		return (NULL);
-	while (i < end - start)
-	{
-		copy[i] = start[i];
-		i++;
-	}
-	copy[i] = '\0';
-	return (copy);
 }

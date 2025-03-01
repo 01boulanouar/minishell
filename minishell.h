@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/28 17:50:51 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/01 12:05:33 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ typedef struct s_command
 typedef struct s_env
 {
 	char			*key;
+	char			*operator;
 	char			*value;
 	struct s_env	*next;
 
@@ -121,17 +122,19 @@ void				ft_putendl_fd(char *s, int fd);
 int					ft_isdigit(int c);
 int					ft_isalpha(int c);
 int					ft_isalnum(int c);
+int					ft_isvalid(int c);
 
 t_token				*ft_lstnew_token(char *value, t_token_type type,
 						int before_space, int expanded);
-t_env				*ft_lstnew_env(char *key, char *value);
+t_env				*ft_lstnew_env(char *key, char *operator, char * value);
+t_env				*ft_lstnew_env_from_str(char *str);
 void				ft_lstadd_back_token(t_token **lst, t_token *new);
 void				ft_lstadd_back_env(t_env *new);
 void				ft_lstremove_env(char *key);
 void				ft_lstfree_env(void);
 
+char				*ft_strdup_env(const char *s1);
 void				init_env(char **line);
-char				**get_key_value(char *argument);
 t_env				**get_env_head(void);
 char				*ft_getenv(char *name);
 t_env				*sort_env(void);
