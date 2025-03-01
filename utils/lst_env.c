@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 13:14:43 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/01 13:37:32 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/01 14:59:21 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@ t_env	*ft_lstnew_env(char *key, char *operator, char *value)
 {
 	t_env	*t;
 
-	t = malloc(sizeof(t_env));
-	if (!t)
-		return (NULL);
+	t = ft_malloc(sizeof(t_env));
 	t->key = key;
 	t->value = value;
 	t->operator = operator;
@@ -41,17 +39,17 @@ t_env	*ft_lstnew_env_from_str(char *str)
 			break ;
 		str++;
 	}
-	key = ft_copy_env(start, str);
+	key = ft_copy(start, str);
 	start = str;
 	if (*str == PLUS && (*(str + 1) && *(str + 1) == EQUAL))
 		str++;
 	if (*str == EQUAL)
 		str++;
-	operator = ft_copy_env(start, str);
+	operator = ft_copy(start, str);
 	start = str;
 	while (*str)
 		str++;
-	value = ft_copy_env(start, str);
+	value = ft_copy(start, str);
 	return (ft_lstnew_env(key, operator, value));
 }
 
@@ -76,7 +74,6 @@ void	ft_lstadd_back_env(t_env *new)
 
 void	ft_lstremove_env(char *key)
 {
-	t_env	*tmp;
 	t_env	**env;
 
 	env = get_env_head();
@@ -85,33 +82,8 @@ void	ft_lstremove_env(char *key)
 	while (*env)
 	{
 		if (!ft_strcmp(key, (*env)->key))
-		{
-			tmp = *env;
 			*env = (*env)->next;
-			free(tmp->key);
-			free(tmp->operator);
-			free(tmp->value);
-			free(tmp);
-		}
 		else
 			env = &(*env)->next;
 	}
-}
-
-void	ft_lstfree_env(void)
-{
-	t_env	**env;
-	t_env	*tmp;
-
-	env = get_env_head();
-	while (*env)
-	{
-		tmp = *env;
-		(*env) = (*env)->next;
-		free(tmp->key);
-		free(tmp->operator);
-		free(tmp->value);
-		free(tmp);
-	}
-	tmp = NULL;
 }

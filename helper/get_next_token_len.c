@@ -6,12 +6,11 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 14:23:08 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/01 14:30:18 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/01 15:08:15 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
 
 size_t	get_next_quote_token_len(const char *line)
 {
@@ -62,7 +61,7 @@ size_t	get_next_token_len(const char *line)
 	else
 	{
 		while (line[i] && !ft_isin(line[i], SEPARATORS))
-		i++;
-	} 
+			i++;
+	}
 	return (i);
 }

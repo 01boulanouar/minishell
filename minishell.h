@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/01 14:24:32 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/01 14:56:06 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,11 +109,9 @@ size_t				ft_strcspn(const char *s, const char *reject);
 int					ft_strcmp(const char *s1, const char *s2);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 char				*ft_copy(const char *start, const char *end);
-char				*ft_copy_env(const char *start, const char *end);
 char				*ft_trim(char *line);
 char				*ft_strdup(const char *s1);
 char				*ft_strjoin(char const *s1, char const *s2, int space);
-char				*ft_strjoin_env(char const *s1, char const *s2);
 
 void				ft_putchar_fd(char c, int fd);
 void				ft_putstr_fd(const char *s, int fd);

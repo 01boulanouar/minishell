@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:08 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/01 14:45:32 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/01 14:49:24 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	main(int argc, char **argv, char **env)
 		commands = parser(tokens);
 		exec(commands);
 		// print_commands(commands, get_number_of_commands(tokens));
-		ft_free();
 	}
+	ft_free();
 	return (EXIT_SUCCESS);
 }
