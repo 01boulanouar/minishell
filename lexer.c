@@ -6,60 +6,11 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/28 17:15:42 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/01 14:25:15 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-size_t	get_next_quote_token(const char *line)
-{
-	size_t	i;
-	char	quote;
-
-	i = 0;
-	quote = '\0';
-	if (line[0] == SINGLE_QUOTE)
-		quote = SINGLE_QUOTE;
-	else if (line[0] == DOUBLE_QUOTE)
-		quote = DOUBLE_QUOTE;
-	if (quote)
-	{
-		i++;
-		while (line[i] && line[i] != quote)
-			i++;
-		if (line[i] == quote)
-			i++;
-	}
-	return (i);
-}
-
-size_t	get_next_token_len(const char *line)
-{
-	size_t	i;
-
-	i = 0;
-	if (!ft_strncmp(line, DOUBLE_LESS, 2) || !ft_strncmp(line, DOUBLE_GREATER,
-			2) || !ft_strncmp(line, EXIT_STATUS, 2))
-		return (2);
-	else if (line[0] == LESS || line[0] == GREATER || line[0] == PIPE
-		|| (line[0] == DOLLAR && !line[1]))
-		return (1);
-	else if (line[0] == SINGLE_QUOTE || line[0] == DOUBLE_QUOTE)
-		return (get_next_quote_token(line));
-	else
-	{
-		if (line[0] == DOLLAR)
-		{
-			if (ft_isdigit(line[1]))
-				return (2);
-			i++;
-		}
-		while (line[i] && !ft_isin(line[i], SEPARATORS))
-			i++;
-	}
-	return (i);
-}
 
 t_token	*tokenize(char *line)
 {
@@ -150,6 +101,6 @@ t_token	*lexer(void)
 	add_history(trim_line);
 	token = tokenize(trim_line);
 	join_token(&token);
-	// print_tokens(token);
+	print_tokens(token);
 	return (token);
 }
