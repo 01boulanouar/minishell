@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 14:04:08 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/02 16:43:55 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/03 01:03:54 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	operator_error(t_token *token)
 		if (is_operator(token) && (!token->next || is_operator(token->next)))
 		{
 			if(token->type==t_pipe && token->next && is_redirection(token->next))
-				begining_pipe++;  
+				;  
 			else
 				return 1 ; 
 		}
