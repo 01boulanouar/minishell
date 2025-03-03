@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:18:13 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/26 11:30:33 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/03 17:43:37 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@ int	pwd_builtin(void)
 	{
 		ft_putendl_fd(cwd, STDOUT_FILENO);
 		return (EXIT_SUCCESS);
+	}
+	else
+	{
+		ft_putstr_fd("minishell: pwd: "
+			"error retrieving current directory: getcwd: "
+			"cannot access parent directories: No such file or directory\n", 2);
 	}
 	return (EXIT_FAILURE);
 }

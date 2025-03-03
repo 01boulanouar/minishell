@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/01 23:49:33 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/03 18:05:37 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,8 @@ char				*ft_copy(const char *start, const char *end);
 char				*ft_trim(char *line);
 char				*ft_strdup(const char *s1);
 char				*ft_strjoin(char const *s1, char const *s2, int space);
-
+int 				ft_isspace(char c);
+int					ft_isallspace(char *str);
 int					ft_atoi(const char *nbr);
 char				*ft_itoa(int n);
 
@@ -176,7 +177,7 @@ int					echo_builtin(t_command command);
 int					pwd_builtin(void);
 int					env_builtin(t_command command);
 int					export_builtin(t_command command);
-int					exit_builtin(void);
+int					exit_builtin(t_command command);
 int					unset_builtin(t_command command);
 int					is_builtin(t_command command);
 int					exec_builtin(t_command command);

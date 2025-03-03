@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:29:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/01 23:10:22 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/03 17:47:50 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	exec_builtin(t_command command)
 	else if (!ft_strcmp(value, "env"))
 		return (env_builtin(command));
 	else if (!ft_strcmp(value, "exit"))
-		return (exit_builtin());
+		return (exit_builtin(command));
 	else if (!ft_strcmp(value, "export"))
 		return (export_builtin(command));
 	else if (!ft_strcmp(value, "pwd"))

@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:18:02 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/01 23:56:07 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/03 17:46:01 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,12 @@ int ft_chdir(char *path)
 	{
 		ft_update_env("OLDPWD", ft_getenv("PWD"), 0);
 		ft_update_env("PWD", pwd, 0);
+	}
+	else
+	{
+		ft_putstr_fd("minishell: cd: "
+		"error retrieving current directory: getcwd: "
+		"cannot access parent directories: No such file or directory\n", 2);
 	}
 	return (EXIT_SUCCESS);
 }

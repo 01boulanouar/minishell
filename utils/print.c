@@ -3,14 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 14:09:07 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/28 14:27:56 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/03 18:05:27 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int ft_isspace(char c)
+{
+	return (c == ' ' || (c >= 9 && c <= 13));
+}
+
+int	ft_isallspace(char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (ft_isspace(str[i]))
+		i++;
+	return (i == ft_strlen(str));
+}
 
 void	ft_putstr_fd(const char *s, int fd)
 {
