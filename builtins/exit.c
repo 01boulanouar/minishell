@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:18:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/03 18:21:21 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/04 19:25:55 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,12 @@ int	is_valid_exit_status(char *str)
 
 int	exit_builtin(t_command command)
 {
-	int	ret;
 	char *arg;
 	int	status;
-	
-	ret = EXIT_SUCCESS;
-	if (get_number_of_arguments(command) > 1)
+
+	if (get_number_of_arguments(command) == 0)
+		exit(EXIT_SUCCESS);
+	else if (get_number_of_arguments(command) > 1)
 	{
 		ft_putendl_fd("too may arguments", STDERR_FILENO);
 		return (EXIT_FAILURE);
@@ -89,8 +89,8 @@ int	exit_builtin(t_command command)
 		else
 		{
 			printf("minishell: exit: %s: numeric argument required\n", arg);
-			exit (1);
+			exit (EXIT_FAILURE);
 		}
 	}
-	return (ret);
+	return (EXIT_FAILURE);
 }

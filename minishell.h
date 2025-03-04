@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/04 17:51:06 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/04 19:35:20 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,7 @@ int					unset_builtin(t_command command);
 int					is_builtin(t_command command);
 int					exec_builtin(t_command command);
 
-void				exec(t_command *commands);
+void				exec(t_command *commands, int n_commands);
 
 char				*print_token_type(t_token_type type);
 void				print_tokens(t_token *token);
