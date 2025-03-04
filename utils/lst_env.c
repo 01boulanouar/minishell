@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 13:14:43 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/01 14:59:21 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/04 17:20:55 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,19 @@ void	ft_lstremove_env(char *key)
 		else
 			env = &(*env)->next;
 	}
+}
+
+int	ft_lstsize(t_env *env)
+{
+	size_t	size;
+
+	if (!env)
+		return (0);
+	size = 0;
+	while (env)
+	{
+		size++;
+		env = env->next;
+	}
+	return (size);
 }

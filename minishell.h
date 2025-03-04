@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/03 18:05:37 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/04 17:51:06 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 #include <sys/stat.h>
+#include <sys/wait.h>
 
 // Tokens
 # define PIPE '|'
@@ -117,7 +118,7 @@ int 				ft_isspace(char c);
 int					ft_isallspace(char *str);
 int					ft_atoi(const char *nbr);
 char				*ft_itoa(int n);
-
+char				**ft_split(char const *s, char c);
 void				ft_putchar_fd(char c, int fd);
 void				ft_putstr_fd(const char *s, int fd);
 void				ft_putendl_fd(char *s, int fd);
@@ -137,7 +138,7 @@ void				ft_lstadd_back_token(t_token **lst, t_token *new);
 void				ft_lstadd_back_env(t_env *new);
 void				ft_lstremove_env(char *key);
 void				ft_lstfree_copy_env(t_env **env);
-
+int					ft_lstsize(t_env *env);
 char				*ft_strdup_env(const char *s1);
 void				init_env(char **line);
 t_env				**get_env_head(void);

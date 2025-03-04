@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:18:02 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/03 17:46:01 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/04 17:11:00 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int ft_chdir(char *path)
 {
-	char pwd[PATH_MAX];
+	char pwd[300];
 	struct stat stat_path;
 
 	if (stat(path, &stat_path) == -1)
@@ -32,7 +32,7 @@ int ft_chdir(char *path)
 		perror("cd");
 		return (EXIT_FAILURE);
 	}
-	if (getcwd(pwd, PATH_MAX))
+	if (getcwd(pwd, 300))
 	{
 		ft_update_env("OLDPWD", ft_getenv("PWD"), 0);
 		ft_update_env("PWD", pwd, 0);
