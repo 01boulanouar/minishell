@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 14:14:42 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/28 16:14:29 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/05 01:12:15 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,12 @@
 
 int	is_redirection(t_token *token)
 {
-	return (!token->expanded && (token->type == t_less
-			|| token->type == t_greater || token->type == t_double_less
-			|| token->type == t_double_greater));
+	return ((token->type == t_less || token->type == t_greater || token->type == t_double_less || token->type == t_double_greater));
 }
 
 int	is_pipe(t_token *token)
 {
-	return ((!token->expanded && token->type == t_pipe));
+	return (token->type == t_pipe);
 }
 
 int	is_operator(t_token *token)

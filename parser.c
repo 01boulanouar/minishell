@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 20:33:07 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/02/25 20:54:46 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/05 01:11:22 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,11 @@ t_token	*parse_token(t_command *command, t_token *token)
 	out_index = 0;
 	while (token)
 	{
-		if (token->type == t_pipe && !token->expanded)
+		if (token->type == t_pipe)
 			break ;
 		if (is_redirection(token))
 		{
-			if (token->next && token->next->next && token->next->expanded
-				&& token->next->next->expanded)
+			if (token->next && token->next->next)
 				command->not_to_be_executed = 1;
 			handle_redirection(command, token, &in_index, &out_index);
 			token = token->next;

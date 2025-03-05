@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 14:14:15 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/26 11:26:23 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/05 01:17:00 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	get_number_of_commands(t_token *token)
 	count = 1;
 	while (token)
 	{
-		if (token->type == t_pipe && !token->expanded)
+		if (token->type == t_pipe)
 			count++;
 		token = token->next;
 	}
@@ -30,7 +30,7 @@ int	get_number_of_arguments(t_command command)
 {
 	int	i;
 
-	if (!command.tokens)
+	if (!command.tokens || !command.tokens[0]) // heap buffer overflow
 		return (0);
 	i = 1;
 	while (command.tokens[i])
@@ -45,10 +45,9 @@ int	get_number_of_outfiles(t_token *token)
 	count = 0;
 	while (token)
 	{
-		if (token->type == t_pipe && !token->expanded)
+		if (token->type == t_pipe)
 			break ;
-		if (!token->expanded && (token->type == t_greater
-				|| token->type == t_double_greater))
+		if ((token->type == t_greater || token->type == t_double_greater))
 			count++;
 		token = token->next;
 	}
@@ -62,10 +61,9 @@ int	get_number_of_infiles(t_token *token)
 	count = 0;
 	while (token)
 	{
-		if (token->type == t_pipe && !token->expanded)
+		if (token->type == t_pipe)
 			break ;
-		if (!token->expanded && (token->type == t_less
-				|| token->type == t_double_less))
+		if ((token->type == t_less || token->type == t_double_less))
 			count++;
 		token = token->next;
 	}
@@ -81,7 +79,7 @@ int	get_number_of_tokens(t_token *token)
 	redirections = 0;
 	while (token)
 	{
-		if (token->type == t_pipe && !token->expanded)
+		if (token->type == t_pipe)
 			break ;
 		count++;
 		if (is_redirection(token))

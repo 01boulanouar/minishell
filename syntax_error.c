@@ -41,10 +41,11 @@ int	operator_error(t_token *token)
 			return (1);
 		if (is_operator(token) && (!token->next || is_operator(token->next)))
 		{
-			if(token->type==t_pipe && token->next && is_redirection(token->next))
-				;  
+			if (token->type == t_pipe && token->next
+				&& is_redirection(token->next))
+				;
 			else
-				return 1 ; 
+				return (1);
 		}
 		token = token->next;
 		begining_pipe = 0;

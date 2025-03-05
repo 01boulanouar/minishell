@@ -6,33 +6,11 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 16:19:28 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/28 17:07:31 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/05 01:11:01 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	expand_token(t_token **token, char *name, int before_space)
-{
-	char			*expanded;
-	char			*start;
-	char			*value;
-	t_token_type	type;
-
-	name++;
-	expanded = ft_getenv(name);
-	while (expanded && *expanded)
-	{
-		start = expanded;
-		expanded += get_next_token_len(start);
-		value = ft_copy(start, expanded);
-		type = get_token_type(value);
-		ft_lstadd_back_token(token, ft_lstnew_token(value, type, before_space,
-				1));
-		expanded += ft_strspn(expanded, BLANKS);
-	}
-	return ;
-}
 
 int	get_expand_len(char *line)
 {

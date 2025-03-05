@@ -6,14 +6,13 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 10:36:47 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/28 17:08:03 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/05 01:07:09 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_token	*ft_lstnew_token(char *value, t_token_type type, int before_space,
-		int expanded)
+t_token	*ft_lstnew_token(char *value, t_token_type type, int before_space)
 {
 	t_token	*t;
 
@@ -23,7 +22,6 @@ t_token	*ft_lstnew_token(char *value, t_token_type type, int before_space,
 	t->value = value;
 	t->type = type;
 	t->before_space = before_space;
-	t->expanded = expanded;
 	t->next = NULL;
 	return (t);
 }

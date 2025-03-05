@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/04 19:35:20 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/05 01:11:05 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef enum e_token_type
 	t_dollar_num,
 	t_dollar_expand,
 	t_exit_status,
+	t_expanded,
 }					t_token_type;
 
 typedef struct s_token
@@ -70,7 +71,6 @@ typedef struct s_token
 	char			*value;
 	t_token_type	type;
 	int				before_space;
-	int				expanded;
 	struct s_token	*next;
 }					t_token;
 
@@ -130,8 +130,7 @@ int					ft_isvalid(int c);
 
 
 void				ft_update_env(char *key, char *value, int append);
-t_token				*ft_lstnew_token(char *value, t_token_type type,
-						int before_space, int expanded);
+t_token				*ft_lstnew_token(char *value, t_token_type type, int before_space);
 t_env				*ft_lstnew_env(char *key, char *operator, char * value);
 t_env				*ft_lstnew_env_from_str(char *str);
 void				ft_lstadd_back_token(t_token **lst, t_token *new);
@@ -161,7 +160,6 @@ size_t				get_next_token_len(const char *line);
 int					is_valid_quotes(const char *line);
 t_token				*lexer(void);
 size_t				get_next_token_len(const char *line);
-void				expand_token(t_token **token, char *name, int before_space);
 char				*expand_double_quotes(char *line);
 
 void				handle_redirection(t_command *cmd, t_token *token,
