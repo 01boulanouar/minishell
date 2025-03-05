@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 13:38:53 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/04 17:11:11 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/05 22:01:24 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ void	ft_update_env(char *key, char *value, int append)
 		if (node->key && !ft_strcmp(node->key, key))
 		{
 			if (append)
-				node->value = ft_strjoin(node->value, value, 0);
+				node->value = ft_strjoin_env(node->value, value);
 			else
-				node->value = ft_strdup(value);
+				node->value = ft_strdup_env(value);
 		}
 		node = node->next;
 	}
@@ -56,7 +56,7 @@ static void	handle_export_argument(t_env *node)
 	{
 		if (!ft_strcmp(node->operator, "="))
 			ft_update_env(node->key, node->value, 0);
-		else if (!ft_strcmp(node->operator, "+="))
+		else if (!ft_strcmp(node->operator, "+=") && !ft_strcmp(node->value, ""))
 			ft_update_env(node->key, node->value, 1);
 	}
 	else

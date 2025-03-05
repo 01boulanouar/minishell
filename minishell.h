@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/05 01:11:05 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/05 22:01:40 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,7 @@ t_command			*parser(t_token *token);
 int					operator_error(t_token *token);
 
 void				*ft_malloc(size_t size);
-void				ft_free(void);
+void				ft_free_command(void);
 
 int					cd_builtin(t_command command);
 int					echo_builtin(t_command command);
@@ -186,4 +186,11 @@ void				exec(t_command *commands, int n_commands);
 char				*print_token_type(t_token_type type);
 void				print_tokens(t_token *token);
 void				print_commands(t_command *commands, int num_commands);
+
+void	*ft_malloc_env(size_t size);
+void	ft_free_env(void);
+void	ft_free_env(void);
+char	*ft_copy_env(const char *start, const char *end);
+char	*ft_strjoin_env(char const *s1, char const *s2);
+char	*ft_strdup_env(const char *s1);
 #endif

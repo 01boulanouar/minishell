@@ -1,6 +1,6 @@
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-SANITIZE = -fsanitize=address -g
+# SANITIZE = -fsanitize=address -g
 NAME = minishell
 RM = rm -f
 
@@ -10,7 +10,7 @@ SRC_UTILS = utils/ft_copy.c utils/lst_token.c  utils/lst_env.c utils/ft_split.c 
 SRC_BUILTINS = builtins/cd.c builtins/echo.c builtins/env.c \
 			   builtins/exit.c builtins/export.c builtins/export_sort.c builtins/pwd.c builtins/unset.c  builtins/builtin.c
 
-SRC = main.c lexer.c environment.c parser.c expander.c syntax_error.c garbage_collector.c exec.c \
+SRC = main.c lexer.c environment.c parser.c expander.c syntax_error.c garbage_collector.c  garbage_collector_env.c  exec.c \
 		$(SRC_BUILTINS) $(SRC_HELPER) $(SRC_UTILS) to_delete.c
 OBJ = $(SRC:.c=.o)
 
