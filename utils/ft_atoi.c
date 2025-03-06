@@ -6,63 +6,60 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 22:35:52 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/03/06 21:14:53 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/06 21:35:54 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static int	len(long n)
+int static	ft_nbrlen(int nbr)
 {
-	int	i;
+	int	len;
 
-	i = 1;
-	if (n < 0)
+	len = 0;
+	if (nbr == 0)
+		nbr++;
+	if (nbr < 0)
 	{
-		n = -n;
-		i++;
+		nbr = -nbr;
+		len++;
 	}
-	while (n / 10 > 0)
+	while (nbr)
 	{
-		n = n / 10;
-		i++;
+		nbr = nbr / 10;
+		len++;
 	}
-	return (i);
-}
-
-static char	*ft_itoa1(long n)
-{
-	int		l;
-	char	*str;
-	int		sign;
-
-	l = len(n);
-	str = (char *)ft_malloc_env(l + 1);
-	if (!str)
-		return (str);
-	sign = 1;
-	if (n < 0)
-	{
-		sign = -1;
-		n = -n;
-	}
-	str[l--] = '\0';
-	if (n == 0)
-		str[0] = '0';
-	while (n > 0)
-	{
-		str[l--] = n % 10 + '0';
-		n /= 10;
-	}
-	if (sign == -1)
-		str[0] = '-';
-	return (str);
+	return (len);
 }
 
 char	*ft_itoa(int n)
 {
-	return (ft_itoa1(n));
+	char	*dst;
+	int		len;
+	long	nbr;
+
+	nbr = (long)n;
+	len = ft_nbrlen(nbr);
+	dst = ft_malloc(len + 1);
+	if (!dst)
+		return (NULL);
+	if (nbr == 0)
+		dst[0] = '0';
+	if (nbr < 0)
+	{
+		dst[0] = '-';
+		nbr = -nbr;
+	}
+	dst[len] = '\0';
+	while (nbr)
+	{
+		len--;
+		dst[len] = (nbr % 10) + '0';
+		nbr /= 10;
+	}
+	return (dst);
 }
+
 
 int	ft_atoi(const char *nbr)
 {
@@ -71,7 +68,7 @@ int	ft_atoi(const char *nbr)
 
 	sign = 1;
 	res = 0;
-	while (*nbr == ' ' || (*nbr >= 9 && *nbr <= 13))
+	while (ft_isspace(*nbr))
 		nbr++;
 	if (*nbr == '-' || *nbr == '+')
 	{
