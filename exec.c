@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:55:42 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/05 01:18:17 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/06 20:03:38 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	**get_env_str(void)
 	i = 0;
 	while (node)
 	{
-		arr[i] = ft_strjoin(node->key, ft_strjoin("=", node->value, 0), 0);
+		arr[i] = ft_strjoin(node->key, ft_strjoin("=", node->value));
 		i++;
 		node = node->next;
 	}
@@ -66,11 +66,11 @@ char	*get_command_path(char *executable)
 	i = 0;
 	while (split && split[i])
 	{
-		full_path = ft_strjoin(ft_strjoin(split[i], "/", 0), executable, 0);
+		full_path = ft_strjoin(ft_strjoin(split[i], "/"), executable);
 		if (stat(full_path, &buffer) == 0)
 			return (full_path);
-		else if (stat(ft_strjoin("./", executable, 0), &buffer) == 0)
-			return (ft_strjoin("./", executable, 0));
+		else if (stat(ft_strjoin("./", executable), &buffer) == 0)
+			return (ft_strjoin("./", executable));
 		i++;
 	}
 	return (NULL);

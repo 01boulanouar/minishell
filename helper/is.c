@@ -14,7 +14,9 @@
 
 int	is_redirection(t_token *token)
 {
-	return ((token->type == t_less || token->type == t_greater || token->type == t_double_less || token->type == t_double_greater));
+	return ((token->type == t_less || token->type == t_greater
+			|| token->type == t_double_less
+			|| token->type == t_double_greater));
 }
 
 int	is_pipe(t_token *token)

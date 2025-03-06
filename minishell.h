@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/05 22:01:40 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/06 20:09:42 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 # include <readline/readline.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <sys/stat.h>
+# include <sys/wait.h>
 # include <unistd.h>
-#include <sys/stat.h>
-#include <sys/wait.h>
 
 // Tokens
 # define PIPE '|'
@@ -113,8 +113,9 @@ int					ft_strncmp(const char *s1, const char *s2, size_t n);
 char				*ft_copy(const char *start, const char *end);
 char				*ft_trim(char *line);
 char				*ft_strdup(const char *s1);
-char				*ft_strjoin(char const *s1, char const *s2, int space);
-int 				ft_isspace(char c);
+char				*ft_strjoin(char const *s1, char const *s2);
+char				*ft_strjoin_space(char const *s1, char const *s2);
+int					ft_isspace(char c);
 int					ft_isallspace(char *str);
 int					ft_atoi(const char *nbr);
 char				*ft_itoa(int n);
@@ -128,10 +129,10 @@ int					ft_isalpha(int c);
 int					ft_isalnum(int c);
 int					ft_isvalid(int c);
 
-
 void				ft_update_env(char *key, char *value, int append);
-t_token				*ft_lstnew_token(char *value, t_token_type type, int before_space);
-t_env				*ft_lstnew_env(char *key, char *operator, char * value);
+t_token				*ft_lstnew_token(char *value, t_token_type type,
+						int before_space);
+t_env				*ft_lstnew_env(char *key, char *operator, char *value);
 t_env				*ft_lstnew_env_from_str(char *str);
 void				ft_lstadd_back_token(t_token **lst, t_token *new);
 void				ft_lstadd_back_env(t_env *new);
@@ -187,10 +188,10 @@ char				*print_token_type(t_token_type type);
 void				print_tokens(t_token *token);
 void				print_commands(t_command *commands, int num_commands);
 
-void	*ft_malloc_env(size_t size);
-void	ft_free_env(void);
-void	ft_free_env(void);
-char	*ft_copy_env(const char *start, const char *end);
-char	*ft_strjoin_env(char const *s1, char const *s2);
-char	*ft_strdup_env(const char *s1);
+void				*ft_malloc_env(size_t size);
+void				ft_free_env(void);
+void				ft_free_env(void);
+char				*ft_copy_env(const char *start, const char *end);
+char				*ft_strjoin_env(char const *s1, char const *s2);
+char				*ft_strdup_env(const char *s1);
 #endif

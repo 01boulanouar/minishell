@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/05 01:15:25 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/06 20:11:01 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,13 @@ t_token	*tokenize(char *line)
 		{
 			value++;
 			if (ft_getenv(value))
-				ft_lstadd_back_token(&token, ft_lstnew_token(ft_strdup(ft_getenv(value)), t_expanded, ft_isin(*line, BLANKS)));
+				ft_lstadd_back_token(&token,
+					ft_lstnew_token(ft_strdup(ft_getenv(value)), t_expanded,
+						ft_isin(*line, BLANKS)));
 		}
 		if (type != t_dollar_expand && type != t_dollar_num)
-			ft_lstadd_back_token(&token, ft_lstnew_token(value, type, ft_isin(*line, BLANKS)));
+			ft_lstadd_back_token(&token, ft_lstnew_token(value, type,
+					ft_isin(*line, BLANKS)));
 		line += ft_strspn(line, BLANKS);
 	}
 	return (token);
@@ -54,7 +57,7 @@ void	join_token(t_token **token)
 		if (next_token && !current->before_space && !is_operator(current)
 			&& !is_operator(next_token))
 		{
-			current->value = ft_strjoin(current->value, next_token->value, 0);
+			current->value = ft_strjoin(current->value, next_token->value);
 			current->next = next_token->next;
 			current->before_space = next_token->before_space;
 		}
@@ -88,7 +91,7 @@ t_token	*lexer(void)
 			line = ft_strdup(tmp);
 			free(tmp);
 		}
-		trim_line = ft_strjoin(trim_line, line, 1);
+		trim_line = ft_strjoin_space(trim_line, line);
 		if (!trim_line)
 			return (token);
 		if (!is_valid_quotes(line) || (line && ft_trim(line)[0] == '|'))
@@ -111,6 +114,5 @@ t_token	*lexer(void)
 		ft_putendl_fd(SYNTAX_ERROR_STR, STDERR_FILENO);
 		exit(EXIT_SYNTAX_ERROR);
 	}
-	// print_tokens(token);
 	return (token);
 }

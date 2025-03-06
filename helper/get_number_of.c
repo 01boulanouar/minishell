@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 14:14:15 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/05 01:17:00 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/06 20:01:45 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	get_number_of_arguments(t_command command)
 {
 	int	i;
 
-	if (!command.tokens || !command.tokens[0]) // heap buffer overflow
+	if (!command.tokens || !command.tokens[0])
 		return (0);
 	i = 1;
 	while (command.tokens[i])

@@ -23,7 +23,7 @@
 unsigned long long	ft_atol(const char *str)
 {
 	long long	num;
-	int					signe;
+	int			signe;
 
 	num = 0;
 	signe = 1;
@@ -59,17 +59,17 @@ int	is_valid_exit_status(char *str)
 		i++;
 	while (ft_isspace(str[i]))
 		i++;
-	if (i < ft_strlen(str) || ft_isallspace(str)
-		|| (ft_strlen(str) == 1 && (str[0] == '-' || str[0] == '+' ))
-		|| ft_atol(str) == LONG_MAX + 1ul)
+	if (i < ft_strlen(str) || ft_isallspace(str) || (ft_strlen(str) == 1
+			&& (str[0] == '-' || str[0] == '+')) || ft_atol(str) == LONG_MAX
+		+ 1ul)
 		return (0);
 	return (1);
 }
 
 int	exit_builtin(t_command command)
 {
-	char *arg;
-	int	status;
+	char	*arg;
+	int		status;
 
 	if (get_number_of_arguments(command) == 0)
 		exit(EXIT_SUCCESS);
@@ -89,7 +89,7 @@ int	exit_builtin(t_command command)
 		else
 		{
 			printf("minishell: exit: %s: numeric argument required\n", arg);
-			exit (EXIT_FAILURE);
+			exit(EXIT_FAILURE);
 		}
 	}
 	return (EXIT_FAILURE);

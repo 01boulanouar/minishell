@@ -1,34 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_copy.c                                          :+:      :+:    :+:   */
+/*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/10 14:54:54 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/06 20:06:29 by moboulan         ###   ########.fr       */
+/*   Created: 2025/03/06 20:11:36 by moboulan          #+#    #+#             */
+/*   Updated: 2025/03/06 20:12:15 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
 
-size_t	ft_strlen(const char *s)
-{
-	size_t	i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
-
-char	*ft_copy(const char *start, const char *end)
+char	*ft_copy_env(const char *start, const char *end)
 {
 	int		i;
 	char	*copy;
 
 	i = 0;
-	copy = ft_malloc(end - start + 1);
+	copy = ft_malloc_env(end - start + 1);
 	while (i < end - start)
 	{
 		copy[i] = start[i];
@@ -38,23 +28,7 @@ char	*ft_copy(const char *start, const char *end)
 	return (copy);
 }
 
-char	*ft_trim(char *line)
-{
-	const char	*start;
-	const char	*end;
-
-	if (!line)
-		return (NULL);
-	start = line;
-	end = line + ft_strlen(line) - 1;
-	while (*start && ft_isin(*start, BLANKS))
-		start++;
-	while (end > start && ft_isin(*end, BLANKS))
-		end--;
-	return (ft_copy(start, end + 1));
-}
-
-char	*ft_strdup(const char *s1)
+char	*ft_strdup_env(const char *s1)
 {
 	char	*s2;
 	char	*s2_start;
@@ -63,10 +37,33 @@ char	*ft_strdup(const char *s1)
 	if (!s1)
 		return (NULL);
 	s1_len = ft_strlen(s1);
-	s2 = ft_malloc(s1_len + 1);
+	s2 = ft_malloc_env(s1_len + 1);
 	s2_start = s2;
 	while (*s1)
 		*(s2++) = *(s1++);
 	*s2 = '\0';
 	return (s2_start);
+}
+
+char	*ft_strjoin_env(char const *s1, char const *s2)
+{
+	size_t	len;
+	size_t	i;
+	char	*str;
+
+	if (!s1 && !s2)
+		return (NULL);
+	if (s1 == NULL)
+		return ((char *)s2);
+	if (s2 == NULL)
+		return ((char *)s1);
+	len = ft_strlen(s1) + ft_strlen(s2);
+	i = 0;
+	str = (char *)ft_malloc_env(len + 2);
+	while (*s1)
+		str[i++] = *(s1++);
+	while (*s2)
+		str[i++] = *(s2++);
+	str[i] = '\0';
+	return (str);
 }

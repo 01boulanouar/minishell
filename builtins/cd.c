@@ -6,16 +6,16 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:18:02 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/04 17:11:00 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/06 20:10:48 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int ft_chdir(char *path)
+int	ft_chdir(char *path)
 {
-	char pwd[300];
-	struct stat stat_path;
+	char		pwd[OPEN_MAX];
+	struct stat	stat_path;
 
 	if (stat(path, &stat_path) == -1)
 	{
@@ -32,7 +32,7 @@ int ft_chdir(char *path)
 		perror("cd");
 		return (EXIT_FAILURE);
 	}
-	if (getcwd(pwd, 300))
+	if (getcwd(pwd, OPEN_MAX))
 	{
 		ft_update_env("OLDPWD", ft_getenv("PWD"), 0);
 		ft_update_env("PWD", pwd, 0);
@@ -40,24 +40,25 @@ int ft_chdir(char *path)
 	else
 	{
 		ft_putstr_fd("minishell: cd: "
-		"error retrieving current directory: getcwd: "
-		"cannot access parent directories: No such file or directory\n", 2);
+			"error retrieving current directory: getcwd: "
+			"cannot access parent directories: No such file or directory\n", 2);
 	}
 	return (EXIT_SUCCESS);
 }
 
 int	cd_builtin(t_command command)
 {
-	char 	*home;
+	char	*home;
 	int		ret;
-	
+
 	ret = EXIT_SUCCESS;
-	if (!get_number_of_arguments(command) || (command.tokens[1] && !ft_strcmp(command.tokens[1]->value, "--")))
+	if (!get_number_of_arguments(command) || (command.tokens[1]
+			&& !ft_strcmp(command.tokens[1]->value, "--")))
 	{
 		home = ft_getenv("HOME");
 		ret = ft_chdir(home);
 	}
-	else if(command.tokens[1] && command.tokens[1]->value)
+	else if (command.tokens[1] && command.tokens[1]->value)
 		ret = ft_chdir(command.tokens[1]->value);
 	return (ret);
 }
