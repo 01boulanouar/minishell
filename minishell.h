@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/06 20:09:42 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/06 21:06:08 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ void				ft_lstfree_copy_env(t_env **env);
 int					ft_lstsize(t_env *env);
 char				*ft_strdup_env(const char *s1);
 void				init_env(char **line);
-t_env				**get_env_head(void);
+t_env				**get_env_list(void);
 char				*ft_getenv(char *name);
 t_env				*sort_env(void);
 

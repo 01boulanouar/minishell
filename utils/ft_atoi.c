@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 22:35:52 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/03/01 22:36:40 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/06 21:14:53 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static char	*ft_itoa1(long n)
 	int		sign;
 
 	l = len(n);
-	str = (char *)malloc(l + 1);
+	str = (char *)ft_malloc_env(l + 1);
 	if (!str)
 		return (str);
 	sign = 1;

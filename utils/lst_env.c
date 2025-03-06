@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 13:14:43 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/06 20:01:30 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/06 21:06:08 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	ft_lstadd_back_env(t_env *new)
 	t_env	*t;
 	t_env	**lst;
 
-	lst = get_env_head();
+	lst = get_env_list();
 	if (!lst || !new)
 		return ;
 	t = (*lst);
@@ -75,7 +75,7 @@ void	ft_lstremove_env(char *key)
 {
 	t_env	**env;
 
-	env = get_env_head();
+	env = get_env_list();
 	if (!env || !(*env))
 		return ;
 	while (*env)

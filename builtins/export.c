@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 13:38:53 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/06 20:09:11 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/06 21:06:08 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	ft_isin_env(char *key)
 	t_env	**env;
 	t_env	*node;
 
-	env = get_env_head();
+	env = get_env_list();
 	node = *env;
 	while (node)
 	{
@@ -33,7 +33,7 @@ void	ft_update_env(char *key, char *value, int append)
 	t_env	**env;
 	t_env	*node;
 
-	env = get_env_head();
+	env = get_env_list();
 	node = *env;
 	while (node)
 	{

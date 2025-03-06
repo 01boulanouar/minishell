@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 17:47:29 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/06 20:16:11 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/06 21:06:08 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static t_env	*ft_lstcopy_env(void)
 	t_env	*node;
 	t_env	*new;
 
-	env = get_env_head();
+	env = get_env_list();
 	if (!env)
 		return (NULL);
 	env_copy = NULL;

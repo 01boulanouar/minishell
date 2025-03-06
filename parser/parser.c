@@ -6,11 +6,11 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 20:33:07 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/03/05 01:11:22 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/06 21:10:42 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	handle_redirection(t_command *cmd, t_token *token, int *in_index,
 		int *out_index)

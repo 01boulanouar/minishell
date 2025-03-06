@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.c                                             :+:      :+:    :+:   */
+/*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:55:42 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/06 20:03:38 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/06 21:06:01 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	**get_env_str(void)
 	t_env	**env;
 	t_env	*node;
 
-	env = get_env_head();
+	env = get_env_list();
 	node = *env;
 	size = ft_lstsize(node) + 1;
 	arr = ft_malloc(sizeof(char *) * (size + 1));
