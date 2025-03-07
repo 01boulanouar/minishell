@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:18:02 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/06 20:10:48 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/06 21:51:48 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,31 +18,20 @@ int	ft_chdir(char *path)
 	struct stat	stat_path;
 
 	if (stat(path, &stat_path) == -1)
-	{
-		printf("cd: %s: No such file or directory\n", path);
-		return (EXIT_FAILURE);
-	}
+		return (printf("cd: %s: No such file or directory\n", path), EXIT_FAILURE);
 	if (!S_ISDIR(stat_path.st_mode))
-	{
-		printf("cd: %s: Not a directory\n", path);
-		return (EXIT_FAILURE);
-	}
+		return (printf("cd: %s: Not a directory\n", path), EXIT_FAILURE);
 	if (chdir(path) == -1)
-	{
-		perror("cd");
-		return (EXIT_FAILURE);
-	}
+		return (perror("cd"), EXIT_FAILURE);
 	if (getcwd(pwd, OPEN_MAX))
 	{
 		ft_update_env("OLDPWD", ft_getenv("PWD"), 0);
 		ft_update_env("PWD", pwd, 0);
 	}
 	else
-	{
 		ft_putstr_fd("minishell: cd: "
 			"error retrieving current directory: getcwd: "
 			"cannot access parent directories: No such file or directory\n", 2);
-	}
 	return (EXIT_SUCCESS);
 }
 

@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:55:42 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/06 21:31:28 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/06 21:45:35 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	*get_command_path(char *executable)
 	char		*full_path;
 	struct stat	buffer;
 
-	path = ft_strjoin(ft_getenv("PATH"), ":.");
+	path = ft_getenv("PATH");
 	split = ft_split(path, ':');
 	i = 0;
 	while (split && split[i])
@@ -69,6 +69,8 @@ char	*get_command_path(char *executable)
 		full_path = ft_strjoin(ft_strjoin(split[i], "/"), executable);
 		if (stat(full_path, &buffer) == 0)
 			return (full_path);
+		else if (stat(executable, &buffer) == 0 && !ft_strncmp(executable, "./", 2))
+			return (executable);
 		i++;
 	}
 	return (NULL);
