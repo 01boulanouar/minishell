@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:54:54 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/04 17:42:35 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/07 21:58:09 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	**ft_split(char const *s, char c)
 	char const	*start;
 	int			i;
 
-	arr = (char **)ft_malloc(sizeof(char *) * (ft_count_words(s, c) + 1));
+	arr = ft_malloc(sizeof(char *) * (ft_count_words(s, c) + 1));
 	if (!arr)
 		return (NULL);
 	i = 0;

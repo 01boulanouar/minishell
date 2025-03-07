@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:18:10 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/28 14:55:27 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/07 23:25:33 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	unset_builtin(t_command command)
 		arg = command.tokens[i]->value;
 		if (!is_valid_env_key(arg))
 		{
-			printf("unset: `%s': not a valid identifier\n", arg);
+			print_error(1, "unset", arg, "not a valid identifier");
 			ret = EXIT_FAILURE;
 		}
 		else

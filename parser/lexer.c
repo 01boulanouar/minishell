@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/06 21:10:39 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/07 23:25:38 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ t_token	*lexer(void)
 			return (token);
 		if (!is_valid_quotes(line) || (line && ft_trim(line)[0] == '|'))
 		{
-			ft_putendl_fd(SYNTAX_ERROR_STR, STDERR_FILENO);
+			print_error(1, NULL, NULL, SYNTAX_ERROR_STR);
 			exit(EXIT_SYNTAX_ERROR);
 		}
 		tmp = ft_trim(trim_line);
@@ -111,7 +111,7 @@ t_token	*lexer(void)
 	join_token(&token);
 	if (operator_error(token))
 	{
-		ft_putendl_fd(SYNTAX_ERROR_STR, STDERR_FILENO);
+		print_error(1, NULL, NULL, SYNTAX_ERROR_STR);
 		exit(EXIT_SYNTAX_ERROR);
 	}
 	return (token);

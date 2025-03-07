@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 13:38:53 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/06 21:06:08 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/07 23:25:26 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	export_builtin(t_command command)
 		node = ft_lstnew_env_from_str(arg);
 		if (!is_valid_env_key(node->key))
 		{
-			printf("export: `%s': not a valid identifier\n", arg);
+			print_error(1, "export", arg, "not a valid identifier");
 			ret = EXIT_FAILURE;
 		}
 		else
@@ -109,7 +109,3 @@ int	export_builtin(t_command command)
 	}
 	return (ret);
 }
-
-// overhall printing
-// handle errors
-// handle <<- as tab skip

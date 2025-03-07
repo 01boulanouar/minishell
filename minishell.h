@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/06 21:06:08 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/07 23:27:58 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include <limits.h>
+# include <linux/limits.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <stdio.h>
@@ -46,7 +47,10 @@
 # define EXIT_SYNTAX_ERROR 258
 
 // Error String
-# define SYNTAX_ERROR_STR "minishell: syntax error near unexpected token"
+# define SYNTAX_ERROR_STR "syntax error near unexpected token"
+# define GETCWD_ERROR_STR "error retrieving current directory: \
+						   getcwd: cannot access parent directories: \
+						   No such file or directory"
 
 // Token types
 typedef enum e_token_type
@@ -174,7 +178,7 @@ void				ft_free_command(void);
 
 int					cd_builtin(t_command command);
 int					echo_builtin(t_command command);
-int					pwd_builtin(void);
+int					pwd_builtin(t_command command);
 int					env_builtin(t_command command);
 int					export_builtin(t_command command);
 int					exit_builtin(t_command command);
@@ -194,4 +198,7 @@ void				ft_free_env(void);
 char				*ft_copy_env(const char *start, const char *end);
 char				*ft_strjoin_env(char const *s1, char const *s2);
 char				*ft_strdup_env(const char *s1);
+
+void				print_error(int print_name, char *function, \
+					char *file, char *error);
 #endif

@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:18:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/04 19:25:55 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/07 23:25:22 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	exit_builtin(t_command command)
 		exit(EXIT_SUCCESS);
 	else if (get_number_of_arguments(command) > 1)
 	{
-		ft_putendl_fd("too may arguments", STDERR_FILENO);
+		print_error(1, "exit", NULL, "too may arguments");
 		return (EXIT_FAILURE);
 	}
 	if (command.tokens[1] && command.tokens[1]->value)
@@ -88,7 +88,7 @@ int	exit_builtin(t_command command)
 		}
 		else
 		{
-			printf("minishell: exit: %s: numeric argument required\n", arg);
+			print_error(1, "exit", arg, "numeric argument required");
 			exit(EXIT_FAILURE);
 		}
 	}

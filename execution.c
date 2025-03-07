@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:55:42 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/06 21:45:35 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/07 23:32:47 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ char	*get_command_path(char *executable)
 		full_path = ft_strjoin(ft_strjoin(split[i], "/"), executable);
 		if (stat(full_path, &buffer) == 0)
 			return (full_path);
-		else if (stat(executable, &buffer) == 0 && !ft_strncmp(executable, "./", 2))
+		else if (stat(executable, &buffer) == 0 && !ft_strncmp(executable, "./",
+				2))
 			return (executable);
 		i++;
 	}
@@ -88,7 +89,7 @@ int	execute(t_command command, int input_fd, int is_last)
 	path = get_command_path(arr[0]);
 	if (!is_last && pipe(fd) == -1)
 	{
-		printf("minishell: pipe error: %s\n", arr[0]);
+		print_error(1, NULL, "pipe error", arr[0]);
 		return (EXIT_FAILURE);
 	}
 	pid = fork();
@@ -107,14 +108,14 @@ int	execute(t_command command, int input_fd, int is_last)
 			dup2(fd[1], STDOUT_FILENO);
 			close(fd[1]);
 		}
-		if (command.not_to_be_executed == 1)
+		// if (command.not_to_be_executed == 1)
+		// {
+		// 	print_error(0, NULL, arr[1], "ambiguous redirect");
+		// 	exit(1);
+		// }
+		if (execve(path, arr, get_env_str()) == -1)
 		{
-			printf("minishell: %s: ambiguous redirect", arr[1]);
-			exit(1);
-		}
-		else if (execve(path, arr, get_env_str()) == -1)
-		{
-			printf("minishell: command not found: %s\n", arr[0]);
+			print_error(0, NULL, "command not found", arr[0]);
 			exit(1);
 		}
 	}
@@ -142,7 +143,7 @@ void	exec(t_command *commands, int n_commands)
 	{
 		if (is_builtin(commands[i]))
 			exec_builtin(commands[i]);
-		else if (commands[i].tokens[0])
+		else if (commands[i].tokens)
 			input_fd = execute(commands[i], input_fd, (i == n_commands - 1));
 		i++;
 	}

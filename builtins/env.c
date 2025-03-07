@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:18:06 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/06 21:06:08 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/07 23:25:19 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	env_builtin(t_command command)
 		return (EXIT_FAILURE);
 	if (get_number_of_arguments(command))
 	{
-		ft_putendl_fd("too may arguments", STDERR_FILENO);
+		print_error(1, "env", NULL, "too may arguments");
 		return (EXIT_FAILURE);
 	}
 	while (node)

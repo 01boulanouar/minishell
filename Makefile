@@ -19,7 +19,7 @@ SRC_BUILTINS = builtins/cd.c builtins/echo.c builtins/env.c \
 			   builtins/pwd.c builtins/unset.c  builtins/builtin.c
 
 SRC = $(SRC_ENV) $(SRC_BUILTINS) $(SRC_HELPER) $(SRC_PARSER) $(SRC_UTILS) \
- 	  main.c garbage_collector.c execution.c to_delete.c
+ 	  main.c garbage_collector.c execution.c error_messages.c to_delete.c
 OBJ = $(SRC:.c=.o)
 
 all : $(NAME)

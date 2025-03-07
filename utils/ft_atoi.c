@@ -6,13 +6,13 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 22:35:52 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/03/06 21:35:54 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/07 23:04:26 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int static	ft_nbrlen(int nbr)
+static int	ft_nbrlen(int nbr)
 {
 	int	len;
 
@@ -59,7 +59,6 @@ char	*ft_itoa(int n)
 	}
 	return (dst);
 }
-
 
 int	ft_atoi(const char *nbr)
 {
