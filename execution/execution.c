@@ -96,6 +96,9 @@ int execute(t_command command, int input_fd, int is_last)
     arr = get_command_str(command);
     path = get_command_path(arr[0]);
 
+	if (!command.tokens[0])
+		return (input_fd);
+
     if (!is_last && pipe(fd) == -1) 
     {
         perror("minishell: pipe error");
@@ -134,12 +137,11 @@ int execute(t_command command, int input_fd, int is_last)
         {
             exit(exec_builtin(command));
         }
-
-        if (execve(path, arr, get_env_str()) == -1)
-        {
-            printf("minishell: command not found: %s\n", arr[0]);
-            exit(1);
-        }
+		if (execve(path, arr, get_env_str()) == -1)
+		{
+			print_error(1, arr[0] ,NULL , "command not found");
+			exit(1);
+		}
     }
     // In the parent process, just close the pipe after forking the child process
     else // Parent process
