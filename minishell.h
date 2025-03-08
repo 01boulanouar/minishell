@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/07 23:27:58 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/08 00:02:20 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,7 @@ void				ft_free_command(void);
 
 int					cd_builtin(t_command command);
 int					echo_builtin(t_command command);
-int					pwd_builtin(t_command command);
+int					pwd_builtin(void);
 int					env_builtin(t_command command);
 int					export_builtin(t_command command);
 int					exit_builtin(t_command command);
@@ -201,4 +201,6 @@ char				*ft_strdup_env(const char *s1);
 
 void				print_error(int print_name, char *function, \
 					char *file, char *error);
+char				**get_command_str(t_command command);
+char				**get_env_str(void);
 #endif
