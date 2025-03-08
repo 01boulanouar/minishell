@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:18:03 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/28 17:10:16 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/08 23:16:56 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	is_n(char *str)
 	size_t	i;
 
 	i = 0;
-	if (!str)
+	if (!str || !ft_strcmp(str, ""))
 		return (0);
 	if (str[0] == '-')
 		str++;
