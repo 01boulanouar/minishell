@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:55:42 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/08 00:55:48 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/08 01:13:09 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ char	*get_command_path(char *executable)
 		full_path = ft_strjoin(ft_strjoin(split[i], "/"), executable);
 		if (stat(full_path, &buffer) == 0)
 			return (full_path);
-		else if (stat(executable, &buffer) == 0)
+		else if (stat(executable, &buffer) == 0 \
+			&& (!ft_strncmp(executable, "./", 2) || !ft_strncmp(executable, "/", 1)))
 			return (executable);
 		i++;
 	}
@@ -68,12 +69,15 @@ int	execute(t_command command, int input_fd, int is_last)
 		}
 		// if (command.not_to_be_executed == 1)
 		// {
-		// 	print_error(0, NULL, arr[1], "ambiguous redirect");
+		// 	print_error(0, "ambiguous redirect", NULL, arr[1]);
 		// 	exit(1);
 		// }
 		if (execve(path, arr, get_env_str()) == -1)
 		{
-			print_error(0, NULL, "command not found", arr[0]);
+			if (!ft_strlen(arr[0]))
+				print_error(0, "command not found", NULL, "\"\"");
+			else
+				print_error(0, "command not found", NULL, arr[0]);
 			exit(1);
 		}
 	}
@@ -106,9 +110,3 @@ void	exec(t_command *commands, int n_commands)
 		i++;
 	}
 }
-
-
-// minishell shouldn not work
-// infile not exit quit
-// printing in execution
-// cd ~ home expand

@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:18:02 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/08 00:38:29 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/08 01:25:47 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,13 @@ static int	is_home(t_command command)
 			|| !ft_strcmp(command.tokens[1]->value, "~"));
 }
 
+static int	is_start_home(t_command command)
+{
+	if (!command.tokens[1])
+		return (0);
+	return (!ft_strncmp(command.tokens[1]->value, "~", 1));
+}
+
 static int	is_minus(t_command command)
 {
 	if (!command.tokens[1])
@@ -65,6 +72,13 @@ int	cd_builtin(t_command command)
 		if (!ft_getenv("HOME"))
 			return (print_error(1, "cd", NULL, "HOME not set"), EXIT_FAILURE);
 		path = ft_getenv("HOME");
+		ret = ft_chdir(path);
+	}
+	else if (is_start_home(command))
+	{
+		if (!ft_getenv("HOME"))
+			return (print_error(1, "cd", NULL, "HOME not set"), EXIT_FAILURE);
+		path = ft_strjoin(ft_getenv("HOME"), ++(command.tokens[1]->value));
 		ret = ft_chdir(path);
 	}
 	else if (is_minus(command))
