@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/08 00:17:40 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/08 03:39:50 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define MINISHELL_H
 
 # include <limits.h>
-# include <linux/limits.h>
+//# include <linux/limits.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <stdio.h>
@@ -148,6 +148,8 @@ void				init_env(char **line);
 t_env				**get_env_list(void);
 char				*ft_getenv(char *name);
 t_env				*sort_env(void);
+
+void redirect_io(t_command cmd);
 
 int					is_redirection(t_token *token);
 int					is_operator(t_token *token);
