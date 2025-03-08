@@ -163,7 +163,8 @@ void	exec(t_command *commands, int n_commands)
 	input_fd = STDIN_FILENO;  // Start with stdin for the first command
 	if (!commands)
 		return ;
-
+	if (commands[0].tokens && is_builtin(commands[0]) && n_commands == 1)
+            exit(exec_builtin(commands[0]));
 	// Iterate through all commands
 	for (i = 0; i < n_commands; i++)
 	{
