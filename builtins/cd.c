@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:18:02 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/08 01:49:17 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/08 01:52:45 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,16 +64,18 @@ int	cd_builtin(t_command command)
 {
 	int	ret;
 
-	ret = EXIT_SUCCESS;
+	ret = EXIT_FAILURE;
+	if (get_number_of_arguments(command) > 1)
+		return (print_error(1, "cd", NULL, "too many arguments"), ret);
 	if (!get_number_of_arguments(command) || is_home(command))
 		handle_home("HOME", NULL);
 	else if (!command.tokens[1])
-		return (EXIT_FAILURE);
+		return (ret);
 	else if (!ft_strncmp(command.tokens[1]->value, "~", 1))
 		handle_home("HOME", ++(command.tokens[1]->value));
 	else if (!ft_strcmp(command.tokens[1]->value, "-"))
 		handle_home("OLDPWD", NULL);
 	else if (command.tokens[1] && command.tokens[1]->value)
 		ret = ft_chdir(command.tokens[1]->value);
-	return (ret);
+	return (EXIT_SUCCESS);
 }
