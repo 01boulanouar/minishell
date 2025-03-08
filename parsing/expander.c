@@ -6,11 +6,27 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 16:19:28 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/06 21:10:36 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/08 00:17:47 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	expand(t_token **token, char *line, char *value)
+{
+	char	*name;
+	t_token	*new_token;
+	int		before_space;
+
+	value++;
+	name = ft_getenv(value);
+	if (name)
+	{
+		before_space = ft_isin(*line, BLANKS);
+		new_token = ft_lstnew_token(ft_strdup(name), t_expanded, before_space);
+		ft_lstadd_back_token(token, new_token);
+	}
+}
 
 int	get_expand_len(char *line)
 {

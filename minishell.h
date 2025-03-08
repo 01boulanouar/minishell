@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/08 00:02:20 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/08 00:17:40 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,4 +203,5 @@ void				print_error(int print_name, char *function, \
 					char *file, char *error);
 char				**get_command_str(t_command command);
 char				**get_env_str(void);
+void				expand(t_token **token, char *line, char *value);
 #endif

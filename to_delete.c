@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 15:53:33 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/05 01:12:31 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/08 00:18:19 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ char	*print_token_type(t_token_type type)
 		return ("\"");
 	else if (type == t_word)
 		return ("WORD");
+	else if (type == t_expanded)
+		return ("Expanded");
 	else
 		return ("UNKOWN");
 }
