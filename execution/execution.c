@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:55:42 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/07 23:55:09 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/08 00:55:48 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ char	*get_command_path(char *executable)
 		full_path = ft_strjoin(ft_strjoin(split[i], "/"), executable);
 		if (stat(full_path, &buffer) == 0)
 			return (full_path);
-		else if (stat(executable, &buffer) == 0 && !ft_strncmp(executable, "./",
-				2))
+		else if (stat(executable, &buffer) == 0)
 			return (executable);
 		i++;
 	}
@@ -107,3 +106,9 @@ void	exec(t_command *commands, int n_commands)
 		i++;
 	}
 }
+
+
+// minishell shouldn not work
+// infile not exit quit
+// printing in execution
+// cd ~ home expand
