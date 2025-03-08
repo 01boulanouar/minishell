@@ -6,19 +6,11 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:18:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/07 23:25:22 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/08 00:22:39 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-// int	get_exit_status(int new_status, int set)
-// {
-// 	static int status;
-// 	if (set)
-// 		status = new_status;
-// 	return (status);
-// }
 
 unsigned long long	ft_atol(const char *str)
 {
