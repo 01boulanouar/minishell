@@ -6,13 +6,13 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/08 00:17:22 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/08 02:02:47 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_token	*tokenize(char *line)
+static t_token	*tokenize(char *line)
 {
 	const char		*start;
 	t_token			*token;
@@ -39,7 +39,7 @@ t_token	*tokenize(char *line)
 	return (token);
 }
 
-void	join_token(t_token **token)
+static void	join_token(t_token **token)
 {
 	t_token	*current;
 	t_token	*next_token;
@@ -60,6 +60,17 @@ void	join_token(t_token **token)
 	}
 }
 
+static char *ft_readline(const char *prompt)
+{
+	char 	*line;
+	char	*tmp;
+	
+	tmp = readline(prompt);
+	line = ft_strdup(tmp);
+	free(tmp);
+	return (line);
+}
+
 t_token	*lexer(void)
 {
 	t_token	*token;
@@ -74,17 +85,9 @@ t_token	*lexer(void)
 	while (1)
 	{
 		if (inside_pipe)
-		{
-			tmp = readline("> ");
-			line = ft_strdup(tmp);
-			free(tmp);
-		}
+			line = ft_readline("> ");
 		else
-		{
-			tmp = readline("minishell> ");
-			line = ft_strdup(tmp);
-			free(tmp);
-		}
+			line = ft_readline("minishell> ");
 		trim_line = ft_strjoin_space(trim_line, line);
 		if (!trim_line)
 			return (token);
