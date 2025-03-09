@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/08 23:19:13 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/09 03:13:07 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include <fcntl.h>
 # include <limits.h>
-//# include <linux/limits.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <stdio.h>
@@ -22,7 +22,6 @@
 # include <sys/stat.h>
 # include <sys/wait.h>
 # include <unistd.h>
-#include <fcntl.h>
 
 // Tokens
 # define PIPE '|'
@@ -50,8 +49,8 @@
 // Error String
 # define SYNTAX_ERROR_STR "syntax error near unexpected token"
 # define GETCWD_ERROR_STR "error retrieving current directory: \
-						   getcwd: cannot access parent directories: \
-						   No such file or directory"
+							getcwd: cannot access parent directories: \
+							No such file or directory"
 
 // Token types
 typedef enum e_token_type
@@ -150,7 +149,7 @@ t_env				**get_env_list(void);
 char				*ft_getenv(char *name);
 t_env				*sort_env(void);
 
-void redirect_io(t_command cmd);
+void				credirect_io(t_command cmd);
 
 int					is_redirection(t_token *token);
 int					is_operator(t_token *token);
@@ -202,8 +201,8 @@ char				*ft_copy_env(const char *start, const char *end);
 char				*ft_strjoin_env(char const *s1, char const *s2);
 char				*ft_strdup_env(const char *s1);
 
-void				print_error(int print_name, char *function, \
-					char *file, char *error);
+void				print_error(int print_name, char *function, char *file,
+						char *error);
 char				**get_command_str(t_command command);
 char				**get_env_str(void);
 void				expand(t_token **token, char *line, char *value);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:18:02 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/08 04:12:43 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/09 03:10:57 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int	handle_home(char *str, char *dir)
 
 	if (!ft_getenv(str))
 	{
-		print_error(1, "cd", NULL, ft_strjoin(str, " not set")); // fux not set
+		print_error(1, "cd", NULL, ft_strjoin(str, " not set"));
 		return (EXIT_FAILURE);
 	}
 	path = ft_strjoin(ft_getenv(str), dir);

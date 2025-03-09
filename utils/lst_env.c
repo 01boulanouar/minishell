@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 13:14:43 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/06 21:06:08 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/09 03:12:23 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,10 @@ void	ft_lstremove_env(char *key)
 	while (*env)
 	{
 		if (!ft_strcmp(key, (*env)->key))
+		{
 			*env = (*env)->next;
+			break ;
+		}
 		else
 			env = &(*env)->next;
 	}

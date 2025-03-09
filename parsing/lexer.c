@@ -31,7 +31,8 @@ static t_token	*tokenize(char *line)
 			value = expand_double_quotes(value);
 		if (type == t_dollar_expand || type == t_dollar_num)
 			expand(&token, line, value);
-		if (type != t_dollar_expand && type != t_dollar_num && type != t_single_dollar)
+		if (type != t_dollar_expand && type != t_dollar_num
+			&& type != t_single_dollar)
 			ft_lstadd_back_token(&token, ft_lstnew_token(value, type,
 					ft_isin(*line, BLANKS)));
 		line += ft_strspn(line, BLANKS);
@@ -60,11 +61,11 @@ static void	join_token(t_token **token)
 	}
 }
 
-static char *ft_readline(const char *prompt)
+static char	*ft_readline(const char *prompt)
 {
-	char 	*line;
+	char	*line;
 	char	*tmp;
-	
+
 	tmp = readline(prompt);
 	line = ft_strdup(tmp);
 	free(tmp);

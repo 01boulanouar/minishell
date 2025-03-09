@@ -11,7 +11,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../minishell.h"
 
 char	*get_command_path(char *executable)
@@ -30,15 +29,19 @@ char	*get_command_path(char *executable)
 		full_path = ft_strjoin(ft_strjoin(split[i], "/"), executable);
 		if (stat(full_path, &buffer) == 0)
 			return (full_path);
-		else if (stat(executable, &buffer) == 0 \
-			&& (!ft_strncmp(executable, "./", 2) || !ft_strncmp(executable, "/", 1)))
+		else if (stat(executable, &buffer) == 0 && (!ft_strncmp(executable,
+					"./", 2) || !ft_strncmp(executable, "/", 1)))
 			return (executable);
 		i++;
 	}
 	return (NULL);
 }
 
-
+void	ft_close(int fd)
+{
+	if (fd != -1)
+		close(fd);
+}
 void	redirect_io(t_command cmd)
 {
 	int	in_fd;
@@ -63,7 +66,7 @@ void	redirect_io(t_command cmd)
 			}
 		}
 		dup2(in_fd, STDIN_FILENO); // Redirect stdin to the file
-		close(in_fd);
+		ft_close(in_fd);
 	}
 	// If output redirection exists, open the file
 	if (cmd.out_files)
@@ -81,16 +84,16 @@ void	redirect_io(t_command cmd)
 			}
 		}
 		dup2(out_fd, STDOUT_FILENO); // Redirect stdout to the file
-		close(out_fd);
+		ft_close(out_fd);
 	}
 }
-
 
 void	dup_2(int old, int new)
 {
 	dup2(old, new);
 	close(old);
 }
+
 int	execute(t_command command, int input_fd, int is_last)
 {
 	char	**arr;
@@ -117,8 +120,11 @@ int	execute(t_command command, int input_fd, int is_last)
 			dup_2(input_fd, STDIN_FILENO);
 		if (!is_last)
 			dup2(fd[1], STDOUT_FILENO);
-		close(fd[0]);
-		close(fd[1]);
+		if (!is_last)
+		{
+			ft_close(fd[0]);
+			ft_close(fd[1]);
+		}
 		redirect_io(command);
 		if (is_builtin(command))
 			exit(exec_builtin(command));
@@ -131,9 +137,9 @@ int	execute(t_command command, int input_fd, int is_last)
 	else
 	{
 		if (!is_last)
-			close(fd[1]);
+			ft_close(fd[1]);
 		if (input_fd != STDIN_FILENO)
-			close(input_fd);
+			ft_close(input_fd);
 	}
 	return (!is_last ? fd[0] : STDIN_FILENO);
 }
@@ -150,15 +156,19 @@ void	exec(t_command *commands, int n_commands)
 		return ;
 
 	// if there is just one command and it s a builting , do not fork for it
-    
-	while (i < n_commands)
+	if (n_commands == 1 && is_builtin(commands[0]))
+		exec_builtin(commands[0]);
+	else
 	{
-		input_fd = execute(commands[i], input_fd, (i == n_commands - 1));
-		i++;
-	}
+		while (i < n_commands && commands[i].tokens && commands[i].tokens[0])
+		{
+			input_fd = execute(commands[i], input_fd, (i == n_commands - 1));
+			i++;
+		}
 
-	// After all commands are executed, wait for the last command to finish
-	int status;
-	while (wait(&status) > 0)
-		;
+		// After all commands are executed, wait for the last command to finish
+		int status;
+		while (wait(&status) > 0)
+			;
+	}
 }
