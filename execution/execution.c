@@ -58,11 +58,18 @@ void	redirect_io(t_command cmd)
 		{
 			if (in_fd != -1)
 				close(in_fd);
-			in_fd = open(cmd.in_files[i]->file, O_RDONLY);
+			if (cmd.in_files[i]->type == t_double_less)
+			{
+				heredoc(cmd.in_files[i]);
+				// exit(1);
+			}
+			else 
+				in_fd = open(cmd.in_files[i]->file.value, O_RDONLY);
+			
 			if (in_fd == -1)
 			{
 				perror("minishell: input redirection error");
-				exit(EXIT_FAILURE);
+				//exit(EXIT_FAILURE);
 			}
 		}
 		dup2(in_fd, STDIN_FILENO); // Redirect stdin to the file
@@ -76,7 +83,7 @@ void	redirect_io(t_command cmd)
 			if (out_fd != -1)
 				close(out_fd);
 			flags = O_WRONLY | O_CREAT | (cmd.out_files[i]->type == t_double_greater ? O_APPEND : O_TRUNC);
-			out_fd = open(cmd.out_files[i]->file, flags, 0644);
+			out_fd = open(cmd.out_files[i]->file.value, flags, 0644);
 			if (out_fd == -1)
 			{
 				perror("minishell: output redirection error");

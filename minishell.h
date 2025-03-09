@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/09 03:13:07 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/09 04:19:09 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,15 @@
 # include <fcntl.h>
 # include <limits.h>
 # include <readline/history.h>
+# include <linux/limits.h>
 # include <readline/readline.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/stat.h>
 # include <sys/wait.h>
 # include <unistd.h>
+
+#define HEREDOC_NAME "/tmp/.heredoc_"
 
 // Tokens
 # define PIPE '|'
@@ -79,8 +82,8 @@ typedef struct s_token
 }					t_token;
 
 typedef struct s_redirect
-{
-	char			*file;
+{	
+	t_token 		file;
 	t_token_type	type;
 }					t_redirect;
 
@@ -206,4 +209,5 @@ void				print_error(int print_name, char *function, char *file,
 char				**get_command_str(t_command command);
 char				**get_env_str(void);
 void				expand(t_token **token, char *line, char *value);
+void 				heredoc(t_redirect *redirection);
 #endif

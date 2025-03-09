@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:08 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/08 00:31:02 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/09 04:23:08 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	main(int argc, char **argv, char **env)
 
 	(void)env;
 	(void)argv;
-	if (argc != 1)
+	if (argc != 1 || !isatty(STDIN_FILENO))
 		exit(EXIT_FAILURE);
 	init_env(env);
 	while (1)

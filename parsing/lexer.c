@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/08 03:53:40 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/09 04:17:13 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ static void	join_token(t_token **token)
 		if (next_token && !current->before_space && !is_operator(current)
 			&& !is_operator(next_token))
 		{
+			if (current->next->type == t_double_quote || current->next->type == t_single_quote)
+				current->type = current->next->type;
 			current->value = ft_strjoin(current->value, next_token->value);
 			current->next = next_token->next;
 			current->before_space = next_token->before_space;
