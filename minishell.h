@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/10 02:42:23 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/10 23:20:49 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,7 +216,7 @@ void				print_error(int print_name, char *function, char *file,
 char				**get_command_str(t_command command);
 char				**get_env_str(void);
 void				expand(t_token **token, char *line, char *value);
-void 				heredoc(t_redirect *redirection);
+char *heredoc_1(t_redirect *redirect);
 
 void	redirect_io(t_command cmd);
 void	ft_close(int fd); 
