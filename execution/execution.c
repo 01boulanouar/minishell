@@ -37,70 +37,6 @@ char	*get_command_path(char *executable)
 	return (NULL);
 }
 
-void	ft_close(int fd)
-{
-	if (fd != -1)
-		close(fd);
-}
-void	redirect_io(t_command cmd)
-{
-	int	in_fd;
-	int	out_fd;
-	int	i;
-	int	flags;
-
-	in_fd = -1;
-	out_fd = -1;
-	// If input redirection exists, open the file
-	if (cmd.in_files)
-	{
-		for (i = 0; cmd.in_files[i]; i++)
-		{
-			if (in_fd != -1)
-				close(in_fd);
-			if (cmd.in_files[i]->type == t_double_less)
-			{
-				heredoc(cmd.in_files[i]);
-				// exit(1);
-			}
-			else 
-				in_fd = open(cmd.in_files[i]->file.value, O_RDONLY);
-			
-			if (in_fd == -1)
-			{
-				perror("minishell: input redirection error");
-				//exit(EXIT_FAILURE);
-			}
-		}
-		dup2(in_fd, STDIN_FILENO); // Redirect stdin to the file
-		ft_close(in_fd);
-	}
-	// If output redirection exists, open the file
-	if (cmd.out_files)
-	{
-		for (i = 0; cmd.out_files[i]; i++)
-		{
-			if (out_fd != -1)
-				close(out_fd);
-			flags = O_WRONLY | O_CREAT | (cmd.out_files[i]->type == t_double_greater ? O_APPEND : O_TRUNC);
-			out_fd = open(cmd.out_files[i]->file.value, flags, 0644);
-			if (out_fd == -1)
-			{
-				perror("minishell: output redirection error");
-				exit(EXIT_FAILURE);
-			}
-		}
-		dup2(out_fd, STDOUT_FILENO); // Redirect stdout to the file
-		ft_close(out_fd);
-	}
-}
-
-void	dup_2(int old, int new)
-{
-	dup2(old, new);
-	close(old);
-}
-
 int	execute(t_command command, int input_fd, int is_last)
 {
 	char	**arr;
@@ -150,6 +86,7 @@ int	execute(t_command command, int input_fd, int is_last)
 	}
 	return (!is_last ? fd[0] : STDIN_FILENO);
 }
+
 
 void	exec(t_command *commands, int n_commands)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/09 04:19:09 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/09 22:30:25 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <fcntl.h>
 # include <limits.h>
 # include <readline/history.h>
-# include <linux/limits.h>
+// # include <linux/limits.h>
 # include <readline/readline.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -210,4 +210,8 @@ char				**get_command_str(t_command command);
 char				**get_env_str(void);
 void				expand(t_token **token, char *line, char *value);
 void 				heredoc(t_redirect *redirection);
+
+void	redirect_io(t_command cmd);
+void	ft_close(int fd); 
+void	dup_2(int old, int new); 
 #endif

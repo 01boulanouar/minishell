@@ -14,7 +14,7 @@ SRC_UTILS =  utils/ft_copy.c utils/lst_token.c utils/ft_strjoin.c utils/lst_env.
 
 SRC_PARSING =  parsing/expander.c parsing/lexer.c parsing/parser.c parsing/syntax_error.c
 
-SRC_EXECUTION = execution/heredoc.c execution/execution.c
+SRC_EXECUTION = execution/heredoc.c execution/execution.c execution/redirect_io.c
 
 SRC_BUILTINS = builtins/cd.c builtins/echo.c builtins/env.c \
 			   builtins/exit.c builtins/export.c builtins/export_sort.c \
