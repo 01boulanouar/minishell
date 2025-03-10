@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/09 22:30:25 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/10 02:42:23 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,13 @@
 # include <unistd.h>
 
 #define HEREDOC_NAME "/tmp/.heredoc_"
+
+
+#define MAX_HEREDOC_FILES 100
+
+static char *heredoc_files[MAX_HEREDOC_FILES];
+static int heredoc_index = 0;
+
 
 // Tokens
 # define PIPE '|'
@@ -214,4 +221,7 @@ void 				heredoc(t_redirect *redirection);
 void	redirect_io(t_command cmd);
 void	ft_close(int fd); 
 void	dup_2(int old, int new); 
+
+void cleanup_heredocs(void);
+
 #endif

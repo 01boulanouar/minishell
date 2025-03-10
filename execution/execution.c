@@ -114,5 +114,12 @@ void	exec(t_command *commands, int n_commands)
 		int status;
 		while (wait(&status) > 0)
 			;
+		
 	}
+	cleanup_heredocs();
 }
+
+
+
+
+

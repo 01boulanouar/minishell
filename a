@@ -1,0 +1,15 @@
+Makefile
+a
+builtins
+env
+error_messages.c
+execution
+garbage_collector.c
+helper
+main.c
+minishell
+minishell.h
+parsing
+test.c
+to_delete.c
+utils
