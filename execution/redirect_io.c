@@ -12,26 +12,6 @@
 
 #include "../minishell.h"
 
-void	ft_close(int fd)
-{
-	if (fd != -1)
-		close(fd);
-}
-
-
-void	dup_2(int old, int new)
-{
-	dup2(old, new);
-	close(old);
-}
-
-char *get_random_name(void)
-{
-    static int counter = 0;
-    char *num = ft_itoa(counter++);
-    char *name = ft_strjoin("heredoc_", num);
-    return name;
-}
 
 void cleanup_heredocs(void)
 {
