@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/11 00:01:41 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/11 22:08:13 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,14 @@ void heredoc(t_redirect *redirection)
 		expand = 1;
 	
 	printf("name = %s\n, expand = %d , delim = %s\n", get_random_name(), expand, redirection->file.value);
+}
+
+char **init_herdoc(t_token *token)
+{
+	char **heredoc;
+	int n_herdocs;
+	
+	n_herdocs = get_number_of_herdocs(token);
+	heredoc = ft_malloc(n_herdocs * sizeof(char *));
+	return (heredoc);
 }

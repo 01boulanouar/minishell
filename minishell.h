@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/10 23:46:10 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/11 22:08:07 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include <errno.h>
 # include <fcntl.h>
 # include <limits.h>
 # include <readline/history.h>
@@ -25,13 +26,6 @@
 # include <unistd.h>
 
 #define HEREDOC_NAME "/tmp/.heredoc_"
-
-
-#define MAX_HEREDOC_FILES 100
-
-static char *heredoc_files[MAX_HEREDOC_FILES];
-static int heredoc_index = 0;
-
 
 // Tokens
 # define PIPE '|'
@@ -198,7 +192,7 @@ int					unset_builtin(t_command command);
 int					is_builtin(t_command command);
 int					exec_builtin(t_command command);
 
-void				exec(t_command *commands, int n_commands);
+void				exec(t_command *commands, int n_commands, char **herdoc, int n_herdocs);
 
 char				*print_token_type(t_token_type type);
 void				print_tokens(t_token *token);
@@ -222,13 +216,14 @@ void				expand(t_token **token, char *line, char *value);
 void	ft_close(int fd); 
 void	dup_2(int old, int new); 
 
-
-char *heredoc_1(t_redirect *redirect);
-
-void	redirect_io(t_command cmd);
+int 		execute(t_command command, int input_fd, int is_last, char **herdoc);
+char *heredoc_1(t_redirect *redirect, char **heredoc, int heredoc_index);
+void	redirect_io(t_command cmd, char **heredoc);
 void	ft_close(int fd); 
 void	dup_2(int old, int new); 
 
-void cleanup_heredocs(void);
+void cleanup_heredocs(char **heredoc, int num_herdocs);
 
+int get_number_of_herdocs(t_token *token);
+char **init_herdoc(t_token *token);
 #endif

@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 14:14:15 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/06 20:01:45 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/11 20:58:21 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,18 @@ int	get_number_of_tokens(t_token *token)
 		token = token->next;
 	}
 	return (count - (2 * redirections));
+}
+
+int get_number_of_herdocs(t_token *token)
+{
+	int	count;
+
+	count = 0;	
+	while (token)
+	{
+		if (token->type == t_double_less)
+			count++;
+		token = token->next;
+	}
+	return (count);
 }

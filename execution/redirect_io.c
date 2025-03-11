@@ -13,22 +13,20 @@
 #include "../minishell.h"
 
 
-void cleanup_heredocs(void)
+void cleanup_heredocs(char **heredoc, int num_herdocs)
 {
-    for (int i = 0; i < heredoc_index; i++)
+    for (int i = 0; i < num_herdocs; i++)
     {
-        if (heredoc_files[i])
+        if (heredoc[i])
         {
-            unlink(heredoc_files[i]);
-            // free(heredoc_files[i]);
-            heredoc_files[i] = NULL;
+            unlink(heredoc[i]);
+            heredoc[i] = NULL;
         }
     }
-    heredoc_index = 0;
 }
 
 
-char *heredoc_1(t_redirect *redirect)
+char *heredoc_1(t_redirect *redirect, char **heredoc, int heredoc_index)
 {
 	char *line;
 	int fd;
@@ -57,16 +55,14 @@ char *heredoc_1(t_redirect *redirect)
 	}
 
 	close(fd);
-
-	// Store the heredoc file name in the static list
-	if (heredoc_index < MAX_HEREDOC_FILES)
-		heredoc_files[heredoc_index++] = ft_strdup(name);
+	// // Store the heredoc file name in the static list
+	heredoc[heredoc_index++] = ft_strdup(name);
 
 	return name;
 }
 
 
-static void open_in_files(t_redirect **in_files)
+static void open_in_files(t_redirect **in_files, char **heredoc)
 {
     int in_fd = -1;
     int heredoc_pos = 0;
@@ -80,7 +76,7 @@ static void open_in_files(t_redirect **in_files)
 
             if (in_files[i]->type == t_double_less)
             {
-                in_fd = open(heredoc_files[heredoc_pos++], O_RDONLY);
+                in_fd = open(heredoc[heredoc_pos++], O_RDONLY);
                 if (in_fd == -1)
                 {
                     perror("minishell: heredoc file open error");
@@ -128,8 +124,8 @@ static void	open_out_files(t_redirect **out_files)
 	}
 }
 
-void	redirect_io(t_command cmd)
+void	redirect_io(t_command cmd, char **heredoc)
 {
-	open_in_files(cmd.in_files);
+	open_in_files(cmd.in_files, heredoc);
 	open_out_files(cmd.out_files);
 }

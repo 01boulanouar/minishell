@@ -1,6 +1,6 @@
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-# SANITIZE = -fsanitize=address -g
+SANITIZE = -fsanitize=address -g
 NAME = minishell
 RM = rm -f
 

@@ -37,9 +37,10 @@ char	*get_command_path(char *executable)
 	return (NULL);
 }
 
-void prepare_heredocs(t_command *commands, int n_commands)
+void prepare_heredocs(t_command *commands, int n_commands, char **heredoc)
 {
     int i;
+	int heredoc_index;
 
     heredoc_index = 0;
     for (i = 0; i < n_commands; i++)
@@ -49,8 +50,7 @@ void prepare_heredocs(t_command *commands, int n_commands)
         {
             if ((*in_files)->type == t_double_less)
             {
-                heredoc_files[heredoc_index] = heredoc_1(*in_files);
-				// printf("Stored heredoc file: %s\n", heredoc_files[heredoc_index]);
+                heredoc[heredoc_index] = heredoc_1(*in_files, heredoc, heredoc_index);
                 heredoc_index++;
             }
             in_files++;
@@ -58,7 +58,7 @@ void prepare_heredocs(t_command *commands, int n_commands)
     }
 }
 
-int execute(t_command command, int input_fd, int is_last)
+int execute(t_command command, int input_fd, int is_last, char **herdoc)
 {
     char **arr = get_command_str(command);
     char *path = get_command_path(arr[0]);
@@ -87,7 +87,7 @@ int execute(t_command command, int input_fd, int is_last)
             ft_close(fd[0]);
             ft_close(fd[1]);
         }
-        redirect_io(command);
+        redirect_io(command, herdoc);
         if (is_builtin(command))
             exit(exec_builtin(command));
         if (execve(path, arr, get_env_str()) == -1)
@@ -107,14 +107,14 @@ int execute(t_command command, int input_fd, int is_last)
 }
 
 
-void exec(t_command *commands, int n_commands)
+void exec(t_command *commands, int n_commands, char **heredoc, int n_herdocs)
 {
     int i = 0, input_fd = STDIN_FILENO;
 
     if (!commands)
         return;
 
-    prepare_heredocs(commands, n_commands);
+    prepare_heredocs(commands, n_commands, heredoc);
 
     if (n_commands == 1 && is_builtin(commands[0]))
         exec_builtin(commands[0]);
@@ -122,14 +122,14 @@ void exec(t_command *commands, int n_commands)
     {
         while (i < n_commands && commands[i].tokens && commands[i].tokens[0])
         {
-            input_fd = execute(commands[i], input_fd, (i == n_commands - 1));
+            input_fd = execute(commands[i], input_fd, (i == n_commands - 1), heredoc);
             i++;
         }
 
         int status;
         while (wait(&status) > 0);
     }
-    cleanup_heredocs();
+    cleanup_heredocs(heredoc, n_herdocs); // to chabge
 }
 
 
