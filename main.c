@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:08 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/11 22:07:42 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/11 22:27:21 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	main(int argc, char **argv, char **env)
 {
 	t_token		*tokens;
 	t_command	*commands;
-	char 		**heredoc;
+	char		**heredoc;
 
 	(void)env;
 	(void)argv;
@@ -28,7 +28,8 @@ int	main(int argc, char **argv, char **env)
 		tokens = lexer();
 		commands = parser(tokens);
 		heredoc = init_herdoc(tokens);
-		exec(commands, get_number_of_commands(tokens), heredoc, get_number_of_herdocs(tokens));
+		exec(commands, get_number_of_commands(tokens),
+			heredoc, get_number_of_herdocs(tokens));
 		ft_free_command();
 	}
 	ft_free_env();

@@ -1,37 +1,36 @@
-// /* ************************************************************************** */
-// /*                                                                            */
-// /*                                                        :::      ::::::::   */
-// /*   redirect_io.c                                      :+:      :+:    :+:   */
-// /*                                                    +:+ +:+         +:+     */
-// /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
-// /*                                                +#+#+#+#+#+   +#+           */
-// /*   Created: 2025/03/09 17:45:39 by aelkadir          #+#    #+#             */
-// /*   Updated: 2025/03/09 22:04:36 by aelkadir         ###   ########.fr       */
-// /*                                                                            */
-// /* ************************************************************************** */
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redirect_io.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/11 22:24:22 by moboulan          #+#    #+#             */
+/*   Updated: 2025/03/11 22:24:23 by moboulan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../minishell.h"
 
-
-void cleanup_heredocs(char **heredoc, int num_herdocs)
+void	cleanup_heredocs(char **heredoc, int num_herdocs)
 {
-    for (int i = 0; i < num_herdocs; i++)
-    {
-        if (heredoc[i])
-        {
-            unlink(heredoc[i]);
-            heredoc[i] = NULL;
-        }
-    }
+	for (int i = 0; i < num_herdocs; i++)
+	{
+		if (heredoc[i])
+		{
+			unlink(heredoc[i]);
+			heredoc[i] = NULL;
+		}
+	}
 }
 
-
-char *heredoc_1(t_redirect *redirect, char **heredoc, int heredoc_index)
+char	*heredoc_1(t_redirect *redirect, char **heredoc, int heredoc_index)
 {
-	char *line;
-	int fd;
-	char *name = get_random_name();
+	char	*line;
+	int		fd;
+	char	*name;
 
+	name = get_random_name();
 	// Create the file
 	fd = open(name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)
@@ -39,7 +38,6 @@ char *heredoc_1(t_redirect *redirect, char **heredoc, int heredoc_index)
 		perror("minishell: heredoc temporary file creation error");
 		exit(EXIT_FAILURE);
 	}
-
 	// Read the input for the heredoc
 	while (1)
 	{
@@ -47,54 +45,52 @@ char *heredoc_1(t_redirect *redirect, char **heredoc, int heredoc_index)
 		if (!line || ft_strcmp(line, redirect->file.value) == 0)
 		{
 			free(line);
-			break;
+			break ;
 		}
 		write(fd, line, ft_strlen(line));
 		write(fd, "\n", 1);
 		free(line);
 	}
-
 	close(fd);
 	// // Store the heredoc file name in the static list
 	heredoc[heredoc_index++] = ft_strdup(name);
-
-	return name;
+	return (name);
 }
 
-
-static void open_in_files(t_redirect **in_files, char **heredoc)
+static void	open_in_files(t_redirect **in_files, char **heredoc)
 {
-    int in_fd = -1;
-    int heredoc_pos = 0;
+	int	in_fd;
+	int	heredoc_pos;
 
-    if (in_files && *in_files)
-    {
-        for (int i = 0; in_files[i]; i++)
-        {
-            if (in_fd != -1)
-                close(in_fd);
-
-            if (in_files[i]->type == t_double_less)
-            {
-                in_fd = open(heredoc[heredoc_pos++], O_RDONLY);
-                if (in_fd == -1)
-                {
-                    perror("minishell: heredoc file open error");
-                    exit(EXIT_FAILURE);
-                }
-            }
-            else
-            {
-                in_fd = open(in_files[i]->file.value, O_RDONLY);
-                if (in_fd == -1)
-                {
-                    perror("minishell: input redirection error");
-                    exit(EXIT_FAILURE);
-                }
-            }
-        }
-        dup_2(in_fd, STDIN_FILENO);
-    }
+	in_fd = -1;
+	heredoc_pos = 0;
+	if (in_files && *in_files)
+	{
+		for (int i = 0; in_files[i]; i++)
+		{
+			if (in_fd != -1)
+				close(in_fd);
+			if (in_files[i]->type == t_double_less)
+			{
+				in_fd = open(heredoc[heredoc_pos++], O_RDONLY);
+				if (in_fd == -1)
+				{
+					perror("minishell: heredoc file open error");
+					exit(EXIT_FAILURE);
+				}
+			}
+			else
+			{
+				in_fd = open(in_files[i]->file.value, O_RDONLY);
+				if (in_fd == -1)
+				{
+					perror("minishell: input redirection error");
+					exit(EXIT_FAILURE);
+				}
+			}
+		}
+		dup_2(in_fd, STDIN_FILENO);
+	}
 }
 
 static void	open_out_files(t_redirect **out_files)

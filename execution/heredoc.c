@@ -12,23 +12,23 @@
 
 #include "../minishell.h"
 
-
-void heredoc(t_redirect *redirection)
+void	heredoc(t_redirect *redirection)
 {
-	int expand;
+	int	expand;
 
 	expand = 0;
-	if (redirection->file.type == t_double_quote || redirection->file.type == t_single_quote)
+	if (redirection->file.type == t_double_quote
+		|| redirection->file.type == t_single_quote)
 		expand = 1;
-	
-	printf("name = %s\n, expand = %d , delim = %s\n", get_random_name(), expand, redirection->file.value);
+	printf("name = %s\n, expand = %d , delim = %s\n", get_random_name(), expand,
+		redirection->file.value);
 }
 
-char **init_herdoc(t_token *token)
+char	**init_herdoc(t_token *token)
 {
-	char **heredoc;
-	int n_herdocs;
-	
+	char	**heredoc;
+	int		n_herdocs;
+
 	n_herdocs = get_number_of_herdocs(token);
 	heredoc = ft_malloc(n_herdocs * sizeof(char *));
 	return (heredoc);

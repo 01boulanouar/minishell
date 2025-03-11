@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/11 22:08:07 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/11 22:27:47 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <fcntl.h>
 # include <limits.h>
 # include <readline/history.h>
-// # include <linux/limits.h>
 # include <readline/readline.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -25,7 +24,7 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
-#define HEREDOC_NAME "/tmp/.heredoc_"
+# define HEREDOC_NAME "/tmp/.heredoc_"
 
 // Tokens
 # define PIPE '|'
@@ -52,7 +51,8 @@
 
 // Error String
 # define SYNTAX_ERROR_STR "syntax error near unexpected token"
-# define GETCWD_ERROR_STR "error retrieving current directory: \
+# define GETCWD_ERROR_STR \
+	"error retrieving current directory: \
 							getcwd: cannot access parent directories: \
 							No such file or directory"
 
@@ -83,8 +83,8 @@ typedef struct s_token
 }					t_token;
 
 typedef struct s_redirect
-{	
-	t_token 		file;
+{
+	t_token			file;
 	t_token_type	type;
 }					t_redirect;
 
@@ -192,7 +192,8 @@ int					unset_builtin(t_command command);
 int					is_builtin(t_command command);
 int					exec_builtin(t_command command);
 
-void				exec(t_command *commands, int n_commands, char **herdoc, int n_herdocs);
+void				exec(t_command *commands, int n_commands, char **herdoc,
+						int n_herdocs);
 
 char				*print_token_type(t_token_type type);
 void				print_tokens(t_token *token);
@@ -211,19 +212,17 @@ char				**get_command_str(t_command command);
 char				**get_env_str(void);
 void				expand(t_token **token, char *line, char *value);
 
-//exc helper
- char *get_random_name(void);
-void	ft_close(int fd); 
-void	dup_2(int old, int new); 
-
-int 		execute(t_command command, int input_fd, int is_last, char **herdoc);
-char *heredoc_1(t_redirect *redirect, char **heredoc, int heredoc_index);
-void	redirect_io(t_command cmd, char **heredoc);
-void	ft_close(int fd); 
-void	dup_2(int old, int new); 
-
-void cleanup_heredocs(char **heredoc, int num_herdocs);
-
-int get_number_of_herdocs(t_token *token);
-char **init_herdoc(t_token *token);
+char				*get_random_name(void);
+void				ft_close(int fd);
+void				dup_2(int old, int new);
+int					exec_bin(t_command command, int input_fd, int is_last,
+						char **herdoc);
+char				*heredoc_1(t_redirect *redirect, char **heredoc,
+						int heredoc_index);
+void				redirect_io(t_command cmd, char **heredoc);
+void				ft_close(int fd);
+void				dup_2(int old, int new);
+void				cleanup_heredocs(char **heredoc, int num_herdocs);
+int					get_number_of_herdocs(t_token *token);
+char				**init_herdoc(t_token *token);
 #endif
