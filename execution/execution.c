@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:55:42 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/11 22:30:59 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/12 02:25:49 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	exec_bin(t_command command, int input_fd, int is_last, char **herdoc)
 			ft_close(fd[0]);
 			ft_close(fd[1]);
 		}
-		redirect_io(command, herdoc);
+		redirect_io(command, herdoc, command.heredoc_pos);
 		if (is_builtin(command))
 			exit(exec_builtin(command));
 		if (execve(path, arr, get_env_str()) == -1)

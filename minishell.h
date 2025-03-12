@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/11 22:27:47 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/12 02:25:59 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ typedef struct s_command
 	t_redirect		**out_files;
 	t_redirect		**in_files;
 	int				not_to_be_executed;
+	int				heredoc_pos;
 }					t_command;
 
 typedef struct s_env
@@ -219,7 +220,7 @@ int					exec_bin(t_command command, int input_fd, int is_last,
 						char **herdoc);
 char				*heredoc_1(t_redirect *redirect, char **heredoc,
 						int heredoc_index);
-void				redirect_io(t_command cmd, char **heredoc);
+void				redirect_io(t_command cmd, char **heredoc, int heredoc_pos);
 void				ft_close(int fd);
 void				dup_2(int old, int new);
 void				cleanup_heredocs(char **heredoc, int num_herdocs);

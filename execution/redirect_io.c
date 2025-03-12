@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 22:24:22 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/11 22:24:23 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/12 02:25:09 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,13 @@ char	*heredoc_1(t_redirect *redirect, char **heredoc, int heredoc_index)
 	return (name);
 }
 
-static void	open_in_files(t_redirect **in_files, char **heredoc)
+
+
+static void	open_in_files(t_redirect **in_files, char **heredoc, int heredoc_pos)
 {
 	int	in_fd;
-	int	heredoc_pos;
 
 	in_fd = -1;
-	heredoc_pos = 0;
 	if (in_files && *in_files)
 	{
 		for (int i = 0; in_files[i]; i++)
@@ -120,8 +120,8 @@ static void	open_out_files(t_redirect **out_files)
 	}
 }
 
-void	redirect_io(t_command cmd, char **heredoc)
+void	redirect_io(t_command cmd, char **heredoc, int heredoc_pos)
 {
-	open_in_files(cmd.in_files, heredoc);
+	open_in_files(cmd.in_files, heredoc, heredoc_pos);
 	open_out_files(cmd.out_files);
 }
