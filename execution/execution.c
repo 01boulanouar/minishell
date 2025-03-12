@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:55:42 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/12 02:25:49 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/12 15:52:37 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,10 @@ void	exec(t_command *commands, int n_commands, char **heredoc, int n_herdocs)
 		return ;
 	prepare_heredocs(commands, n_commands, heredoc);
 	if (n_commands == 1 && is_builtin(commands[0]))
+	{
+		redirect_io(commands[0], heredoc, commands[0].heredoc_pos);
 		exec_builtin(commands[0]);
+	}
 	else
 	{
 		while (i < n_commands && commands[i].tokens && commands[i].tokens[0])

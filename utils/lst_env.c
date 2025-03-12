@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 13:14:43 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/09 03:12:23 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/12 15:42:11 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ t_env	*ft_lstnew_env_from_str(char *str)
 	start = str;
 	while (*str)
 	{
-		if (*str == EQUAL || !ft_strcmp(str, "+="))
+		if (*str == EQUAL || !ft_strncmp(str, "+=", 2))
 			break ;
 		str++;
 	}
 	key = ft_copy_env(start, str);
 	start = str;
-	if (!ft_strcmp(str, "+="))
+	if (!ft_strncmp(str, "+=", 2))
 		str++;
 	if (*str == EQUAL)
 		str++;
