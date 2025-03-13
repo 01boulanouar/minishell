@@ -6,11 +6,11 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:55:42 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/13 14:49:11 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/13 16:03:10 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
 
 static char	*get_command_path(char *executable)
 {

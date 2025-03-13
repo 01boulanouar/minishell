@@ -6,11 +6,11 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 23:41:42 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/03/13 13:32:03 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/13 16:03:06 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
 
 void	ft_close(int fd)
 {

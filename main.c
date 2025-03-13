@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:08 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/11 22:27:21 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/13 16:09:32 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	main(int argc, char **argv, char **env)
 		heredoc = init_herdoc(tokens);
 		exec(commands, get_number_of_commands(tokens),
 			heredoc, get_number_of_herdocs(tokens));
-		ft_free_command();
+		ft_free();
 	}
 	ft_free_env();
 	return (EXIT_SUCCESS);

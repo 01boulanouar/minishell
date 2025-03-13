@@ -6,11 +6,11 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 22:25:06 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/11 22:25:59 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/13 16:03:25 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
 
 int	get_number_of_arguments(t_command command)
 {

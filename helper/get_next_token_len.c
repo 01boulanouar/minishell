@@ -6,11 +6,11 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 14:23:08 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/13 14:37:45 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/13 19:34:44 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
 
 static size_t	get_next_quote_token_len(const char *line)
 {
@@ -37,7 +37,7 @@ static size_t	get_next_quote_token_len(const char *line)
 static size_t	is_redirection_str(const char *line)
 {
 	return (!ft_strncmp(line, DOUBLE_LESS, 2)
-	|| !ft_strncmp(line, DOUBLE_GREATER, 2));
+		|| !ft_strncmp(line, DOUBLE_GREATER, 2));
 }
 
 static size_t	is_operator_str(const char *line)
@@ -49,7 +49,7 @@ static size_t	is_operator_str(const char *line)
 static size_t	is_exit_status_str(const char *line)
 {
 	return (!ft_strncmp(line, EXIT_STATUS, 2)
-	|| (line[0] == DOLLAR && ft_isdigit(line[1])));
+		|| (line[0] == DOLLAR && ft_isdigit(line[1])));
 }
 
 size_t	get_next_token_len(const char *line)
@@ -65,9 +65,10 @@ size_t	get_next_token_len(const char *line)
 		return (get_next_quote_token_len(line));
 	if (line[0] == DOLLAR)
 		i++;
-	if (ft_isvalid(line[i]))
+	if (ft_isvalid_expand(line[i]))
 	{
-		while (line[i] && !ft_isin(line[i], SEPARATORS) && ft_isvalid(line[i]))
+		while (line[i] && !ft_isin(line[i], SEPARATORS)
+			&& ft_isvalid_expand(line[i]))
 			i++;
 	}
 	else

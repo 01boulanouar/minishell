@@ -6,11 +6,11 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 14:23:08 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/08 00:01:31 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/13 19:24:14 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
 
 static int	get_command_len(t_command command)
 {
@@ -49,7 +49,7 @@ char	**get_env_str(void)
 
 	env = get_env_list();
 	node = *env;
-	arr = ft_malloc(sizeof(char *) * (ft_lstsize(node) + 1));
+	arr = ft_malloc(sizeof(char *) * (ft_lstsize_env(node) + 1));
 	i = 0;
 	while (node)
 	{

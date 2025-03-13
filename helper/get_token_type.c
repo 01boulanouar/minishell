@@ -6,11 +6,11 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 14:36:18 by moboulan          #+#    #+#             */
-/*   Updated: 2025/02/26 14:36:28 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/13 16:03:34 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
 
 static t_token_type	get_operator_type(const char *value)
 {

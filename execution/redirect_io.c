@@ -6,11 +6,11 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 22:24:22 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/12 02:25:09 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/13 16:03:15 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
 
 void	cleanup_heredocs(char **heredoc, int num_herdocs)
 {
