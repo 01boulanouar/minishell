@@ -38,10 +38,8 @@ SRC_ENVIRONMENT	= environment/utils/ft_is/ft_isin_env.c environment/utils/ft_is/
 #_____EXECUTION______#
 
 SRC_EXECUTION = execution/heredoc/utils/get_random_name.c  execution/heredoc/init_heredoc.c \
-				execution/utils/ft_error.c execution/utils/ft_close.c execution/utils/ft_dup.c \
-				execution/utils/ft_dup2.c execution/utils/ft_exit.c execution/utils/ft_fork.c \
-				execution/utils/ft_pipe.c \
-				execution/utils/get_command_path.c execution/execution.c  execution/redirect_io.c
+				execution/utils/get_command_path.c \
+				execution/execution.c  execution/redirect_io.c
 
 #_______HELPER______#
 
@@ -50,7 +48,11 @@ SRC_HELPER =	helper/get_number_of_arguments.c helper/get_number_of.c \
 				
 #_______LIBFT_______#
 
-SRC_LIBFT =		libft/ft_is/ft_isallspace.c libft/ft_is/ft_isalnum.c libft/ft_is/ft_isalpha.c \
+SRC_LIBFT =		libft/ft_function/ft_error.c libft/ft_function/ft_close.c libft/ft_function/ft_dup.c \
+				libft/ft_function/ft_dup2.c libft/ft_function/ft_exit.c libft/ft_function/ft_fork.c \
+				libft/ft_function/ft_pipe.c libft/ft_function/ft_chdir.c libft/ft_function/ft_getenv.c \
+				libft/ft_function/ft_readline.c \
+				libft/ft_is/ft_isallspace.c libft/ft_is/ft_isalnum.c libft/ft_is/ft_isalpha.c \
 				libft/ft_is/ft_isdigit.c libft/ft_is/ft_isin.c libft/ft_is/ft_isspace.c \
 				libft/gc/ft_free.c libft/gc/ft_gc.c libft/gc/ft_malloc.c \
 				libft/num/ft_atoi.c libft/num/ft_itoa.c \
@@ -58,7 +60,7 @@ SRC_LIBFT =		libft/ft_is/ft_isallspace.c libft/ft_is/ft_isalnum.c libft/ft_is/ft
 				libft/string/ft_copy.c libft/string/ft_split.c libft/string/ft_strcmp.c libft/string/ft_strcspn.c \
 				libft/string/ft_strdup.c libft/string/ft_strjoin.c libft/string/ft_strlen.c libft/string/ft_strncmp.c \
 				libft/string/ft_strspn.c libft/string/ft_trim.c \
-				libft/ft_chdir.c libft/ft_getenv.c libft/ft_readline.c
+				
 
 #_______PARSING______#
 

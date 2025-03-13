@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/13 22:20:53 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/13 22:23:38 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,15 +197,8 @@ void				init_env(char **line);
 /*---------execution----------*/
 
 // execution.c
-void				ft_error(int result);
-int					ft_close(int fd);
-int					ft_dup(int oldfd);
-int					ft_dup2(int oldfd, int newfd);
-void				ft_exit(int status);
-int					ft_pipe(int fildes[2]);
-int					ft_fork(void);
-
 char				*get_command_path(char *executable);
+
 char				*get_random_name(void);
 char				**init_herdoc(t_token *token);
 
@@ -245,6 +238,17 @@ int					is_operator(t_token *token);
 
 /*---------libft----------*/
 
+void				ft_error(int result);
+int					ft_close(int fd);
+int					ft_dup(int oldfd);
+int					ft_dup2(int oldfd, int newfd);
+void				ft_exit(int status);
+int					ft_pipe(int fildes[2]);
+int					ft_fork(void);
+int					ft_chdir(char *path);
+char				*ft_getenv(char *name);
+char				*ft_readline(const char *prompt);
+
 int					ft_isallspace(char *str);
 int					ft_isalnum(int c);
 int					ft_isalpha(int c);
@@ -276,9 +280,6 @@ int					ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t				ft_strspn(const char *s, const char *accept);
 char				*ft_trim(char *line);
 
-int					ft_chdir(char *path);
-char				*ft_getenv(char *name);
-char				*ft_readline(const char *prompt);
 
 /*---------parsing----------*/
 
