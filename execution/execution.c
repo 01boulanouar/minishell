@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:55:42 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/13 22:04:58 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/13 22:28:32 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,13 @@ static void	prepare_heredocs(t_command *commands, int n_commands, char **heredoc
 
 static int	exec_bin(t_command command, int input_fd, int is_last, char **herdoc)
 {
+	int		pid;
+	int		fd[2];
 	char	**arr;
 	char	*path;
 
 	arr = get_command_str(command);
 	path = get_command_path(arr[0]);
-	int pid, fd[2];
 	if (!is_last)
 		return (EXIT_FAILURE);	
 	ft_pipe(fd);

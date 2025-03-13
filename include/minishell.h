@@ -6,13 +6,14 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/13 22:23:38 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/13 22:36:05 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include <stdarg.h>
 # include <string.h>
 # include <errno.h>
 # include <fcntl.h>
@@ -238,7 +239,7 @@ int					is_operator(t_token *token);
 
 /*---------libft----------*/
 
-void				ft_error(int result);
+int					ft_error(int result);
 int					ft_close(int fd);
 int					ft_dup(int oldfd);
 int					ft_dup2(int oldfd, int newfd);
@@ -247,6 +248,7 @@ int					ft_pipe(int fildes[2]);
 int					ft_fork(void);
 int					ft_chdir(char *path);
 char				*ft_getenv(char *name);
+int					ft_open(const char *path, int oflag, ...);
 char				*ft_readline(const char *prompt);
 
 int					ft_isallspace(char *str);

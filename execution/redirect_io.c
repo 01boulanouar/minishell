@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 22:24:22 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/13 21:58:27 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/13 22:41:26 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,7 @@ char	*read_from_heredoc(t_redirect *redirect, char **heredoc, int heredoc_index)
 	char	*name;
 
 	name = get_random_name();
-	fd = open(name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (fd == -1)
-	{
-		perror("minishell: heredoc temporary file creation error");
-		exit(EXIT_FAILURE);
-	}
+	fd = ft_open(name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	while (1)
 	{
 		line = ft_readline("> ");
@@ -56,33 +51,22 @@ char	*read_from_heredoc(t_redirect *redirect, char **heredoc, int heredoc_index)
 
 static void	open_in_files(t_redirect **in_files, char **heredoc, int heredoc_pos)
 {
+	int	i;
 	int	in_fd;
 
+	i = 0;
 	in_fd = -1;
 	if (in_files && *in_files)
 	{
-		for (int i = 0; in_files[i]; i++)
+		while (in_files[i])
 		{
 			if (in_fd != -1)
 				close(in_fd);
 			if (in_files[i]->type == t_double_less)
-			{
-				in_fd = open(heredoc[heredoc_pos++], O_RDONLY);
-				if (in_fd == -1)
-				{
-					perror("minishell: heredoc file open error");
-					exit(EXIT_FAILURE);
-				}
-			}
+				in_fd = ft_open(heredoc[heredoc_pos++], O_RDONLY);
 			else
-			{
-				in_fd = open(in_files[i]->file.value, O_RDONLY);
-				if (in_fd == -1)
-				{
-					perror("minishell: input redirection error");
-					exit(EXIT_FAILURE);
-				}
-			}
+				in_fd = ft_open(in_files[i]->file.value, O_RDONLY);
+			i++;
 		}
 		ft_dup2(in_fd, STDIN_FILENO);
 	}

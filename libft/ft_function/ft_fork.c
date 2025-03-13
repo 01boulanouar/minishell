@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 21:28:03 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/13 22:03:34 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/13 22:33:37 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,5 @@ int	ft_fork(void)
 	int	pid;
 
 	pid = fork();
-	ft_error(pid);
-	return (pid);
+	return (ft_error(pid));
 }
