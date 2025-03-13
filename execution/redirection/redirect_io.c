@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 22:24:22 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/13 22:41:26 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/13 22:43:52 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,58 +45,6 @@ char	*read_from_heredoc(t_redirect *redirect, char **heredoc, int heredoc_index)
 	close(fd);
 	heredoc[heredoc_index++] = ft_strdup(name);
 	return (name);
-}
-
-
-
-static void	open_in_files(t_redirect **in_files, char **heredoc, int heredoc_pos)
-{
-	int	i;
-	int	in_fd;
-
-	i = 0;
-	in_fd = -1;
-	if (in_files && *in_files)
-	{
-		while (in_files[i])
-		{
-			if (in_fd != -1)
-				close(in_fd);
-			if (in_files[i]->type == t_double_less)
-				in_fd = ft_open(heredoc[heredoc_pos++], O_RDONLY);
-			else
-				in_fd = ft_open(in_files[i]->file.value, O_RDONLY);
-			i++;
-		}
-		ft_dup2(in_fd, STDIN_FILENO);
-	}
-}
-
-static void	open_out_files(t_redirect **out_files)
-{
-	int	out_fd;
-	int	i;
-	int	flags;
-
-	out_fd = -1;
-	i = 0;
-	if (out_files && *out_files)
-	{
-		while (out_files[i])
-		{
-			if (out_fd != -1)
-				close(out_fd);
-			flags = O_WRONLY | O_CREAT | (out_files[i]->type == t_double_greater ? O_APPEND : O_TRUNC);
-			out_fd = open(out_files[i]->file.value, flags, 0644);
-			if (out_fd == -1)
-			{
-				perror("minishell: output redirection error");
-				exit(EXIT_FAILURE);
-			}
-			i++;
-		}
-		ft_dup2(out_fd, STDOUT_FILENO);
-	}
 }
 
 void	redirect_io(t_command cmd, char **heredoc, int heredoc_pos)
