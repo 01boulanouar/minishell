@@ -6,35 +6,11 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:55:42 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/13 20:03:21 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/13 22:04:58 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static char	*get_command_path(char *executable)
-{
-	int			i;
-	char		*path;
-	char		**split;
-	char		*full_path;
-	struct stat	buffer;
-
-	path = ft_getenv("PATH");
-	split = ft_split(path, ':');
-	i = 0;
-	while (split && split[i])
-	{
-		full_path = ft_strjoin(ft_strjoin(split[i], "/"), executable);
-		if (stat(full_path, &buffer) == 0)
-			return (full_path);
-		else if (stat(executable, &buffer) == 0 && (!ft_strncmp(executable,
-					"./", 2) || !ft_strncmp(executable, "/", 1)))
-			return (executable);
-		i++;
-	}
-	return (NULL);
-}
 
 static void	prepare_heredocs(t_command *commands, int n_commands, char **heredoc)
 {
@@ -67,23 +43,16 @@ static int	exec_bin(t_command command, int input_fd, int is_last, char **herdoc)
 	arr = get_command_str(command);
 	path = get_command_path(arr[0]);
 	int pid, fd[2];
-	if (!is_last && pipe(fd) == -1)
-	{
-		perror("minishell: pipe error");
-		return (EXIT_FAILURE);
-	}
-	pid = fork();
-	if (pid == -1)
-	{
-		perror("fork failed");
-		return (EXIT_FAILURE);
-	}
+	if (!is_last)
+		return (EXIT_FAILURE);	
+	ft_pipe(fd);
+	pid = ft_fork();
 	if (pid == 0)
 	{
 		if (input_fd != STDIN_FILENO)
-			dup_2(input_fd, STDIN_FILENO);
+			ft_dup2(input_fd, STDIN_FILENO);
 		if (!is_last)
-			dup2(fd[1], STDOUT_FILENO);
+			ft_dup2(fd[1], STDOUT_FILENO);
 		if (!is_last)
 		{
 			ft_close(fd[0]);

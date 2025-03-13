@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 22:24:22 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/13 20:36:31 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/13 21:58:27 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static void	open_in_files(t_redirect **in_files, char **heredoc, int heredoc_pos
 				}
 			}
 		}
-		dup_2(in_fd, STDIN_FILENO);
+		ft_dup2(in_fd, STDIN_FILENO);
 	}
 }
 
@@ -111,7 +111,7 @@ static void	open_out_files(t_redirect **out_files)
 			}
 			i++;
 		}
-		dup_2(out_fd, STDOUT_FILENO);
+		ft_dup2(out_fd, STDOUT_FILENO);
 	}
 }
 

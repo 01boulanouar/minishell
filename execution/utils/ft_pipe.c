@@ -1,36 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execution_helper.c                                 :+:      :+:    :+:   */
+/*   ft_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/10 23:41:42 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/03/13 16:03:06 by moboulan         ###   ########.fr       */
+/*   Created: 2025/03/13 21:29:36 by moboulan          #+#    #+#             */
+/*   Updated: 2025/03/13 22:04:29 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_close(int fd)
+int	ft_pipe(int fildes[2])
 {
-	if (fd != -1)
-		close(fd);
-}
+	int	result;
 
-void	dup_2(int old, int new)
-{
-	dup2(old, new);
-	close(old);
-}
-
-char	*get_random_name(void)
-{
-	static int	counter;
-	char		*num;
-	char		*name;
-
-	num = ft_itoa(counter++);
-	name = ft_strjoin("heredoc_", num);
-	return (name);
+	result = pipe(fildes);
+	ft_error(result);
+	return (result);
 }

@@ -6,13 +6,14 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/13 20:39:14 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/13 22:20:53 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include <string.h>
 # include <errno.h>
 # include <fcntl.h>
 # include <limits.h>
@@ -54,7 +55,8 @@
 /*---------------ERROR STRINGS------------*/
 
 # define SYNTAX_ERROR_STR "syntax error near unexpected token"
-# define GETCWD_ERROR_STR "error retrieving current directory: \
+# define GETCWD_ERROR_STR \
+	"error retrieving current directory: \
 							getcwd: cannot access parent directories: \
 							No such file or directory"
 
@@ -194,17 +196,21 @@ void				init_env(char **line);
 
 /*---------execution----------*/
 
-// execution_helper.c
-void				ft_close(int fd);
-void				dup_2(int old, int new);
-char				*get_random_name(void);
-
 // execution.c
+void				ft_error(int result);
+int					ft_close(int fd);
+int					ft_dup(int oldfd);
+int					ft_dup2(int oldfd, int newfd);
+void				ft_exit(int status);
+int					ft_pipe(int fildes[2]);
+int					ft_fork(void);
+
+char				*get_command_path(char *executable);
+char				*get_random_name(void);
+char				**init_herdoc(t_token *token);
+
 void				exec(t_command *commands, int n_commands, char **heredoc,
 						int n_herdocs);
-
-// heredoc.c
-char				**init_herdoc(t_token *token);
 
 // redirect_io.c
 void				cleanup_heredocs(char **heredoc, int num_herdocs);
@@ -291,14 +297,14 @@ t_token				*tokenize(char *line);
 t_token				*lexer(void);
 
 // parser.c
-void	handle_redirection(t_command *cmd, t_token *token, int *in_index,
-		int *out_index);
-t_token	*parse_token(t_command *command, t_token *token,int *count);		
+void				handle_redirection(t_command *cmd, t_token *token,
+						int *in_index, int *out_index);
+t_token				*parse_token(t_command *command, t_token *token,
+						int *count);
 t_command			*parser(t_token *token);
 
 // syntax.c
 int					is_valid_quotes(const char *line);
 int					is_valid_operator(t_token *token);
-
 
 #endif

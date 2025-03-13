@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 20:24:13 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/13 20:28:07 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/13 21:44:22 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_token	*parse_token(t_command *command, t_token *token,int *count)
 	j = 0;
 	in_index = 0;
 	out_index = 0;
-	command->heredoc_pos= *count ; 
+	command->heredoc_pos = *count; 
 	while (token)
 	{
 		if (token->type == t_pipe)

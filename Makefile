@@ -37,8 +37,11 @@ SRC_ENVIRONMENT	= environment/utils/ft_is/ft_isin_env.c environment/utils/ft_is/
 
 #_____EXECUTION______#
 
-SRC_EXECUTION = execution/execution_helper.c execution/execution.c \
-				execution/heredoc.c execution/redirect_io.c
+SRC_EXECUTION = execution/heredoc/utils/get_random_name.c  execution/heredoc/init_heredoc.c \
+				execution/utils/ft_error.c execution/utils/ft_close.c execution/utils/ft_dup.c \
+				execution/utils/ft_dup2.c execution/utils/ft_exit.c execution/utils/ft_fork.c \
+				execution/utils/ft_pipe.c \
+				execution/utils/get_command_path.c execution/execution.c  execution/redirect_io.c
 
 #_______HELPER______#
 

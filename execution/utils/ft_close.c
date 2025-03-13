@@ -1,39 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   ft_close.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/11 20:17:15 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/13 21:30:16 by moboulan         ###   ########.fr       */
+/*   Created: 2025/03/13 21:28:58 by moboulan          #+#    #+#             */
+/*   Updated: 2025/03/13 22:04:11 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	execute(char *command, char *args, char *env[])
+int	ft_close(int fd)
 {
-	int	pid;
-	int	fd[2];
+	int	result;
 
-	pid = fork();
-	if (pid == 0)
-	{
-		ft_close(fd[1]);
-		ft_dup2(fd[0], STDIN_FILENO);
-		if (execve(command, args, env) == -1)
-		{
-			print_error(1, NULL, "command not found", args[0]);
-			close(fd[0]);
-			ft_exit(EXIT_FAILURE);
-		}
-	}
-	else
-	{
-		ft_close(fd[0]);
-		ft_dup2(fd[1], STDOUT_FILENO);
-		wait(NULL);
-		ft_exit(EXIT_SUCCESS);
-	}
+	result = close(fd);
+	ft_error(result);
+	return (result);
 }
