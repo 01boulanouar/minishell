@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 14:14:42 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/13 16:03:37 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/13 20:14:14 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,12 @@ int	is_redirection(t_token *token)
 int	is_pipe(t_token *token)
 {
 	return (token->type == t_pipe);
+}
+
+int	is_quotes(t_token *token)
+{
+	return (token->type == t_single_quote
+		|| token->type == t_double_quote);
 }
 
 int	is_operator(t_token *token)

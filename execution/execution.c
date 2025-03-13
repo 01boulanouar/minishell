@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:55:42 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/13 16:03:10 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/13 20:03:21 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	prepare_heredocs(t_command *commands, int n_commands, char **heredoc
 		{
 			if ((*in_files)->type == t_double_less)
 			{
-				heredoc[heredoc_index] = heredoc_1(*in_files, heredoc,
+				heredoc[heredoc_index] = read_from_heredoc(*in_files, heredoc,
 						heredoc_index);
 				heredoc_index++;
 			}

@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/13 19:46:11 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/13 20:09:17 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,7 +200,7 @@ char				**init_herdoc(t_token *token);
 
 // redirect_io.c
 void				cleanup_heredocs(char **heredoc, int num_herdocs);
-char				*heredoc_1(t_redirect *redirect, char **heredoc,
+char				*read_from_heredoc(t_redirect *redirect, char **heredoc,
 						int heredoc_index);
 void				redirect_io(t_command cmd, char **heredoc, int heredoc_pos);
 
@@ -229,6 +229,7 @@ t_token_type		get_token_type(const char *value);
 // is_type.c
 int					is_redirection(t_token *token);
 int					is_pipe(t_token *token);
+int					is_quotes(t_token *token);
 int					is_operator(t_token *token);
 
 /*---------libft----------*/
@@ -273,7 +274,7 @@ char				*ft_readline(const char *prompt);
 // expander.c
 int					ft_isvalid_expand(int c);
 void				expand_token(t_token **token, char *line, char *value);
-char				*expand_double_quotes(char *line);
+char				*expand_str(char *line);
 
 // lexer.c
 void				ft_lstadd_back_token(t_token **lst, t_token *new);

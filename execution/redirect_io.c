@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 22:24:22 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/13 16:03:15 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/13 20:13:57 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,35 +24,30 @@ void	cleanup_heredocs(char **heredoc, int num_herdocs)
 	}
 }
 
-char	*heredoc_1(t_redirect *redirect, char **heredoc, int heredoc_index)
+char	*read_from_heredoc(t_redirect *redirect, char **heredoc, int heredoc_index)
 {
 	char	*line;
 	int		fd;
 	char	*name;
 
 	name = get_random_name();
-	// Create the file
 	fd = open(name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)
 	{
 		perror("minishell: heredoc temporary file creation error");
 		exit(EXIT_FAILURE);
 	}
-	// Read the input for the heredoc
 	while (1)
 	{
-		line = readline("> ");
+		line = ft_readline("> ");
+		if (!is_quotes(&redirect->file))
+			line = expand_str(line);
 		if (!line || ft_strcmp(line, redirect->file.value) == 0)
-		{
-			free(line);
 			break ;
-		}
 		write(fd, line, ft_strlen(line));
 		write(fd, "\n", 1);
-		free(line);
 	}
 	close(fd);
-	// // Store the heredoc file name in the static list
 	heredoc[heredoc_index++] = ft_strdup(name);
 	return (name);
 }

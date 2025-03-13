@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 16:23:23 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/13 19:31:04 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/13 20:05:33 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_token	*tokenize(char *line)
 		value = ft_copy(start, line);
 		type = get_token_type(value);
 		if (type == t_double_quote)
-			value = expand_double_quotes(value);
+			value = expand_str(value);
 		if (type == t_dollar_expand || type == t_dollar_num)
 			expand_token(&token, line, value);
 		if (type != t_dollar_expand && type != t_dollar_num

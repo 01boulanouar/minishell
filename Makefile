@@ -59,7 +59,7 @@ SRC_LIBFT =		libft/ft_is/ft_isallspace.c libft/ft_is/ft_isalnum.c libft/ft_is/ft
 
 #_______PARSING______#
 
-SRC_PARSING =	parsing/expand/utils/ft_isvalid_expand.c parsing/expand/expand_double_quotes.c parsing/expand/expand_token.c \
+SRC_PARSING =	parsing/expand/utils/ft_isvalid_expand.c parsing/expand/expand_str.c parsing/expand/expand_token.c \
 				parsing/lexing/utils/list/ft_lstadd_back_token.c parsing/lexing/utils/list/ft_lstnew_token.c \
 				parsing/lexing/utils/join_tokens.c parsing/lexing/utils/tokenize.c \
 				parsing/lexing/lexer.c \
