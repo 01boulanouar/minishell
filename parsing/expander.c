@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 16:19:28 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/08 00:17:47 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/13 14:40:09 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	expand(t_token **token, char *line, char *value)
 	}
 }
 
-int	get_expand_len(char *line)
+static int	get_expand_len(char *line)
 {
 	char	*start;
 	char	*expanded;

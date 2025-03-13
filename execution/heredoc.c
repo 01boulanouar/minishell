@@ -6,13 +6,13 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/11 22:08:13 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/13 14:35:35 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	heredoc(t_redirect *redirection)
+void	heredoc_expand(t_redirect *redirection)
 {
 	int	expand;
 

@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 14:27:34 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/01 11:32:34 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/13 14:46:27 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,3 @@ int	ft_isvalid(int c)
 	return (ft_isalnum(c) || c == UNDERSCORE);
 }
 
-void	ft_putchar_fd(char c, int fd)
-{
-	write(fd, &c, 1);
-}

@@ -6,13 +6,13 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:55:42 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/12 15:52:37 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/13 14:49:11 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*get_command_path(char *executable)
+static char	*get_command_path(char *executable)
 {
 	int			i;
 	char		*path;
@@ -36,7 +36,7 @@ char	*get_command_path(char *executable)
 	return (NULL);
 }
 
-void	prepare_heredocs(t_command *commands, int n_commands, char **heredoc)
+static void	prepare_heredocs(t_command *commands, int n_commands, char **heredoc)
 {
 	int			i;
 	int			heredoc_index;
@@ -59,7 +59,7 @@ void	prepare_heredocs(t_command *commands, int n_commands, char **heredoc)
 	}
 }
 
-int	exec_bin(t_command command, int input_fd, int is_last, char **herdoc)
+static int	exec_bin(t_command command, int input_fd, int is_last, char **herdoc)
 {
 	char	**arr;
 	char	*path;

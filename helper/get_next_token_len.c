@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 14:23:08 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/08 00:10:02 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/13 14:37:45 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,19 @@ static size_t	get_next_quote_token_len(const char *line)
 
 static size_t	is_redirection_str(const char *line)
 {
-	return (!ft_strncmp(line, DOUBLE_LESS, 2) \
+	return (!ft_strncmp(line, DOUBLE_LESS, 2)
 	|| !ft_strncmp(line, DOUBLE_GREATER, 2));
 }
 
 static size_t	is_operator_str(const char *line)
 {
-	return (line[0] == LESS || line[0] == GREATER \
+	return (line[0] == LESS || line[0] == GREATER
 		|| line[0] == PIPE || (line[0] == DOLLAR && !line[1]));
 }
 
 static size_t	is_exit_status_str(const char *line)
 {
-	return (!ft_strncmp(line, EXIT_STATUS, 2) \
+	return (!ft_strncmp(line, EXIT_STATUS, 2)
 	|| (line[0] == DOLLAR && ft_isdigit(line[1])));
 }
 

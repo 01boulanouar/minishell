@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 14:09:07 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/03 18:05:27 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/13 14:46:33 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@ int	ft_isallspace(char *str)
 	while (ft_isspace(str[i]))
 		i++;
 	return (i == ft_strlen(str));
+}
+
+void	ft_putchar_fd(char c, int fd)
+{
+	write(fd, &c, 1);
 }
 
 void	ft_putstr_fd(const char *s, int fd)

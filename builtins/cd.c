@@ -6,13 +6,13 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:18:02 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/09 03:10:57 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/13 13:43:06 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_chdir(char *path)
+static int	ft_chdir(char *path)
 {
 	char		pwd[PATH_MAX];
 	struct stat	stat_path;

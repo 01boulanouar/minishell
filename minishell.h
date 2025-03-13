@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/12 02:25:59 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/13 14:50:48 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,12 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
+/*---------------HEREDOC----------------*/
+
 # define HEREDOC_NAME "/tmp/.heredoc_"
 
-// Tokens
+/*----------------TOKENS----------------*/
+
 # define PIPE '|'
 # define LESS '<'
 # define GREATER '>'
@@ -38,25 +41,25 @@
 # define DOUBLE_GREATER ">>"
 # define DOUBLE_LESS "<<"
 # define EXIT_STATUS "$?"
-
 # define SINGLE_QUOTE '\''
-# define DOUBLE_QUOTE '\"'
+# define DOUBLE_QUOTE '"'
 
-// Separators
 # define BLANKS " 	"
 # define SEPARATORS " 	\'\"<>|$"
 
-// Error Codes
+/*----------------EXIT CODES--------------*/
+
 # define EXIT_SYNTAX_ERROR 258
 
-// Error String
+/*---------------ERROR STRINGS------------*/
+
 # define SYNTAX_ERROR_STR "syntax error near unexpected token"
-# define GETCWD_ERROR_STR \
-	"error retrieving current directory: \
+# define GETCWD_ERROR_STR "error retrieving current directory: \
 							getcwd: cannot access parent directories: \
 							No such file or directory"
 
-// Token types
+/*------------------ENUMS-----------------*/
+
 typedef enum e_token_type
 {
 	t_word,
@@ -73,6 +76,8 @@ typedef enum e_token_type
 	t_exit_status,
 	t_expanded,
 }					t_token_type;
+
+/*------------------STRUCTS-----------------*/
 
 typedef struct s_token
 {
@@ -113,117 +118,184 @@ typedef struct s_gc
 
 }					t_gc;
 
+/*------------------FUNCTIONS-----------------*/
+
+/*---------builtins----------*/
+
+// builtins.c
+int					is_builtin(t_command command);
+int					exec_builtin(t_command command);
+
+// cd.c
+int					cd_builtin(t_command command);
+
+// echo.c
+int					echo_builtin(t_command command);
+
+// env.c
+int					env_builtin(t_command command);
+
+// exit.c
+int					exit_builtin(t_command command);
+
+// export_sort.c
+t_env				*sort_env(void);
+
+// export.c
+void				ft_update_env(char *key, char *value, int append);
+int					export_builtin(t_command command);
+
+// pwd.c
+int					pwd_builtin(void);
+
+// unset.c
+int					unset_builtin(t_command command);
+
+/*---------env----------*/
+
+// ft_getenv.c
+t_env				**get_env_list(void);
+int					is_valid_env_key(char *key);
+char				*ft_getenv(char *name);
+
+// gc.c
+void				*ft_malloc_env(size_t size);
+void				ft_free_env(void);
+
+// init.c
+void				init_env(char **line);
+
+// utils.c
+char				*ft_copy_env(const char *start, const char *end);
+char				*ft_strdup_env(const char *s1);
+char				*ft_strjoin_env(char const *s1, char const *s2);
+
+/*---------execution----------*/
+
+// execution_helper.c
+void				ft_close(int fd);
+void				dup_2(int old, int new);
+char				*get_random_name(void);
+
+// execution.c
+void				exec(t_command *commands, int n_commands, char **heredoc,
+						int n_herdocs);
+
+// heredoc.c
+char				**init_herdoc(t_token *token);
+
+// redirect_io.c
+void				cleanup_heredocs(char **heredoc, int num_herdocs);
+char				*heredoc_1(t_redirect *redirect, char **heredoc,
+						int heredoc_index);
+void				redirect_io(t_command cmd, char **heredoc, int heredoc_pos);
+
+/*---------helper----------*/
+
+// get_next_token_len.c
+size_t				get_next_token_len(const char *line);
+
+// get_number_of_arguments.c
+int					get_number_of_arguments(t_command command);
+
+// get_number_of.c
+int					get_number_of_tokens(t_token *token);
+int					get_number_of_commands(t_token *token);
+int					get_number_of_infiles(t_token *token);
+int					get_number_of_outfiles(t_token *token);
+int					get_number_of_herdocs(t_token *token);
+
+// get_str.c
+char				**get_command_str(t_command command);
+char				**get_env_str(void);
+
+// get_token_type.c
+t_token_type		get_token_type(const char *value);
+
+// is_type.c
+int					is_redirection(t_token *token);
+int					is_pipe(t_token *token);
+int					is_operator(t_token *token);
+
+/*---------parsing----------*/
+
+// expander.c
+void				expand(t_token **token, char *line, char *value);
+char				*expand_double_quotes(char *line);
+
+// lexer.c
+t_token				*lexer(void);
+
+// parser.c
+t_command			*parser(t_token *token);
+
+// syntax_error.c
+int					is_valid_quotes(const char *line);
+int					operator_error(t_token *token);
+
+/*---------utils----------*/
+
+// ft_atoi.c
+int					ft_atoi(const char *nbr);
+
+// ft_copy.c
 size_t				ft_strlen(const char *s);
+char				*ft_copy(const char *start, const char *end);
+char				*ft_trim(char *line);
+char				*ft_strdup(const char *s1);
+
+// ft_isdigit.c
+int					ft_isalpha(int c);
+int					ft_isdigit(int c);
+int					ft_isalnum(int c);
+int					ft_isvalid(int c);
+
+// ft_itoa.c
+char				*ft_itoa(int n);
+
+// ft_split.c
+char				**ft_split(char const *s, char c);
+
+// ft_strjoin.c
+char				*ft_strjoin(char const *s1, char const *s2);
+char				*ft_strjoin_space(char const *s1, char const *s2);
+
+// lst_env.c
+t_env				*ft_lstnew_env(char *key, char *operator, char *value);
+t_env				*ft_lstnew_env_from_str(char *str);
+void				ft_lstadd_back_env(t_env *new);
+void				ft_lstremove_env(char *key);
+int					ft_lstsize(t_env *env);
+
+// lst_token.c
+t_token				*ft_lstnew_token(char *value, t_token_type type,
+						int before_space);
+void				ft_lstadd_back_token(t_token **lst, t_token *new);
+
+// print.c
+int					ft_isspace(char c);
+int					ft_isallspace(char *str);
+void				ft_putchar_fd(char c, int fd);
+void				ft_putstr_fd(const char *s, int fd);
+void				ft_putendl_fd(char *s, int fd);
+
+// string.c
 int					ft_isin(const char c, const char *charset);
 size_t				ft_strspn(const char *s, const char *accept);
 size_t				ft_strcspn(const char *s, const char *reject);
 int					ft_strcmp(const char *s1, const char *s2);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
-char				*ft_copy(const char *start, const char *end);
-char				*ft_trim(char *line);
-char				*ft_strdup(const char *s1);
-char				*ft_strjoin(char const *s1, char const *s2);
-char				*ft_strjoin_space(char const *s1, char const *s2);
-int					ft_isspace(char c);
-int					ft_isallspace(char *str);
-int					ft_atoi(const char *nbr);
-char				*ft_itoa(int n);
-char				**ft_split(char const *s, char c);
-void				ft_putchar_fd(char c, int fd);
-void				ft_putstr_fd(const char *s, int fd);
-void				ft_putendl_fd(char *s, int fd);
 
-int					ft_isdigit(int c);
-int					ft_isalpha(int c);
-int					ft_isalnum(int c);
-int					ft_isvalid(int c);
+/*---------minishell----------*/
 
-void				ft_update_env(char *key, char *value, int append);
-t_token				*ft_lstnew_token(char *value, t_token_type type,
-						int before_space);
-t_env				*ft_lstnew_env(char *key, char *operator, char *value);
-t_env				*ft_lstnew_env_from_str(char *str);
-void				ft_lstadd_back_token(t_token **lst, t_token *new);
-void				ft_lstadd_back_env(t_env *new);
-void				ft_lstremove_env(char *key);
-void				ft_lstfree_copy_env(t_env **env);
-int					ft_lstsize(t_env *env);
-char				*ft_strdup_env(const char *s1);
-void				init_env(char **line);
-t_env				**get_env_list(void);
-char				*ft_getenv(char *name);
-t_env				*sort_env(void);
+// error_messages.c
+void				print_error(int print_name, char *function, char *file,
+						char *error);
 
-void				credirect_io(t_command cmd);
-
-int					is_redirection(t_token *token);
-int					is_operator(t_token *token);
-int					is_valid_env_key(char *key);
-
-int					get_number_of_tokens(t_token *token);
-int					get_number_of_infiles(t_token *token);
-int					get_number_of_outfiles(t_token *token);
-int					get_number_of_commands(t_token *token);
-int					get_number_of_arguments(t_command command);
-
-t_token_type		get_token_type(const char *value);
-size_t				get_next_token_len(const char *line);
-
-int					is_valid_quotes(const char *line);
-t_token				*lexer(void);
-size_t				get_next_token_len(const char *line);
-char				*expand_double_quotes(char *line);
-
-void				handle_redirection(t_command *cmd, t_token *token,
-						int *in_index, int *out_index);
-t_command			*parser(t_token *token);
-
-int					operator_error(t_token *token);
-
+// garbage_collector.c
 void				*ft_malloc(size_t size);
 void				ft_free_command(void);
 
-int					cd_builtin(t_command command);
-int					echo_builtin(t_command command);
-int					pwd_builtin(void);
-int					env_builtin(t_command command);
-int					export_builtin(t_command command);
-int					exit_builtin(t_command command);
-int					unset_builtin(t_command command);
-int					is_builtin(t_command command);
-int					exec_builtin(t_command command);
+// main.c
 
-void				exec(t_command *commands, int n_commands, char **herdoc,
-						int n_herdocs);
-
-char				*print_token_type(t_token_type type);
-void				print_tokens(t_token *token);
-void				print_commands(t_command *commands, int num_commands);
-
-void				*ft_malloc_env(size_t size);
-void				ft_free_env(void);
-void				ft_free_env(void);
-char				*ft_copy_env(const char *start, const char *end);
-char				*ft_strjoin_env(char const *s1, char const *s2);
-char				*ft_strdup_env(const char *s1);
-
-void				print_error(int print_name, char *function, char *file,
-						char *error);
-char				**get_command_str(t_command command);
-char				**get_env_str(void);
-void				expand(t_token **token, char *line, char *value);
-
-char				*get_random_name(void);
-void				ft_close(int fd);
-void				dup_2(int old, int new);
-int					exec_bin(t_command command, int input_fd, int is_last,
-						char **herdoc);
-char				*heredoc_1(t_redirect *redirect, char **heredoc,
-						int heredoc_index);
-void				redirect_io(t_command cmd, char **heredoc, int heredoc_pos);
-void				ft_close(int fd);
-void				dup_2(int old, int new);
-void				cleanup_heredocs(char **heredoc, int num_herdocs);
-int					get_number_of_herdocs(t_token *token);
-char				**init_herdoc(t_token *token);
 #endif

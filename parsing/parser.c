@@ -6,13 +6,13 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 20:33:07 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/03/12 02:29:46 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/13 14:41:30 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	handle_redirection(t_command *cmd, t_token *token, int *in_index,
+static void	handle_redirection(t_command *cmd, t_token *token, int *in_index,
 		int *out_index)
 {
 	t_token		*next;
@@ -29,7 +29,7 @@ void	handle_redirection(t_command *cmd, t_token *token, int *in_index,
 		cmd->in_files[(*in_index)++] = redir;
 }
 
-t_token	*parse_token(t_command *command, t_token *token,int *count)
+static t_token	*parse_token(t_command *command, t_token *token,int *count)
 {
 	int	j;
 	int	in_index;
@@ -65,7 +65,9 @@ t_command	*parser(t_token *token)
 	int			num_cmds;
 	t_command	*commands;
 	int			i;
-	int count =0 ; 
+	int			count;
+	
+	count = 0; 
 	i = 0;
 	num_cmds = get_number_of_commands(token);
 	commands = ft_malloc(num_cmds * sizeof(t_command));
@@ -80,7 +82,7 @@ t_command	*parser(t_token *token)
 		if (!commands[i].tokens || !commands[i].in_files
 			|| !commands[i].out_files)
 			return (NULL);
-		token = parse_token(&commands[i], token,&count);
+		token = parse_token(&commands[i], token, &count);
 		if (token)
 			token = token->next;
 		i++;

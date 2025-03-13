@@ -6,13 +6,13 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:18:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/08 00:22:39 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/13 14:32:09 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-unsigned long long	ft_atol(const char *str)
+static unsigned long long	ft_atol(const char *str)
 {
 	long long	num;
 	int			signe;
@@ -38,7 +38,7 @@ unsigned long long	ft_atol(const char *str)
 	return ((long long)num * signe);
 }
 
-int	is_valid_exit_status(char *str)
+static int	is_valid_exit_status(char *str)
 {
 	size_t	i;
 

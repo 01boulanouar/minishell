@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 23:41:42 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/03/11 22:30:38 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/13 13:32:03 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ void	dup_2(int old, int new)
 
 char	*get_random_name(void)
 {
-	static int counter;
-	char *num;
-	char *name;
+	static int	counter;
+	char		*num;
+	char		*name;
 
 	num = ft_itoa(counter++);
 	name = ft_strjoin("heredoc_", num);
