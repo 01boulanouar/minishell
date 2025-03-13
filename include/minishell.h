@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/13 20:09:17 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/13 20:39:14 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ typedef enum e_token_type
 
 /*------------------STRUCTS-----------------*/
 
+/*---------lexer----------*/
+
 typedef struct s_token
 {
 	char			*value;
@@ -86,6 +88,8 @@ typedef struct s_token
 	int				before_space;
 	struct s_token	*next;
 }					t_token;
+
+/*---------parser----------*/
 
 typedef struct s_redirect
 {
@@ -102,6 +106,8 @@ typedef struct s_command
 	int				heredoc_pos;
 }					t_command;
 
+/*---------environment----------*/
+
 typedef struct s_env
 {
 	char			*key;
@@ -110,6 +116,8 @@ typedef struct s_env
 	struct s_env	*next;
 
 }					t_env;
+
+/*---------garbage collector----------*/
 
 typedef struct s_gc
 {
@@ -206,9 +214,6 @@ void				redirect_io(t_command cmd, char **heredoc, int heredoc_pos);
 
 /*---------helper----------*/
 
-// get_next_token_len.c
-size_t				get_next_token_len(const char *line);
-
 // get_number_of_arguments.c
 int					get_number_of_arguments(t_command command);
 
@@ -280,15 +285,20 @@ char				*expand_str(char *line);
 void				ft_lstadd_back_token(t_token **lst, t_token *new);
 t_token				*ft_lstnew_token(char *value, t_token_type type,
 						int before_space);
+size_t				get_next_token_len(const char *line);
 void				join_token(t_token **token);
 t_token				*tokenize(char *line);
 t_token				*lexer(void);
+
+// parser.c
+void	handle_redirection(t_command *cmd, t_token *token, int *in_index,
+		int *out_index);
+t_token	*parse_token(t_command *command, t_token *token,int *count);		
+t_command			*parser(t_token *token);
 
 // syntax.c
 int					is_valid_quotes(const char *line);
 int					is_valid_operator(t_token *token);
 
-// parser.c
-t_command			*parser(t_token *token);
 
 #endif

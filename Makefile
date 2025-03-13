@@ -42,7 +42,7 @@ SRC_EXECUTION = execution/execution_helper.c execution/execution.c \
 
 #_______HELPER______#
 
-SRC_HELPER =	helper/get_next_token_len.c helper/get_number_of_arguments.c helper/get_number_of.c \
+SRC_HELPER =	helper/get_number_of_arguments.c helper/get_number_of.c \
 				helper/get_str.c helper/get_token_type.c helper/is_type.c
 				
 #_______LIBFT_______#
@@ -59,12 +59,12 @@ SRC_LIBFT =		libft/ft_is/ft_isallspace.c libft/ft_is/ft_isalnum.c libft/ft_is/ft
 
 #_______PARSING______#
 
-SRC_PARSING =	parsing/expand/utils/ft_isvalid_expand.c parsing/expand/expand_str.c parsing/expand/expand_token.c \
-				parsing/lexing/utils/list/ft_lstadd_back_token.c parsing/lexing/utils/list/ft_lstnew_token.c \
-				parsing/lexing/utils/join_tokens.c parsing/lexing/utils/tokenize.c \
-				parsing/lexing/lexer.c \
+SRC_PARSING =	parsing/expander/utils/ft_isvalid_expand.c parsing/expander/expand_str.c parsing/expander/expand_token.c \
+				parsing/lexer/utils/list/ft_lstadd_back_token.c parsing/lexer/utils/list/ft_lstnew_token.c \
+				parsing/lexer/utils/join_tokens.c parsing/lexer/utils/get_next_token_len.c \
+				parsing/lexer/utils/tokenize.c parsing/lexer/lexer.c \
+				parsing/parser/utils/handle_redirection.c parsing/parser/utils/parse_token.c parsing/parser/parser.c \
 				parsing/syntax/is_valid_operator.c parsing/syntax/is_valid_quotes.c \
-				parsing/parser.c
 
 
 SRC = $(SRC_CD) $(SRC_ECHO) $(SRC_ENV) $(SRC_EXIT) \

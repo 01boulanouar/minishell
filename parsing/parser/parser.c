@@ -6,59 +6,11 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 20:33:07 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/03/13 16:23:42 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/13 20:24:01 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static void	handle_redirection(t_command *cmd, t_token *token, int *in_index,
-		int *out_index)
-{
-	t_token		*next;
-	t_redirect	*redir;
-
-	next = token->next;
-	redir = ft_malloc(sizeof(t_redirect));
-	redir->file.value = next->value;
-	redir->file.type = next->type;
-	redir->type = token->type;
-	if (token->type == t_greater || token->type == t_double_greater)
-		cmd->out_files[(*out_index)++] = redir;
-	else
-		cmd->in_files[(*in_index)++] = redir;
-}
-
-static t_token	*parse_token(t_command *command, t_token *token,int *count)
-{
-	int	j;
-	int	in_index;
-	int	out_index;
-	
-	j = 0;
-	in_index = 0;
-	out_index = 0;
-	command->heredoc_pos= *count ; 
-	while (token)
-	{
-		if (token->type == t_pipe)
-			break ;
-		if (is_redirection(token))
-		{
-			if (token->next && token->next->next)
-				command->not_to_be_executed = 1;
-			if (token->type == t_double_less)
-				(*count)++; 
-			handle_redirection(command, token, &in_index, &out_index);
-			token = token->next;
-		}
-		else
-			command->tokens[j++] = token;
-		token = token->next;
-	}
-	return (command->tokens[j] = NULL, command->in_files[in_index] = NULL,
-		command->out_files[out_index] = NULL, token);
-}
 
 t_command	*parser(t_token *token)
 {
