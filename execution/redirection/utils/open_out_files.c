@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 22:43:19 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/13 23:11:39 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/14 02:19:21 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	open_out_files(t_redirect **out_files)
 				close(out_fd);
 			flags = O_WRONLY | O_CREAT;
 			if (out_files[i]->type == t_double_greater)
-				flags |= O_APPEND; 
-			else 
+				flags |= O_APPEND;
+			else
 				flags |= O_TRUNC;
 			out_fd = ft_open(out_files[i]->file.value, flags, 0644);
 			i++;

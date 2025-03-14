@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 22:24:22 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/13 22:43:52 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/14 02:20:16 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,22 @@
 
 void	cleanup_heredocs(char **heredoc, int num_herdocs)
 {
-	for (int i = 0; i < num_herdocs; i++)
+	int	i;
+
+	i = 0;
+	while (i < num_herdocs)
 	{
 		if (heredoc[i])
 		{
 			unlink(heredoc[i]);
 			heredoc[i] = NULL;
 		}
+		i++;
 	}
 }
 
-char	*read_from_heredoc(t_redirect *redirect, char **heredoc, int heredoc_index)
+char	*read_from_heredoc(t_redirect *redirect, char **heredoc,
+		int heredoc_index)
 {
 	char	*line;
 	int		fd;

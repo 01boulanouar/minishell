@@ -12,16 +12,16 @@
 
 #include "minishell.h"
 
-t_token	*parse_token(t_command *command, t_token *token,int *count)
+t_token	*parse_token(t_command *command, t_token *token, int *count)
 {
 	int	j;
 	int	in_index;
 	int	out_index;
-	
+
 	j = 0;
 	in_index = 0;
 	out_index = 0;
-	command->heredoc_pos = *count; 
+	command->heredoc_pos = *count;
 	while (token)
 	{
 		if (token->type == t_pipe)
@@ -31,7 +31,7 @@ t_token	*parse_token(t_command *command, t_token *token,int *count)
 			if (token->next && token->next->next)
 				command->not_to_be_executed = 1;
 			if (token->type == t_double_less)
-				(*count)++; 
+				(*count)++;
 			handle_redirection(command, token, &in_index, &out_index);
 			token = token->next;
 		}

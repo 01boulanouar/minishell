@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 20:33:07 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/03/13 20:24:01 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/14 02:21:43 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ t_command	*parser(t_token *token)
 	t_command	*commands;
 	int			i;
 	int			count;
-	
-	count = 0; 
+
+	count = 0;
 	i = 0;
 	num_cmds = get_number_of_commands(token);
 	commands = ft_malloc(num_cmds * sizeof(t_command));

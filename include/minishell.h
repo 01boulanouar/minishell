@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/13 23:12:43 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/14 02:21:21 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,7 @@
 /*---------------ERROR STRINGS------------*/
 
 # define SYNTAX_ERROR_STR "syntax error near unexpected token"
-# define GETCWD_ERROR_STR \
-	"error retrieving current directory: \
+# define GETCWD_ERROR_STR "error retrieving current directory: \
 							getcwd: cannot access parent directories: \
 							No such file or directory"
 
@@ -203,7 +202,8 @@ char				*get_command_path(char *executable);
 char				*get_random_name(void);
 char				**init_herdoc(t_token *token);
 
-void				open_in_files(t_redirect **in_files, char **heredoc, int heredoc_pos);
+void				open_in_files(t_redirect **in_files, char **heredoc,
+						int heredoc_pos);
 void				open_out_files(t_redirect **out_files);
 
 void				exec(t_command *commands, int n_commands, char **heredoc,
@@ -284,7 +284,6 @@ size_t				ft_strlen(const char *s);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t				ft_strspn(const char *s, const char *accept);
 char				*ft_trim(char *line);
-
 
 /*---------parsing----------*/
 
