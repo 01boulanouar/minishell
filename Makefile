@@ -23,7 +23,7 @@ SRC_BUILTINS =	builtins/utils/is_builtin.c builtins/utils/print_error.c builtins
 			  
 #____ENVIRONMENT_____#
 
-SRC_ENVIRONMENT	= environment/utils/ft_is/ft_isin_env.c environment/utils/ft_is/isvalid_env_key.c \
+SRC_ENVIRONMENT	= environment/utils/ft_is/ft_isin_env.c environment/utils/ft_is/ft_isvalid_env_key.c \
 				environment/utils/gc/ft_free_env.c environment/utils/gc/ft_gc_env.c \
 				environment/utils/gc/ft_malloc_env.c \
 				environment/utils/list/ft_lstadd_back_env.c environment/utils/list/ft_lstnew_env_from_str.c \
@@ -40,13 +40,12 @@ SRC_ENVIRONMENT	= environment/utils/ft_is/ft_isin_env.c environment/utils/ft_is/
 SRC_EXECUTION = execution/heredoc/utils/get_random_name.c  execution/heredoc/init_heredoc.c \
 				execution/redirection/utils/open_in_files.c execution/redirection/utils/open_out_files.c \
 				execution/redirection/redirect_io.c \
-				execution/utils/get_command_path.c \
+				execution/utils/get_command_path.c execution/utils/get_command_str.c execution/utils/get_env_str.c\
 				execution/execution.c 
 
 #_______HELPER______#
 
-SRC_HELPER =	helper/get_number_of_arguments.c helper/get_number_of.c \
-				helper/get_str.c helper/get_token_type.c helper/is_type.c
+SRC_HELPER =	helper/get_number_of_arguments.c helper/get_number_of.c helper/is_type.c
 				
 #_______LIBFT_______#
 
@@ -69,7 +68,7 @@ SRC_LIBFT =		libft/ft_function/ft_error.c libft/ft_function/ft_close.c libft/ft_
 SRC_PARSING =	parsing/expander/utils/ft_isvalid_expand.c parsing/expander/expand_str.c parsing/expander/expand_token.c \
 				parsing/lexer/utils/list/ft_lstadd_back_token.c parsing/lexer/utils/list/ft_lstnew_token.c \
 				parsing/lexer/utils/join_tokens.c parsing/lexer/utils/get_next_token_len.c \
-				parsing/lexer/utils/tokenize.c parsing/lexer/lexer.c \
+				parsing/lexer/utils/tokenize.c parsing/lexer/utils/get_token_type.c parsing/lexer/lexer.c \
 				parsing/parser/utils/handle_redirection.c parsing/parser/utils/parse_token.c parsing/parser/parser.c \
 				parsing/syntax/is_valid_operator.c parsing/syntax/is_valid_quotes.c \
 

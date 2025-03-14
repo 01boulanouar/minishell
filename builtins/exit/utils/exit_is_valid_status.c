@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 17:11:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/13 18:15:37 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/14 02:46:48 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@ int	exit_is_valid_status(char *str)
 {
 	size_t	i;
 
+	if (!str || ft_isallspace(str) || !ft_strcmp(str, "-") || !ft_strcmp(str,
+			"+"))
+		return (0);
 	i = 0;
 	while (ft_isspace(str[i]))
 		i++;
@@ -25,9 +28,7 @@ int	exit_is_valid_status(char *str)
 		i++;
 	while (ft_isspace(str[i]))
 		i++;
-	if (i < ft_strlen(str) || ft_isallspace(str) || (ft_strlen(str) == 1
-			&& (str[0] == '-' || str[0] == '+')) || ft_atol(str) == LONG_MAX
-		+ 1ul)
+	if (i < ft_strlen(str) || ft_atol(str) == LONG_MAX + 1ul)
 		return (0);
 	return (1);
 }

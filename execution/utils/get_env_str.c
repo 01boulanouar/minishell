@@ -1,39 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   get_env_str.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/11 20:17:15 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/13 21:30:16 by moboulan         ###   ########.fr       */
+/*   Created: 2025/03/14 02:34:49 by moboulan          #+#    #+#             */
+/*   Updated: 2025/03/14 02:37:35 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	execute(char *command, char *args, char *env[])
+char	**get_env_str(void)
 {
-	int	pid;
-	int	fd[2];
+	int		i;
+	char	**arr;
+	t_env	**env;
+	t_env	*node;
 
-	pid = fork();
-	if (pid == 0)
+	env = get_env_list();
+	node = *env;
+	arr = ft_malloc(sizeof(char *) * (ft_lstsize_env(node) + 1));
+	i = 0;
+	while (node)
 	{
-		ft_close(fd[1]);
-		ft_dup2(fd[0], STDIN_FILENO);
-		if (execve(command, args, env) == -1)
-		{
-			print_error(1, NULL, "command not found", args[0]);
-			close(fd[0]);
-			ft_exit(EXIT_FAILURE);
-		}
+		arr[i] = ft_strjoin(node->key, ft_strjoin("=", node->value));
+		i++;
+		node = node->next;
 	}
-	else
-	{
-		ft_close(fd[0]);
-		ft_dup2(fd[1], STDOUT_FILENO);
-		wait(NULL);
-		ft_exit(EXIT_SUCCESS);
-	}
+	arr[i] = NULL;
+	return (arr);
 }

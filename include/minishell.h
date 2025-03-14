@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/14 02:21:21 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/14 02:52:26 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@
 /*----------------EXIT CODES--------------*/
 
 # define EXIT_SYNTAX_ERROR 258
+# define EXIT_BUILTIN_BAD_USAGE 2
 
 /*---------------ERROR STRINGS------------*/
 
@@ -198,6 +199,8 @@ void				init_env(char **line);
 
 // execution.c
 char				*get_command_path(char *executable);
+char				**get_command_str(t_command command);
+char				**get_env_str(void);
 
 char				*get_random_name(void);
 char				**init_herdoc(t_token *token);
@@ -226,10 +229,6 @@ int					get_number_of_commands(t_token *token);
 int					get_number_of_infiles(t_token *token);
 int					get_number_of_outfiles(t_token *token);
 int					get_number_of_herdocs(t_token *token);
-
-// get_str.c
-char				**get_command_str(t_command command);
-char				**get_env_str(void);
 
 // get_token_type.c
 t_token_type		get_token_type(const char *value);

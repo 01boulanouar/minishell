@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:18:06 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/13 16:28:42 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/14 02:42:04 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	env_builtin(t_command command)
 	node = *env;
 	if (!node)
 		return (EXIT_FAILURE);
-	if (get_number_of_arguments(command))
+	if (get_number_of_arguments(command) > 0)
 	{
 		print_error(0, "env", command.tokens[1]->value,
 			"No such file or directory");
@@ -29,7 +29,7 @@ int	env_builtin(t_command command)
 	}
 	while (node)
 	{
-		if (ft_strcmp(node->key, "OLDPWD"))
+		if (node->key && ft_strcmp(node->key, "OLDPWD"))
 		{
 			ft_putstr_fd(node->key, STDOUT_FILENO);
 			ft_putchar_fd(EQUAL, STDOUT_FILENO);
