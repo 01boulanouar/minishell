@@ -6,13 +6,14 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:55:42 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/13 22:28:32 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/14 01:30:03 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	prepare_heredocs(t_command *commands, int n_commands, char **heredoc)
+
+void	prepare_heredocs(t_command *commands, int n_commands, char **heredoc)
 {
 	int			i;
 	int			heredoc_index;
@@ -35,25 +36,26 @@ static void	prepare_heredocs(t_command *commands, int n_commands, char **heredoc
 	}
 }
 
-static int	exec_bin(t_command command, int input_fd, int is_last, char **herdoc)
+int	exec_bin(t_command command, int input_fd, int is_last, char **herdoc)
 {
-	int		pid;
-	int		fd[2];
 	char	**arr;
 	char	*path;
 
 	arr = get_command_str(command);
 	path = get_command_path(arr[0]);
-	if (!is_last)
-		return (EXIT_FAILURE);	
-	ft_pipe(fd);
+	int pid, fd[2];
+	if (!is_last && pipe(fd) == -1)
+	{
+		perror("minishell: pipe error");
+		return (EXIT_FAILURE);
+	}
 	pid = ft_fork();
 	if (pid == 0)
 	{
 		if (input_fd != STDIN_FILENO)
 			ft_dup2(input_fd, STDIN_FILENO);
 		if (!is_last)
-			ft_dup2(fd[1], STDOUT_FILENO);
+			dup2(fd[1], STDOUT_FILENO);
 		if (!is_last)
 		{
 			ft_close(fd[0]);
@@ -64,8 +66,8 @@ static int	exec_bin(t_command command, int input_fd, int is_last, char **herdoc)
 			exit(exec_builtin(command));
 		if (execve(path, arr, get_env_str()) == -1)
 		{
-			printf("minishell: command not found: %s\n", arr[0]);
-			exit(1);
+			print_error(1, "command not found", NULL, arr[0]);
+			exit(EXIT_FAILURE);
 		}
 	}
 	else
@@ -90,10 +92,7 @@ void	exec(t_command *commands, int n_commands, char **heredoc, int n_herdocs)
 		return ;
 	prepare_heredocs(commands, n_commands, heredoc);
 	if (n_commands == 1 && is_builtin(commands[0]))
-	{
-		redirect_io(commands[0], heredoc, commands[0].heredoc_pos);
 		exec_builtin(commands[0]);
-	}
 	else
 	{
 		while (i < n_commands && commands[i].tokens && commands[i].tokens[0])
