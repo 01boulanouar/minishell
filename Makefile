@@ -76,7 +76,7 @@ SRC_PARSING =	parsing/expander/utils/ft_isvalid_expand.c parsing/expander/expand
 SRC = $(SRC_CD) $(SRC_ECHO) $(SRC_ENV) $(SRC_EXIT) \
 	  $(SRC_EXPORT) $(SRC_PWD) $(SRC_UNSET) $(SRC_BUILTINS) \
 	  $(SRC_ENVIRONMENT) $(SRC_EXECUTION) $(SRC_HELPER) $(SRC_LIBFT) \
-	  $(SRC_PARSING) main.c
+	  $(SRC_PARSING) main.c to_delete.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -84,6 +84,7 @@ all : $(NAME)
 
 $(NAME) : $(OBJ)
 	@$(CC) $(OBJ) -lreadline -o $@ $(SANITIZE)
+	@$(RM) $(OBJ)
 
 %.o : %.c include/minishell.h
 	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@ $(SANITIZE)

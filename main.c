@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:08 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/13 16:09:32 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/15 23:24:35 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		tokens = lexer();
+		// print_tokens(tokens);
 		commands = parser(tokens);
 		heredoc = init_herdoc(tokens);
 		exec(commands, get_number_of_commands(tokens),

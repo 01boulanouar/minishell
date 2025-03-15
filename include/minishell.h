@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/14 02:52:26 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/15 23:20:27 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -288,7 +288,7 @@ char				*ft_trim(char *line);
 
 // expander.c
 int					ft_isvalid_expand(int c);
-void				expand_token(t_token **token, char *line, char *value);
+void				expand_token(t_token **token, char *name);
 char				*expand_str(char *line);
 
 // lexer.c
@@ -310,5 +310,7 @@ t_command			*parser(t_token *token);
 // syntax.c
 int					is_valid_quotes(const char *line);
 int					is_valid_operator(t_token *token);
+
+void				print_tokens(t_token *token);
 
 #endif

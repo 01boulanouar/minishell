@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/13 19:28:00 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/15 23:13:48 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_token	*lexer(void)
 	if (trim_line && ft_strlen(trim_line))
 		add_history(trim_line);
 	token = tokenize(trim_line);
-	join_token(&token);
+	//join_token(&token);
 	if (is_valid_operator(token))
 	{
 		print_error(1, NULL, NULL, SYNTAX_ERROR_STR);
