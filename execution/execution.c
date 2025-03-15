@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:55:42 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/14 01:30:03 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/15 00:10:57 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,29 +80,43 @@ int	exec_bin(t_command command, int input_fd, int is_last, char **herdoc)
 	return (!is_last ? fd[0] : STDIN_FILENO);
 }
 
+void exec_builtin_alone(t_command command,char **heredoc){
+	int saved_stdin;
+    int saved_stdout;
+	saved_stdin = dup(STDIN_FILENO);
+    saved_stdout = dup(STDOUT_FILENO);
+        
+    redirect_io(command, heredoc, 0);		
+    exec_builtin(command);
+
+    ft_dup2(saved_stdin, STDIN_FILENO);
+    ft_dup2(saved_stdout, STDOUT_FILENO);
+}
+
 void	exec(t_command *commands, int n_commands, char **heredoc, int n_herdocs)
 {
-	int	i;
-	int	status;
-	int input_fd;
+    int i;
+    int status;
+    int input_fd;
+    
 
-	i = 0;
-	input_fd = STDIN_FILENO;
-	if (!commands)
-		return ;
-	prepare_heredocs(commands, n_commands, heredoc);
-	if (n_commands == 1 && is_builtin(commands[0]))
-		exec_builtin(commands[0]);
-	else
-	{
-		while (i < n_commands && commands[i].tokens && commands[i].tokens[0])
-		{
-			input_fd = exec_bin(commands[i], input_fd, (i == n_commands - 1),
-					heredoc);
-			i++;
-		}
-		while (wait(&status) > 0)
-			;
-	}
-	cleanup_heredocs(heredoc, n_herdocs);
+    i = 0;
+    input_fd = STDIN_FILENO;
+    if (!commands)
+        return ;
+    prepare_heredocs(commands, n_commands, heredoc);
+
+    if (n_commands == 1 && is_builtin(commands[0]))
+		exec_builtin_alone(commands[0],heredoc);
+    else
+    {
+        while (i < n_commands && commands[i].tokens && commands[i].tokens[0])
+        {
+            input_fd = exec_bin(commands[i], input_fd, (i == n_commands - 1), heredoc);
+            i++;
+        }
+        while (wait(&status) > 0);
+    }
+    cleanup_heredocs(heredoc, n_herdocs);
 }
+
