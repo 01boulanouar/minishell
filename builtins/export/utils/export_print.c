@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 16:32:25 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/13 19:32:13 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/16 21:07:24 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	export_print(void)
 		if (env->key && ft_strcmp(env->key, "_"))
 		{
 			printf("declare -x %s", env->key);
-			if (ft_strcmp(env->value, ""))
+			if (ft_strcmp(env->operator, "="))
 				printf("=\"%s\"", env->value);
 			printf("\n");
 		}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 13:38:53 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/16 18:25:03 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/16 21:13:24 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	export_builtin(t_command command)
 			j++;
 		}
 		arg = command.tokens[i]->value;
+		printf("[%s]\n",arg);
 		node = ft_lstnew_env_from_str(arg);
 		if (!ft_isvalid_env_key(node->key))
 		{
