@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 14:23:08 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/13 19:34:44 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/18 16:49:35 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,16 +65,7 @@ size_t	get_next_token_len(const char *line)
 		return (get_next_quote_token_len(line));
 	if (line[0] == DOLLAR)
 		i++;
-	if (ft_isvalid_expand(line[i]))
-	{
-		while (line[i] && !ft_isin(line[i], SEPARATORS)
-			&& ft_isvalid_expand(line[i]))
+	while (line[i] && !ft_isin(line[i], SEPARATORS))
 			i++;
-	}
-	else
-	{
-		while (line[i] && !ft_isin(line[i], SEPARATORS))
-			i++;
-	}
 	return (i);
 }
