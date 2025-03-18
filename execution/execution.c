@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:55:42 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/15 00:10:57 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/18 17:51:57 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,17 @@ int	exec_bin(t_command command, int input_fd, int is_last, char **herdoc)
 			ft_close(fd[1]);
 		}
 		redirect_io(command, herdoc, command.heredoc_pos);
-		if (is_builtin(command))
-			exit(exec_builtin(command));
-		if (execve(path, arr, get_env_str()) == -1)
-		{
-			print_error(1, "command not found", NULL, arr[0]);
-			exit(EXIT_FAILURE);
+		if(command.tokens[0]){
+			if (is_builtin(command))
+				exit(exec_builtin(command));
+			if (execve(path, arr, get_env_str()) == -1)
+			{
+				print_error(1, "command not found", NULL, arr[0]);
+				exit(EXIT_FAILURE);
+			}
 		}
+		else
+			exit(EXIT_SUCCESS);
 	}
 	else
 	{
@@ -110,7 +114,7 @@ void	exec(t_command *commands, int n_commands, char **heredoc, int n_herdocs)
 		exec_builtin_alone(commands[0],heredoc);
     else
     {
-        while (i < n_commands && commands[i].tokens && commands[i].tokens[0])
+        while (i < n_commands && commands[i].tokens)
         {
             input_fd = exec_bin(commands[i], input_fd, (i == n_commands - 1), heredoc);
             i++;
