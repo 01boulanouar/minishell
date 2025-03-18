@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/15 23:20:27 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/18 16:53:30 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@
 
 # define BLANKS " 	"
 # define SEPARATORS " 	\'\"<>|$"
+# define D_SEPARATORS " 	\'\"<>|"
 
 /*----------------EXIT CODES--------------*/
 

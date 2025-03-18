@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 16:19:28 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/13 20:05:19 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/18 16:53:39 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ static int	get_expand_len(char *line)
 	len = 0;
 	while (*line)
 	{
-		if (*line == DOLLAR && *(line + 1) && !ft_isin(*(line + 1), SEPARATORS))
+		if (*line == DOLLAR && *(line + 1) && !ft_isin(*(line + 1), D_SEPARATORS))
 		{
 			start = ++line;
 			if (ft_isdigit(*line))
 				line++;
 			else
-				line += ft_strcspn(line, SEPARATORS);
+				line += ft_strcspn(line, " 	\'\"<>|");
 			expanded = ft_getenv(ft_copy(start, line));
 			if (expanded)
 				len += ft_strlen(expanded);
@@ -52,13 +52,13 @@ char	*expand_str(char *line)
 	result_start = result;
 	while (*line)
 	{
-		if (*line == DOLLAR && *(line + 1) && !ft_isin(*(line + 1), SEPARATORS))
+		if (*line == DOLLAR && *(line + 1) && !ft_isin(*(line + 1), D_SEPARATORS))
 		{
 			start = ++line;
 			if (ft_isdigit(*line))
 				line++;
 			else
-				line += ft_strcspn(line, SEPARATORS);
+				line += ft_strcspn(line, D_SEPARATORS);
 			expanded = ft_getenv(ft_copy(start, line));
 			while (expanded && *expanded)
 				*(result++) = *(expanded++);
