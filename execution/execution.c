@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:55:42 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/19 23:01:35 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/19 23:05:01 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	exec_bin(t_command command, int input_fd, int is_last, char **herdoc)
 		if (input_fd != STDIN_FILENO)
 			ft_close(input_fd);
 	}
-	return (!is_last ? fd[0] : STDIN_FILENO);
+	return (!is_last * fd[0] + is_last*STDIN_FILENO);
 }
 
 void exec_builtin_alone(t_command command,char **heredoc){
