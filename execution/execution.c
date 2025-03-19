@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:55:42 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/19 22:17:39 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/19 23:01:35 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,12 @@ int	exec_bin(t_command command, int input_fd, int is_last, char **herdoc)
 		if(command.tokens[0] && ft_strcmp("exit",command.tokens[0]->value)){
 			if (is_builtin(command))
 				exit(exec_builtin(command));
+			if (!path)
+ 			{
+ 				print_error(1, "command not found", NULL, arr[0]);
+ 				exit(EXIT_FAILURE);
+ 			}
+ 
 			if (execve(path, arr, get_env_str()) == -1)
 			{
 				print_error(1, "command not found", NULL, arr[0]);
