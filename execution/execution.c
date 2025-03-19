@@ -12,6 +12,23 @@
 
 #include "minishell.h"
 
+#include <fcntl.h>
+#include <dirent.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+
+void close_all_fds(void)
+{
+    int fd = 3;  // Start from 3 (skip stdin, stdout, stderr)
+    while (fd < 1024)  // Arbitrary high number
+    {
+        close(fd);
+        fd++;
+    }
+}
+
+
 
 void	prepare_heredocs(t_command *commands, int n_commands, char **heredoc)
 {
@@ -35,37 +52,51 @@ void	prepare_heredocs(t_command *commands, int n_commands, char **heredoc)
 		}
 	}
 }
-
 int	exec_bin(t_command command, int input_fd, int is_last, char **herdoc)
 {
-	char	**arr;
-	char	*path;
+    char	**arr;
+    char	*path;
+    arr = get_command_str(command);
+    path = get_command_path(arr[0]);
+    int pid, fd[2];
 
-	arr = get_command_str(command);
-	path = get_command_path(arr[0]);
-	int pid, fd[2];
-	if (!is_last && pipe(fd) == -1)
-	{
-		perror("minishell: pipe error");
-		return (EXIT_FAILURE);
-	}
+    if (!is_last && pipe(fd) == -1)
+    {
+        perror("minishell: pipe error");
+        return (EXIT_FAILURE);
+    }
+
 	pid = ft_fork();
+	if (!is_last && pid!=0)
+		ft_close(fd[1]);
 	if (pid == 0)
 	{
-		malloc(1);
 		if (input_fd != STDIN_FILENO)
 			ft_dup2(input_fd, STDIN_FILENO);
 		if (!is_last)
-			dup2(fd[1], STDOUT_FILENO);
+			ft_dup2(fd[1], STDOUT_FILENO);
+	
 		if (!is_last)
 		{
 			ft_close(fd[0]);
 			ft_close(fd[1]);
 		}
+	
 		redirect_io(command, herdoc, command.heredoc_pos);
-		if(command.tokens[0]){
+	
+		if (command.tokens[0])
+		{
 			if (is_builtin(command))
 				exit(exec_builtin(command));
+	
+			if (!path)
+			{
+				print_error(1, "command not found", NULL, arr[0]);
+				exit(EXIT_FAILURE);
+			}
+	
+			close_all_fds();  // 🚀 Close all extra FDs before execve()
+	
 			if (execve(path, arr, get_env_str()) == -1)
 			{
 				print_error(1, "command not found", NULL, arr[0]);
@@ -75,15 +106,9 @@ int	exec_bin(t_command command, int input_fd, int is_last, char **herdoc)
 		else
 			exit(EXIT_SUCCESS);
 	}
-	else
-	{
-		if (!is_last)
-			ft_close(fd[1]);
-		if (input_fd != STDIN_FILENO)
-			ft_close(input_fd);
-	}
-	return (!is_last ? fd[0] : STDIN_FILENO);
+    return (!is_last ? fd[0] : STDIN_FILENO);
 }
+
 
 void exec_builtin_alone(t_command command,char **heredoc){
 	int saved_stdin;
@@ -122,7 +147,9 @@ void	exec(t_command *commands, int n_commands, char **heredoc, int n_herdocs)
             input_fd = exec_bin(commands[i], input_fd, (i == n_commands - 1), heredoc);
             i++;
         }
-        while (wait(&status) > 0);
+		while (wait(&status) > 0);
+		close_all_fds(); 
+		
     }
     cleanup_heredocs(heredoc, n_herdocs);
 }
