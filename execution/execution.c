@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:55:42 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/19 01:03:57 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/19 22:11:39 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	exec_bin(t_command command, int input_fd, int is_last, char **herdoc)
 	pid = ft_fork();
 	if (pid == 0)
 	{
-		malloc(1);
+
 		if (input_fd != STDIN_FILENO)
 			ft_dup2(input_fd, STDIN_FILENO);
 		if (!is_last)
@@ -63,7 +63,7 @@ int	exec_bin(t_command command, int input_fd, int is_last, char **herdoc)
 			ft_close(fd[1]);
 		}
 		redirect_io(command, herdoc, command.heredoc_pos);
-		if(command.tokens[0]){
+		if(command.tokens[0] && ft_strcmp("exit",command.tokens[0]->value)){
 			if (is_builtin(command))
 				exit(exec_builtin(command));
 			if (execve(path, arr, get_env_str()) == -1)
