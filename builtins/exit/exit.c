@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:18:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/19 01:32:13 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/19 22:16:50 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,6 @@ int	exit_builtin(t_command command)
 			ret = EXIT_BUILTIN_BAD_USAGE;
 		}
 	}
-	// close fds 
+	// close fds
 	exit(ret);
 }
