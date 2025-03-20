@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/18 16:53:30 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/20 02:36:19 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ typedef struct s_gc
 	struct s_gc		*next;
 
 }					t_gc;
+
 
 /*------------------FUNCTIONS-----------------*/
 
@@ -313,5 +314,23 @@ int					is_valid_quotes(const char *line);
 int					is_valid_operator(t_token *token);
 
 void				print_tokens(t_token *token);
+
+
+void 				ft_exit_failure(int exit_code, const char *message);
+
+// fd garbage colll
+typedef struct s_fd_gc
+{
+    int             fd;
+    struct s_fd_gc  *next;
+}   t_fd_gc;
+
+t_fd_gc	**ft_fd_gc(void);
+void register_fd(int fd);
+void close_all_fds(void);
+void unregister_fd(int fd);
+
+
+void	ft_free_one(void *ptr);
 
 #endif

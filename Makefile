@@ -60,7 +60,7 @@ SRC_LIBFT =		libft/ft_function/ft_error.c libft/ft_function/ft_close.c libft/ft_
 				libft/print/ft_putchar_fd.c libft/print/ft_putendl_fd.c libft/print/ft_putstr_fd.c \
 				libft/string/ft_copy.c libft/string/ft_split.c libft/string/ft_strcmp.c libft/string/ft_strcspn.c \
 				libft/string/ft_strdup.c libft/string/ft_strjoin.c libft/string/ft_strlen.c libft/string/ft_strncmp.c \
-				libft/string/ft_strspn.c libft/string/ft_trim.c \
+				libft/string/ft_strspn.c libft/string/ft_trim.c libft/fd_gc/fd_gc.c
 				
 
 #_______PARSING______#
@@ -70,7 +70,7 @@ SRC_PARSING =	parsing/expander/utils/ft_isvalid_expand.c parsing/expander/expand
 				parsing/lexer/utils/join_tokens.c parsing/lexer/utils/get_next_token_len.c \
 				parsing/lexer/utils/tokenize.c parsing/lexer/utils/get_token_type.c parsing/lexer/lexer.c \
 				parsing/parser/utils/handle_redirection.c parsing/parser/utils/parse_token.c parsing/parser/parser.c \
-				parsing/syntax/is_valid_operator.c parsing/syntax/is_valid_quotes.c \
+				parsing/syntax/is_valid_operator.c parsing/syntax/is_valid_quotes.c 
 
 
 SRC = $(SRC_CD) $(SRC_ECHO) $(SRC_ENV) $(SRC_EXIT) \
