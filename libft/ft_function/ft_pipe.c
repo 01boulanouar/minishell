@@ -12,10 +12,12 @@
 
 #include "minishell.h"
 
-int	ft_pipe(int fildes[2])
+void	ft_pipe(int fildes[2])
 {
 	int	result;
 
 	result = pipe(fildes);
-	return (ft_error(result));
+	(ft_error(result));
+	register_fd(fildes[0]);
+	register_fd(fildes[1]);
 }

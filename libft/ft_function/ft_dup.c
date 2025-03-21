@@ -12,11 +12,12 @@
 
 #include "minishell.h"
 
-int	ft_dup(int oldfd)
+void	ft_dup(int oldfd)
 {
 	int	result;
 
 	result = dup(oldfd);
+	ft_error(result);
 	ft_close(oldfd);
-	return (ft_error(result));
+	register_fd(result);
 }

@@ -1,6 +1,4 @@
-Makefile
 a
-a.out
 b
 builtins
 environment
@@ -9,6 +7,7 @@ helper
 include
 libft
 main.c
+Makefile
 minishell
 notes
 parsing

@@ -12,10 +12,11 @@
 
 #include "minishell.h"
 
-int	ft_close(int fd)
+void	ft_close(int fd)
 {
 	int	result;
 
 	result = close(fd);
-	return (ft_error(result));
+	ft_error(result);
+	unregister_fd(fd);
 }

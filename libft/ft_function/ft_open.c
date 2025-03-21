@@ -23,5 +23,7 @@ int	ft_open(const char *path, int oflag, ...)
 	else
 		result = open(path, oflag);
 	va_end(args);
-	return (ft_error(result));
+	ft_error(result);
+	register_fd(result);
+	return result;
 }

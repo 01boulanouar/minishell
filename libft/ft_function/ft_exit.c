@@ -14,8 +14,10 @@
 
 void	ft_exit(int status)
 {
+	close_all_fds();
 	ft_free();
 	ft_free_env();
+	
 	exit(status);
 }
 

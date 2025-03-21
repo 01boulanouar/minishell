@@ -244,11 +244,11 @@ int					is_operator(t_token *token);
 /*---------libft----------*/
 
 int					ft_error(int result);
-int					ft_close(int fd);
-int					ft_dup(int oldfd);
-int					ft_dup2(int oldfd, int newfd);
+void					ft_close(int fd);
+void					ft_dup(int oldfd);
+void					ft_dup2(int oldfd, int newfd);
 void				ft_exit(int status);
-int					ft_pipe(int fildes[2]);
+void					ft_pipe(int fildes[2]);
 int					ft_fork(void);
 int					ft_chdir(char *path);
 char				*ft_getenv(char *name);
