@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:08 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/22 17:37:11 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/22 17:53:35 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,39 @@ int	main(int argc, char **argv, char **env)
 
 	(void)env;
 	(void)argv;
-	if (argc != 1 || !isatty(STDIN_FILENO))
-		ft_exit(EXIT_FAILURE);
+	// if (argc != 1 || !isatty(STDIN_FILENO))
+	// 	ft_exit(EXIT_FAILURE);
 	init_env(env);
-	while (1)
+	if (argc == 3 && ft_strcmp(argv[1], "-c") == 0 && argv[2])
 	{
-		tokens = lexer();
-		// print_tokens(tokens);
-		commands = parser(tokens);
-		heredoc = init_herdoc(tokens);
-		exec(commands, get_number_of_commands(tokens),
-			heredoc, get_number_of_herdocs(tokens));
-		ft_free();
+		char **line = ft_split(argv[2], ';');
+		if (!line)
+			ft_exit(EXIT_FAILURE);
+		int i = 0;
+		while (line[i])
+		{
+			tokens = tokenize(ft_trim(line[i]));
+			join_token(&tokens);
+			commands = parser(tokens);
+			heredoc = init_herdoc(tokens);
+			exec(commands, get_number_of_commands(tokens),
+				heredoc, get_number_of_herdocs(tokens));
+			//ft_free();
+			i++;
+		}
+	}
+	else
+	{
+		while (1)
+		{
+			tokens = lexer();
+			// print_tokens(tokens);
+			commands = parser(tokens);
+			heredoc = init_herdoc(tokens);
+			exec(commands, get_number_of_commands(tokens),
+				heredoc, get_number_of_herdocs(tokens));
+			ft_free();
+		}	
 	}
 	ft_free_env();
 	return (EXIT_SUCCESS);

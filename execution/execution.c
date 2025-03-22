@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:55:42 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/22 17:40:00 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/22 18:10:18 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	exec_bin(t_command command, int input_fd, int is_last, char **herdoc)
 				ft_exit(exec_builtin(command));
 			if (!path)
 			{
-				print_error(1, "command not found", NULL, arr[0]);
+				print_error(1, NULL, NULL, "No such file or directory");
 				ft_exit(COMMAND_NOT_FOUND);
 			}
 			if (execve(path, arr, get_env_str()) == -1)

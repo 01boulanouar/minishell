@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 21:59:49 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/13 21:59:59 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/22 18:09:54 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ char	*get_command_path(char *executable)
 
 	path = ft_getenv("PATH");
 	split = ft_split(path, ':');
+	if (!ft_strncmp("./", executable, 2))
+		return (NULL);
 	i = 0;
 	while (split && split[i])
 	{
