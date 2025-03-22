@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 15:53:33 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/09 04:22:06 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/22 01:47:20 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	print_tokens(t_token *token)
 	while (token)
 	{
 		printf("[%s] %s bef_space %d\n", token->value,
-			print_token_type(token->type), token->before_space);
+			print_token_type(token->type), token->has_space);
 		token = token->next;
 	}
 }

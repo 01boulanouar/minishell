@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 13:38:53 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/18 01:32:21 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/22 01:47:20 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,13 @@ static int	join_arg(t_token **tokens)
 	j = 1;
 	i = 0;
 	while (tokens[i] && tokens[i]->value && tokens[i + j] && tokens[i
-		+ j]->value && !tokens[i]->before_space)
+		+ j]->value && !tokens[i]->has_space)
 	{
 		if (!is_operator(tokens[i]) && !is_operator(tokens[i + j]))
 		{
 			tokens[i]->value = ft_strjoin(tokens[i]->value, tokens[i
 					+ j]->value);
-			tokens[i]->before_space = tokens[i + j]->before_space;
+			tokens[i]->has_space = tokens[i + j]->has_space;
 		}
 		j++;
 	}

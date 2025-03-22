@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/22 01:27:57 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/22 02:09:41 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ typedef struct s_token
 {
 	char			*value;
 	t_token_type	type;
-	int				before_space;
+	int				has_space;
 	struct s_token	*next;
 }					t_token;
 
