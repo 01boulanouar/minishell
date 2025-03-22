@@ -6,22 +6,22 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/22 02:09:41 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/22 16:19:01 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <stdarg.h>
-# include <string.h>
 # include <errno.h>
 # include <fcntl.h>
 # include <limits.h>
 # include <readline/history.h>
 # include <readline/readline.h>
+# include <stdarg.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <string.h>
 # include <sys/stat.h>
 # include <sys/wait.h>
 # include <unistd.h>
@@ -58,7 +58,8 @@
 /*---------------ERROR STRINGS------------*/
 
 # define SYNTAX_ERROR_STR "syntax error near unexpected token"
-# define GETCWD_ERROR_STR "error retrieving current directory: \
+# define GETCWD_ERROR_STR \
+	"error retrieving current directory: \
 							getcwd: cannot access parent directories: \
 							No such file or directory"
 
@@ -89,7 +90,7 @@ typedef struct s_token
 {
 	char			*value;
 	t_token_type	type;
-	int				has_space;
+	int				after_space;
 	struct s_token	*next;
 }					t_token;
 
@@ -129,7 +130,6 @@ typedef struct s_gc
 	struct s_gc		*next;
 
 }					t_gc;
-
 
 /*------------------FUNCTIONS-----------------*/
 
@@ -183,7 +183,7 @@ t_gc				**ft_gc_env(void);
 
 void				ft_lstadd_back_env(t_env *new);
 t_env				*ft_lstnew_env_from_str(char *str);
-t_env				*ft_lstnew_env(char *key, char *operator, char *value);
+t_env				*ft_lstnew_env(char *key, char *operator, char * value);
 void				ft_lstremove_env(char *key);
 int					ft_lstsize_env(t_env *env);
 
@@ -290,13 +290,13 @@ char				*ft_trim(char *line);
 
 // expander.c
 int					ft_isvalid_expand(int c);
-void				expand_token(t_token **token, char *name);
+void				expand_token(t_token **token, char *name, int after_space);
 char				*expand_str(char *line);
 
 // lexer.c
 void				ft_lstadd_back_token(t_token **lst, t_token *new);
 t_token				*ft_lstnew_token(char *value, t_token_type type,
-						int before_space);
+						int after_space);
 size_t				get_next_token_len(const char *line);
 void				join_token(t_token **token);
 t_token				*tokenize(char *line);
@@ -315,23 +315,21 @@ int					is_valid_operator(t_token *token);
 
 void				print_tokens(t_token *token);
 
-
-void 				ft_exit_failure(int exit_code, const char *message);
+void				ft_exit_failure(int exit_code, const char *message);
 
 // fd garbage colll
 typedef struct s_fd_gc
 {
-    int             fd;
-    struct s_fd_gc  *next;
-}   t_fd_gc;
+	int				fd;
+	struct s_fd_gc	*next;
+}					t_fd_gc;
 
-t_fd_gc	**ft_fd_gc(void);
-void register_fd(int fd);
-void close_all_fds(void);
-void unregister_fd(int fd);
+t_fd_gc				**ft_fd_gc(void);
+void				register_fd(int fd);
+void				close_all_fds(void);
+void				unregister_fd(int fd);
 
-
-void	ft_free_one(void *ptr);
-int		*ft_get_exit_status();
-void	ft_set_exit_status(int new_status);
+void				ft_free_one(void *ptr);
+int					*ft_get_exit_status(void);
+void				ft_set_exit_status(int new_status);
 #endif

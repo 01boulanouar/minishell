@@ -51,7 +51,6 @@ int	exec_bin(t_command command, int input_fd, int is_last, char **herdoc)
 	pid = ft_fork();
 	if (pid == 0)
 	{
-
 		if (input_fd != STDIN_FILENO)
 			ft_dup2(input_fd, STDIN_FILENO);
 		if (!is_last)
@@ -62,15 +61,15 @@ int	exec_bin(t_command command, int input_fd, int is_last, char **herdoc)
 			ft_close(fd[1]);
 		}
 		redirect_io(command, herdoc, command.heredoc_pos);
-		if(command.tokens[0] && ft_strcmp("ft_exit",command.tokens[0]->value)){
+		if (command.tokens[0] && ft_strcmp("ft_exit", command.tokens[0]->value))
+		{
 			if (is_builtin(command))
 				ft_exit(exec_builtin(command));
 			if (!path)
- 			{
- 				print_error(1, "command not found", NULL, arr[0]);
- 				ft_exit(COMMAND_NOT_FOUND);
- 			}
- 
+			{
+				print_error(1, "command not found", NULL, arr[0]);
+				ft_exit(COMMAND_NOT_FOUND);
+			}
 			if (execve(path, arr, get_env_str()) == -1)
 			{
 				print_error(1, "command not found", NULL, arr[0]);
@@ -87,52 +86,49 @@ int	exec_bin(t_command command, int input_fd, int is_last, char **herdoc)
 		if (input_fd != STDIN_FILENO)
 			ft_close(input_fd);
 	}
-	return (!is_last * fd[0] + is_last*STDIN_FILENO);
+	return (!is_last * fd[0] + is_last * STDIN_FILENO);
 }
 
-void exec_builtin_alone(t_command command,char **heredoc){
-	int saved_stdin;
-    int saved_stdout;
-	saved_stdin = dup(STDIN_FILENO);
-    saved_stdout = dup(STDOUT_FILENO);
-    register_fd(saved_stdin);
-	register_fd(saved_stdout);
-    redirect_io(command, heredoc, 0);		
-    exec_builtin(command);
+void	exec_builtin_alone(t_command command, char **heredoc)
+{
+	int	saved_stdin;
+	int	saved_stdout;
 
-    ft_dup2(saved_stdin, STDIN_FILENO);
-    ft_dup2(saved_stdout, STDOUT_FILENO);
+	saved_stdin = dup(STDIN_FILENO);
+	saved_stdout = dup(STDOUT_FILENO);
+	register_fd(saved_stdin);
+	register_fd(saved_stdout);
+	redirect_io(command, heredoc, 0);
+	exec_builtin(command);
+	ft_dup2(saved_stdin, STDIN_FILENO);
+	ft_dup2(saved_stdout, STDOUT_FILENO);
 }
 
 void	exec(t_command *commands, int n_commands, char **heredoc, int n_herdocs)
 {
-    int i;
-    int status;
-    int input_fd;
-    
+	int	i;
+	int	status;
+	int	input_fd;
 
-    i = 0;
-    input_fd = STDIN_FILENO;
-    if (!commands)
-        return ;
-    prepare_heredocs(commands, n_commands, heredoc);
-
-    if (n_commands == 1 && is_builtin(commands[0]))
-		exec_builtin_alone(commands[0],heredoc);
-    else
-    {
-        while (i < n_commands && commands[i].tokens)
-        {
-            input_fd = exec_bin(commands[i], input_fd, (i == n_commands - 1), heredoc);
-            i++;
-        }
-  		while (wait(&status) > 0)
+	i = 0;
+	input_fd = STDIN_FILENO;
+	if (!commands)
+		return ;
+	prepare_heredocs(commands, n_commands, heredoc);
+	if (n_commands == 1 && is_builtin(commands[0]))
+		exec_builtin_alone(commands[0], heredoc);
+	else
+	{
+		while (i < n_commands && commands[i].tokens)
+		{
+			input_fd = exec_bin(commands[i], input_fd, (i == n_commands - 1),
+					heredoc);
+			i++;
+		}
+		while (wait(&status) > 0)
 			;
-        if (WIFEXITED(status))
-            ft_set_exit_status(WEXITSTATUS(status));
-
-
-    }
-    cleanup_heredocs(heredoc, n_herdocs);
+		if (WIFEXITED(status))
+			ft_set_exit_status(WEXITSTATUS(status));
+	}
+	cleanup_heredocs(heredoc, n_herdocs);
 }
-

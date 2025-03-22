@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 16:33:28 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/16 21:05:43 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/22 16:15:45 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 void	export_handle_argument(t_env *node)
 {
-	if (!node->key || !ft_strcmp(node->key, "_") )
+	if (!node->key || !ft_strcmp(node->key, "_"))
 		return ;
 	else if (node->key && ft_isin_env(node->key))
 	{
 		if (!ft_strcmp(node->operator, "="))
 			ft_update_env(node->key, node->value);
-		else if (!ft_strcmp(node->operator, "+=") )
+		else if (!ft_strcmp(node->operator, "+="))
 			ft_append_env(node->key, node->value);
 	}
 	else
