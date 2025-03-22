@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_io.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 22:24:22 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/14 02:20:16 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/22 22:21:33 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*read_from_heredoc(t_redirect *redirect, char **heredoc,
 	char	*name;
 
 	name = get_random_name();
-	fd = ft_open(name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	fd = ft_open_create(name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	while (1)
 	{
 		line = ft_readline("> ");

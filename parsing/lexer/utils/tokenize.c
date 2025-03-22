@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 16:23:23 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/22 16:19:32 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/22 22:59:26 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ t_token	*tokenize(char *line)
 		start = line;
 		line += get_next_token_len(line);
 		value = ft_copy(start, line);
+		if (!ft_strncmp(value, "$", 1) && ft_strlen(value) == 1)
+			continue ;
 		type = get_token_type(value);
 		if (type == t_double_quote)
 			value = expand_str(value);

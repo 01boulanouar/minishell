@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 16:04:13 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/22 16:26:10 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/22 22:53:38 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	expand_token(t_token **token, char *name, int after_space)
 	{
 		value = ft_strdup("");
 		ft_lstadd_back_token(token, ft_lstnew_token(value, t_expanded, after_space));
+		return ;
 	}
 	while (expanded && *expanded)
 	{

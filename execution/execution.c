@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:55:42 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/22 18:10:18 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/22 22:28:44 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,12 @@ int	exec_bin(t_command command, int input_fd, int is_last, char **herdoc)
 				ft_exit(exec_builtin(command));
 			if (!path)
 			{
-				print_error(1, NULL, NULL, "No such file or directory");
+				print_error(1, arr[0], NULL, "command not found");
 				ft_exit(COMMAND_NOT_FOUND);
 			}
 			if (execve(path, arr, get_env_str()) == -1)
 			{
-				print_error(1, "command not found", NULL, arr[0]);
+				print_error(1, arr[0], NULL, "command not found");
 				ft_exit(COMMAND_NOT_FOUND);
 			}
 		}

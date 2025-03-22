@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   to_delete.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 15:53:33 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/22 16:15:19 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/22 22:50:31 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	print_tokens(t_token *token)
 		return ;
 	while (token)
 	{
-		printf("[%s] %s bef_space %d\n", token->value,
+		printf("[%s] %s after_space %d\n", token->value,
 			print_token_type(token->type), token->after_space);
 		token = token->next;
 	}

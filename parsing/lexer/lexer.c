@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/22 17:40:41 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/22 22:59:55 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ t_token	*lexer(void)
 	if (trim_line && ft_strlen(trim_line))
 		add_history(trim_line);
 	token = tokenize(trim_line);
+	// print_tokens(token);
 	join_token(&token);
 	if (is_valid_operator(token))
 	{

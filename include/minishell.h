@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/22 16:19:01 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/22 22:53:57 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@
 # define DOUBLE_QUOTE '"'
 
 # define BLANKS " 	"
+# define D_BLANKS " 	$"
 # define SEPARATORS " 	\'\"<>|$"
 # define D_SEPARATORS " 	\'\"<>|"
 
@@ -252,7 +253,8 @@ int					ft_pipe(int fildes[2]);
 int					ft_fork(void);
 int					ft_chdir(char *path);
 char				*ft_getenv(char *name);
-int					ft_open(const char *path, int oflag, ...);
+int					ft_open(const char *path, int oflag);
+int					ft_open_create(const char *path, int oflag, int mode);
 char				*ft_readline(const char *prompt);
 
 int					ft_isallspace(char *str);
@@ -332,4 +334,7 @@ void				unregister_fd(int fd);
 void				ft_free_one(void *ptr);
 int					*ft_get_exit_status(void);
 void				ft_set_exit_status(int new_status);
+
+
+char	*print_token_type(t_token_type type);
 #endif
