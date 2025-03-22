@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:18:03 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/22 16:15:19 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/22 17:27:04 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ int	echo_builtin(t_command command)
 	}
 	while (command.tokens[i] && command.tokens[i]->value)
 	{
-		ft_putstr_fd(command.tokens[i]->value, STDOUT_FILENO);
-		if (command.tokens[i]->after_space && i != n_flag)
+		if (command.tokens[i]->after_space && i != (n_flag + 1))
 			ft_putchar_fd(' ', STDOUT_FILENO);
+		ft_putstr_fd(command.tokens[i]->value, STDOUT_FILENO);
 		i++;
 	}
 	if (!n_flag)

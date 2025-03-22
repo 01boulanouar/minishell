@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:29:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/22 01:09:20 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/22 17:39:02 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	exec_builtin(t_command command)
 		return (echo_builtin(command));
 	else if (!ft_strcmp(value, "env"))
 		return (env_builtin(command));
-	else if (!ft_strcmp(value, "ft_exit"))
+	else if (!ft_strcmp(value, "exit"))
 		return (exit_builtin(command));
 	else if (!ft_strcmp(value, "export"))
 		return (export_builtin(command));

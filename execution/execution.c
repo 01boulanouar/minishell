@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:55:42 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/22 01:29:39 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/22 17:40:00 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	exec_bin(t_command command, int input_fd, int is_last, char **herdoc)
 			ft_close(fd[1]);
 		}
 		redirect_io(command, herdoc, command.heredoc_pos);
-		if (command.tokens[0] && ft_strcmp("ft_exit", command.tokens[0]->value))
+		if (command.tokens[0] && ft_strcmp("exit", command.tokens[0]->value))
 		{
 			if (is_builtin(command))
 				ft_exit(exec_builtin(command));

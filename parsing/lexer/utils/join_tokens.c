@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 16:22:32 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/22 16:20:44 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/22 17:31:10 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	join_token(t_token **token)
 				current->type = current->next->type;
 			current->value = ft_strjoin(current->value, next_token->value);
 			current->next = next_token->next;
-			current->after_space = next_token->after_space;
+			next_token->after_space = current->after_space;
 		}
 		else
 			current = current->next;
