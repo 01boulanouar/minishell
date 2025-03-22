@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/20 02:36:19 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/22 01:27:57 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,11 @@
 # define SEPARATORS " 	\'\"<>|$"
 # define D_SEPARATORS " 	\'\"<>|"
 
-/*----------------EXIT CODES--------------*/
+/*----------------ft_exit CODES--------------*/
 
 # define EXIT_SYNTAX_ERROR 258
 # define EXIT_BUILTIN_BAD_USAGE 2
-
+# define COMMAND_NOT_FOUND 127
 /*---------------ERROR STRINGS------------*/
 
 # define SYNTAX_ERROR_STR "syntax error near unexpected token"
@@ -147,7 +147,7 @@ int					echo_builtin(t_command command);
 // env.c
 int					env_builtin(t_command command);
 
-// exit.c
+// ft_exit.c
 int					exit_is_valid_status(char *str);
 unsigned long long	ft_atol(const char *str);
 int					exit_builtin(t_command command);
@@ -332,5 +332,6 @@ void unregister_fd(int fd);
 
 
 void	ft_free_one(void *ptr);
-
+int		*ft_get_exit_status();
+void	ft_set_exit_status(int new_status);
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fd_gc.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 02:08:09 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/03/20 02:35:52 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/22 01:09:20 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void register_fd(int fd)
     head = ft_fd_gc();
     new_node = ft_malloc(sizeof(t_fd_gc));
     if (!new_node)
-        exit(1);
+        ft_exit(1);
     new_node->fd = fd;
     new_node->next = *head;
     *head = new_node;

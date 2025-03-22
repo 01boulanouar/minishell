@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 16:04:13 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/15 23:23:11 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/22 00:56:28 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,13 @@ void	expand_token(t_token **token, char *name)
 	char			*start;
 	char			*value;
 
-	name++;
-	expanded = ft_getenv(name);
+	if (!strncmp(name, EXIT_STATUS, 2))
+		expanded = ft_itoa(*ft_get_exit_status());
+	else
+	{
+		name++;
+		expanded = ft_getenv(name);
+	}
 	while (expanded && *expanded)
 	{
 		start = expanded;

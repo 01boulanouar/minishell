@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:55:42 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/20 02:40:33 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/22 01:29:39 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 void	prepare_heredocs(t_command *commands, int n_commands, char **heredoc)
 {
@@ -63,23 +62,23 @@ int	exec_bin(t_command command, int input_fd, int is_last, char **herdoc)
 			ft_close(fd[1]);
 		}
 		redirect_io(command, herdoc, command.heredoc_pos);
-		if(command.tokens[0] && ft_strcmp("exit",command.tokens[0]->value)){
+		if(command.tokens[0] && ft_strcmp("ft_exit",command.tokens[0]->value)){
 			if (is_builtin(command))
-				exit(exec_builtin(command));
+				ft_exit(exec_builtin(command));
 			if (!path)
  			{
  				print_error(1, "command not found", NULL, arr[0]);
- 				exit(EXIT_FAILURE);
+ 				ft_exit(COMMAND_NOT_FOUND);
  			}
  
 			if (execve(path, arr, get_env_str()) == -1)
 			{
 				print_error(1, "command not found", NULL, arr[0]);
-				exit(EXIT_FAILURE);
+				ft_exit(COMMAND_NOT_FOUND);
 			}
 		}
 		else
-			exit(EXIT_SUCCESS);
+			ft_exit(EXIT_SUCCESS);
 	}
 	else
 	{
@@ -127,7 +126,12 @@ void	exec(t_command *commands, int n_commands, char **heredoc, int n_herdocs)
             input_fd = exec_bin(commands[i], input_fd, (i == n_commands - 1), heredoc);
             i++;
         }
-        while (wait(&status) > 0);
+  		while (wait(&status) > 0)
+			;
+        if (WIFEXITED(status))
+            ft_set_exit_status(WEXITSTATUS(status));
+
+
     }
     cleanup_heredocs(heredoc, n_herdocs);
 }

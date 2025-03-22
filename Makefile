@@ -1,11 +1,11 @@
 NAME = minishell
 
 CC = cc
-# CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 INCLUDE = -I./include
 RM = rm -f
 
-# SANITIZE = -fsanitize=address -g
+SANITIZE = -fsanitize=address -g
 
 #_____BUILTINS_____#
 
@@ -41,7 +41,7 @@ SRC_EXECUTION = execution/heredoc/utils/get_random_name.c  execution/heredoc/ini
 				execution/redirection/utils/open_in_files.c execution/redirection/utils/open_out_files.c \
 				execution/redirection/redirect_io.c \
 				execution/utils/get_command_path.c execution/utils/get_command_str.c execution/utils/get_env_str.c\
-				execution/execution.c 
+				execution/execution.c execution/exit_status.c
 
 #_______HELPER______#
 
@@ -84,7 +84,6 @@ all : $(NAME)
 
 $(NAME) : $(OBJ)
 	@$(CC) $(OBJ) -lreadline -o $@ $(SANITIZE)
-	@$(RM) $(OBJ)
 
 %.o : %.c include/minishell.h
 	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@ $(SANITIZE)

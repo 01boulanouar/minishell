@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 17:23:44 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/13 17:23:54 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/22 01:09:20 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	is_builtin(t_command command)
 		return (0);
 	value = command.tokens[0]->value;
 	return (!ft_strcmp(value, "cd") || !ft_strcmp(value, "echo")
-		|| !ft_strcmp(value, "env") || !ft_strcmp(value, "exit")
+		|| !ft_strcmp(value, "env") || !ft_strcmp(value, "ft_exit")
 		|| !ft_strcmp(value, "export") || !ft_strcmp(value, "pwd")
 		|| !ft_strcmp(value, "unset"));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:08 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/19 22:47:56 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/22 01:09:20 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(int argc, char **argv, char **env)
 	(void)env;
 	(void)argv;
 	if (argc != 1 || !isatty(STDIN_FILENO))
-		exit(EXIT_FAILURE);
+		ft_exit(EXIT_FAILURE);
 	init_env(env);
 	while (1)
 	{
