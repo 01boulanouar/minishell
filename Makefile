@@ -1,7 +1,7 @@
 NAME = minishell
 
 CC = cc
-# CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 INCLUDE = -I./include
 RM = rm -f
 

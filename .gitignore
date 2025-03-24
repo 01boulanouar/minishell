@@ -5,3 +5,5 @@ minishell
 minishell_bonus
 test_commands
 *.out
+*.out
+test/*

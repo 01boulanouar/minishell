@@ -22,7 +22,7 @@ char	*get_command_path(char *executable)
 
 	path = ft_getenv("PATH");
 	split = ft_split(path, ':');
-	if (!ft_strncmp("./", executable, 2))
+	if (!executable || !ft_strncmp("./", executable, 2))
 		return (NULL);
 	i = 0;
 	while (split && split[i])

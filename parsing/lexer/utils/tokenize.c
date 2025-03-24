@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 16:23:23 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/22 22:59:26 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/24 22:34:04 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ t_token	*tokenize(char *line)
 {
 	const char		*start;
 	t_token			*token;
-	t_token			*tmp;
 	t_token_type	type;
 	int				after_space;
 	char			*value;
