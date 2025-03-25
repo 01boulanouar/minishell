@@ -35,7 +35,7 @@ int	exit_builtin(t_command command)
 		}
 	}
 	// close fds
-	// close_all_fds();
+	close_all_fds();
 	ft_exit(ret);
 	return (ret);
 }

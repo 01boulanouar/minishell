@@ -5,7 +5,7 @@ CFLAGS = -Wall -Wextra -Werror
 INCLUDE = -I./include
 RM = rm -f
 
-SANITIZE = -fsanitize=address -g
+# SANITIZE = -fsanitize=address -g
 
 #_____BUILTINS_____#
 

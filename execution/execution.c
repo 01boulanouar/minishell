@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:55:42 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/22 22:28:44 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/25 00:56:25 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,6 @@ void	exec_builtin_alone(t_command command, char **heredoc)
 
 	saved_stdin = dup(STDIN_FILENO);
 	saved_stdout = dup(STDOUT_FILENO);
-	register_fd(saved_stdin);
-	register_fd(saved_stdout);
 	redirect_io(command, heredoc, 0);
 	exec_builtin(command);
 	ft_dup2(saved_stdin, STDIN_FILENO);
