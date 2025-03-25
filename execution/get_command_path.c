@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 21:59:49 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/25 08:10:16 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/25 08:15:05 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int is_valid_command(char *executable)
 
 	if (stat(executable, &cmd_stat) != 0)
 	{
+		print_error(1, executable, NULL, strerror(errno));
 		ft_set_exit_status(COMMAND_NOT_FOUND);
 		return (0);
 	}
@@ -52,14 +53,12 @@ char	*get_command_path(char *executable)
 	split = ft_split(path, ':');
 	full_path = NULL;
 
-	if (is_valid_command(executable) && (!ft_strncmp(executable, "./", 2) || executable[0] == '/'))
-			return (executable);
 	i = 0;
 	while (split && split[i])
 	{
 		full_path = ft_strjoin(ft_strjoin(split[i], "/"), executable);
 		if (access((const char *)full_path, X_OK) == 0)
-			break ;	
+			return (full_path) ;	
 		i++;
 	}
 	if (!full_path)
@@ -78,6 +77,8 @@ char	*get_command_path(char *executable)
 		return (NULL);
 	}
 	
+	if (is_valid_command(executable) && (!ft_strncmp(executable, "./", 2) || executable[0] == '/'))
+			return (executable);
 	return (full_path);
 }
 
