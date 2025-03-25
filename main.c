@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:08 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/25 05:55:27 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/25 08:43:11 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	main(int argc, char **argv, char **env)
 				return (2);
 			}
 			join_token(&tokens);
+			// print_tokens(tokens);
 			commands = parser(tokens);
 			heredoc = init_herdoc(tokens);
 			exec(commands, get_number_of_commands(tokens),

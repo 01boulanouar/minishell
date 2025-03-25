@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 21:59:49 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/25 08:24:31 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/25 08:48:36 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,67 +14,53 @@
 
 int is_valid_command(char *executable)
 {
-	struct stat	cmd_stat;
+    struct stat cmd_stat;
 
-	if (stat(executable, &cmd_stat) != 0)
-	{
-		print_error(1, executable, NULL, strerror(errno));
-		ft_set_exit_status(COMMAND_NOT_FOUND);
-		return (0);
-	}
+    if (stat(executable, &cmd_stat) != 0)
+    {
+        print_error(1, executable, NULL, strerror(errno));
+        ft_set_exit_status(COMMAND_NOT_FOUND);
+        return (0);
+    }
 
-	if (S_ISDIR(cmd_stat.st_mode))
-	{
-		print_error(1, executable, NULL, "Is a directory");
-		ft_set_exit_status(COMMAND_NOT_EXECUTABLE);
-		return (0);
-	}
-	
-	if (access(executable, F_OK | X_OK) != 0)
-	{
-		print_error(1, executable, NULL, "command not found");
-		ft_set_exit_status(COMMAND_NOT_EXECUTABLE);
-		return (0);
-	}
+    if (S_ISDIR(cmd_stat.st_mode))
+    {
+        print_error(1, executable, NULL, "Is a directory");
+        ft_set_exit_status(COMMAND_NOT_EXECUTABLE);
+        return (0);
+    }
 
-	return (1);
+    if (access(executable, X_OK) != 0)
+    {
+        print_error(1, executable, NULL, "Permission denied");
+        ft_set_exit_status(COMMAND_NOT_EXECUTABLE);
+        return (0);
+    }
+
+    return (1);
 }
 
-
-char	*get_command_path(char *executable)
+char *get_command_path(char *executable)
 {
-	int			i;
-	char		*path;
-	char		**split;
-	char		*full_path;
+    char *path = ft_getenv("PATH");
+    char **split = ft_split(path, ':');
+    char *full_path = NULL;
+    int i = 0;
 
+    if (executable && (executable[0] == '/' || !ft_strncmp(executable, "./", 2)))
+        return (is_valid_command(executable) ? executable : NULL);
 
-	path = ft_getenv("PATH");
-	split = ft_split(path, ':');
-	full_path = NULL;
-
-	i = 0;
-	while (split && split[i] && executable && ft_strncmp(executable, "./", 2) && executable[0] != '/')
-	{
-		full_path = ft_strjoin(ft_strjoin(split[i], "/"), executable);
-		if (access((const char *)full_path, X_OK) == 0)
-			return (full_path);	
-		i++;
-	}
-
-
-	if ((full_path == NULL && executable[0] == '/') || (full_path && ft_strcmp(executable, full_path) && executable[0] == '/')
-	|| (full_path && ft_strcmp(executable, full_path) && !ft_strncmp(executable, "./", 2))
-	|| (full_path == NULL && !ft_strncmp(executable, "./", 2)))
-	{
-		print_error(1, executable, NULL, "No such file or directory");
-		ft_set_exit_status(COMMAND_NOT_FOUND);
-		return (NULL);
-	}
+    while (split && split[i])
+    {
+        full_path = ft_strjoin(ft_strjoin(split[i], "/"), executable);
+        if (access(full_path, X_OK) == 0)
+            return (full_path);
+        i++;
+    }
 	
-	if (is_valid_command(executable))
-			return (executable);
-	return (full_path);
+    print_error(1, executable, NULL, "command not found");
+    ft_set_exit_status(COMMAND_NOT_FOUND);
+    return (NULL);
 }
 
 static int	get_command_len(t_command command)
