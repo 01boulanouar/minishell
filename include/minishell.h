@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/22 22:53:57 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/25 02:57:27 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,20 +137,15 @@ typedef struct s_gc
 /*---------builtins----------*/
 
 // cd.c
-int					cd_handle_home(char *str, char *dir);
-int					cd_is_home(t_command command);
 int					cd_builtin(t_command command);
 
 // echo.c
-int					echo_is_n(char *str);
 int					echo_builtin(t_command command);
 
 // env.c
 int					env_builtin(t_command command);
 
 // ft_exit.c
-int					exit_is_valid_status(char *str);
-unsigned long long	ft_atol(const char *str);
 int					exit_builtin(t_command command);
 
 // export.c

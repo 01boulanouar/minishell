@@ -1,39 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_open.c                                          :+:      :+:    :+:   */
+/*   fd_gc.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/13 21:28:58 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/25 03:08:27 by moboulan         ###   ########.fr       */
+/*   Created: 2025/03/20 02:08:09 by aelkadir          #+#    #+#             */
+/*   Updated: 2025/03/25 02:53:28 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_open(const char *path, int oflag)
+void	close_all_fds(void)
 {
-	int		result;
+	int	i;
 
-	result = open(path, oflag);
-	if (result == -1)
+	i = 3;
+	while (i < FOPEN_MAX)
 	{
-		print_error(1, (char *)path, NULL, strerror(errno));
-		return (EXIT_FAILURE);
+		ft_close(i);
+		i++;
 	}
-	return (result);
-}
-
-int	ft_open_create(const char *path, int oflag, int mode)
-{
-	int		result;
-	
-	result = open(path, oflag, mode);
-	if (result == -1)
-	{
-		print_error(1, (char *)path, NULL, strerror(errno));
-		return (EXIT_FAILURE);
-	}
-	return (result);
 }
