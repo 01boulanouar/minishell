@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_command_path.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 21:59:49 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/25 02:47:09 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/25 07:56:42 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,46 @@ char	*get_command_path(char *executable)
 	char		*path;
 	char		**split;
 	char		*full_path;
-	struct stat	buffer;
 
 	path = ft_getenv("PATH");
 	split = ft_split(path, ':');
-	if (!executable || !ft_strncmp("./", executable, 2))
-		return (NULL);
+	full_path = NULL;
+	if (!ft_strncmp(executable, "./", 2) || executable[0] == '/')
+	{
+		if (access(executable, F_OK) != 0)
+		{
+			print_error(1, executable, NULL,  strerror(errno));
+			ft_set_exit_status(COMMAND_NOT_FOUND);
+			return (NULL);
+		}
+		if (access(executable, X_OK) == 0)
+			return (executable); 
+	}
 	i = 0;
 	while (split && split[i])
 	{
 		full_path = ft_strjoin(ft_strjoin(split[i], "/"), executable);
-		if (stat(full_path, &buffer) == 0)
-			return (full_path);
-		else if (stat(executable, &buffer) == 0 && (!ft_strncmp(executable,
-					"./", 2) || !ft_strncmp(executable, "/", 1)))
-			return (executable);
+		if (access((const char *)full_path, X_OK) == 0)
+			break ;	
 		i++;
 	}
-	return (NULL);
+	if (!full_path)
+	{
+		print_error(1, executable, NULL, "command not found");
+		ft_set_exit_status(COMMAND_NOT_FOUND);
+		return (NULL);
+	}
+
+	if ((full_path == NULL && executable[0] == '/') || (full_path && ft_strcmp(executable, full_path) && executable[0] == '/')
+	|| (full_path && ft_strcmp(executable, full_path) && !ft_strncmp(executable, "./", 2))
+	|| (full_path == NULL && !ft_strncmp(executable, "./", 2)))
+	{
+		print_error(1, executable, NULL, "No such file or directory");
+		ft_set_exit_status(COMMAND_NOT_FOUND);
+		return (NULL);
+	}
+	
+	return (full_path);
 }
 
 static int	get_command_len(t_command command)

@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:55:42 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/25 06:03:42 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/25 07:32:12 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,16 +65,8 @@ void	prepare_heredocs(t_command *commands, int n_commands, char **heredoc)
 			{
 				if (is_builtin(command))
 					ft_exit(exec_builtin(command));
-				if (!path)
-				{
-					print_error(1, arr[0], NULL, "command not found");
-					ft_exit(COMMAND_NOT_FOUND);
-				}
 				if (execve(path, arr, get_env_str()) == -1)
-				{
-					print_error(1, arr[0], NULL, "command not found");
 					ft_exit(COMMAND_NOT_FOUND);
-				}
 			}
 			else
 				ft_exit(EXIT_SUCCESS);

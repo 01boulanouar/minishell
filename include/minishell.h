@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/25 05:00:17 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/25 07:39:30 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@
 # define EXIT_SYNTAX_ERROR 258
 # define EXIT_BUILTIN_BAD_USAGE 2
 # define COMMAND_NOT_FOUND 127
+# define COMMAND_NOT_EXECUTABLE 126
+
 /*---------------ERROR STRINGS------------*/
 
 # define SYNTAX_ERROR_STR "syntax error near unexpected token"
