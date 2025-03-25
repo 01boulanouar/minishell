@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/25 02:57:27 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/25 05:00:17 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,7 @@ typedef struct s_redirect
 typedef struct s_command
 {
 	t_token			**tokens;
-	t_redirect		**out_files;
-	t_redirect		**in_files;
+	t_redirect		**files;
 	int				not_to_be_executed;
 	int				heredoc_pos;
 }					t_command;
@@ -203,10 +202,6 @@ char				**get_env_str(void);
 char				*get_random_name(void);
 char				**init_herdoc(t_token *token);
 
-void				open_in_files(t_redirect **in_files, char **heredoc,
-						int heredoc_pos);
-void				open_out_files(t_redirect **out_files);
-
 void				exec(t_command *commands, int n_commands, char **heredoc,
 						int n_herdocs);
 
@@ -224,8 +219,7 @@ int					get_number_of_arguments(t_command command);
 // get_number_of.c
 int					get_number_of_tokens(t_token *token);
 int					get_number_of_commands(t_token *token);
-int					get_number_of_infiles(t_token *token);
-int					get_number_of_outfiles(t_token *token);
+int					get_number_of_files(t_token *token);
 int					get_number_of_herdocs(t_token *token);
 
 // get_token_type.c
@@ -301,7 +295,7 @@ t_token				*lexer(void);
 
 // parser.c
 void				handle_redirection(t_command *cmd, t_token *token,
-						int *in_index, int *out_index);
+						int *index);
 t_token				*parse_token(t_command *command, t_token *token,
 						int *count);
 t_command			*parser(t_token *token);
@@ -332,4 +326,5 @@ void				ft_set_exit_status(int new_status);
 
 
 char	*print_token_type(t_token_type type);
+void	print_commands(t_command *commands, int num_commands);
 #endif

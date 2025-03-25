@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 21:28:58 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/25 03:08:27 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/25 05:23:57 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_open(const char *path, int oflag)
 	if (result == -1)
 	{
 		print_error(1, (char *)path, NULL, strerror(errno));
-		return (EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	}
 	return (result);
 }
@@ -33,7 +33,7 @@ int	ft_open_create(const char *path, int oflag, int mode)
 	if (result == -1)
 	{
 		print_error(1, (char *)path, NULL, strerror(errno));
-		return (EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	}
 	return (result);
 }

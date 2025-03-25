@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   to_delete.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 15:53:33 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/22 22:50:31 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/25 04:56:39 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,23 +76,13 @@ void	print_commands(t_command *commands, int num_commands)
 		printf("--   ]");
 		printf("\n");
 		k = 0;
-		if (commands[i].in_files[0])
-			printf("          --in_files--\n");
-		while (commands[i].in_files[k])
+		if (commands[i].files[0])
+			printf("          --files--\n");
+		while (commands[i].files[k])
 		{
 			printf("          file [%d] : %s \t %s\n", k,
-				commands[i].in_files[k]->file.value,
-				print_token_type(commands[i].in_files[k]->type));
-			k++;
-		}
-		if (commands[i].out_files[0])
-			printf("          --out_files--\n");
-		k = 0;
-		while (commands[i].out_files[k])
-		{
-			printf("          file [%d] : %s \t %s\n", k,
-				commands[i].out_files[k]->file.value,
-				print_token_type(commands[i].out_files[k]->type));
+				commands[i].files[k]->file.value,
+				print_token_type(commands[i].files[k]->type));
 			k++;
 		}
 		i++;

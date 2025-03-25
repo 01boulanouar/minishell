@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:55:42 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/25 00:56:25 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/25 04:55:27 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,21 @@ void	prepare_heredocs(t_command *commands, int n_commands, char **heredoc)
 {
 	int			i;
 	int			heredoc_index;
-	t_redirect	**in_files;
+	t_redirect	**files;
 
 	heredoc_index = 0;
 	for (i = 0; i < n_commands; i++)
 	{
-		in_files = commands[i].in_files;
-		while (in_files && *in_files)
+		files = commands[i].files;
+		while (files && *files)
 		{
-			if ((*in_files)->type == t_double_less)
+			if ((*files)->type == t_double_less)
 			{
-				heredoc[heredoc_index] = read_from_heredoc(*in_files, heredoc,
+				heredoc[heredoc_index] = read_from_heredoc(*files, heredoc,
 						heredoc_index);
 				heredoc_index++;
 			}
-			in_files++;
+			files++;
 		}
 	}
 }

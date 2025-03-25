@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:08 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/25 02:31:31 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/25 05:01:47 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int	main(int argc, char **argv, char **env)
 			tokens = lexer();
 			// print_tokens(tokens);
 			commands = parser(tokens);
+			// print_commands(commands, get_number_of_commands(tokens));
 			heredoc = init_herdoc(tokens);
 			exec(commands, get_number_of_commands(tokens),
 				heredoc, get_number_of_herdocs(tokens));
