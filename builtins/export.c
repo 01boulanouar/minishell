@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 13:38:53 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/25 02:38:39 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/25 06:35:26 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@ int	export_builtin(t_command command)
 	t_env	*node;
 	char	*arg;
 	int		ret;
+	int	 	has_failed;
 	int		i;
 
+	has_failed = 0;
 	ret = EXIT_SUCCESS;
 	i = 1;
 	if (!get_number_of_arguments(command))
@@ -30,12 +32,15 @@ int	export_builtin(t_command command)
 		if (!ft_isvalid_env_key(node->key))
 		{
 			print_error(1, "export", arg, "not a valid identifier");
-			ret = EXIT_FAILURE;
+			ft_set_exit_status(EXIT_FAILURE);
+			has_failed = 1;
 		}
 		else
 			export_handle_argument(node);
 		i++;
 	}
+	if (has_failed)
+		return (EXIT_FAILURE);
 	return (ret);
 }
 
