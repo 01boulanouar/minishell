@@ -6,11 +6,39 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 21:59:49 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/25 07:56:42 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/25 08:10:16 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int is_valid_command(char *executable)
+{
+	struct stat	cmd_stat;
+
+	if (stat(executable, &cmd_stat) != 0)
+	{
+		ft_set_exit_status(COMMAND_NOT_FOUND);
+		return (0);
+	}
+
+	if (S_ISDIR(cmd_stat.st_mode))
+	{
+		print_error(1, executable, NULL, "Is a directory");
+		ft_set_exit_status(COMMAND_NOT_EXECUTABLE);
+		return (0);
+	}
+	
+	if (access(executable, F_OK | X_OK) != 0)
+	{
+		print_error(1, executable, NULL, "command not found");
+		ft_set_exit_status(COMMAND_NOT_EXECUTABLE);
+		return (0);
+	}
+
+	return (1);
+}
+
 
 char	*get_command_path(char *executable)
 {
@@ -19,20 +47,13 @@ char	*get_command_path(char *executable)
 	char		**split;
 	char		*full_path;
 
+
 	path = ft_getenv("PATH");
 	split = ft_split(path, ':');
 	full_path = NULL;
-	if (!ft_strncmp(executable, "./", 2) || executable[0] == '/')
-	{
-		if (access(executable, F_OK) != 0)
-		{
-			print_error(1, executable, NULL,  strerror(errno));
-			ft_set_exit_status(COMMAND_NOT_FOUND);
-			return (NULL);
-		}
-		if (access(executable, X_OK) == 0)
-			return (executable); 
-	}
+
+	if (is_valid_command(executable) && (!ft_strncmp(executable, "./", 2) || executable[0] == '/'))
+			return (executable);
 	i = 0;
 	while (split && split[i])
 	{
