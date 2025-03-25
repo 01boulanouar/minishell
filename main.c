@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:08 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/25 08:43:11 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/25 08:59:11 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ int	main(int argc, char **argv, char **env)
 		while (line[i])
 		{
 			tokens = tokenize(ft_trim(line[i]));
+			if(!tokens){
+				i++;
+				continue ; }
 			if (is_valid_operator(tokens))
 			{
 				print_error(1, NULL, NULL, SYNTAX_ERROR_STR);
@@ -59,6 +62,8 @@ int	main(int argc, char **argv, char **env)
 		while (1)
 		{
 			tokens = lexer();
+			if(!tokens)
+				continue ; 
 			// print_tokens(tokens);
 			commands = parser(tokens);
 			// print_commands(commands, get_number_of_commands(tokens));
