@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:08 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/22 17:53:35 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/25 02:31:31 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,12 @@ int	main(int argc, char **argv, char **env)
 		while (line[i])
 		{
 			tokens = tokenize(ft_trim(line[i]));
+			if (is_valid_operator(tokens))
+			{
+				print_error(1, NULL, NULL, SYNTAX_ERROR_STR);
+				ft_set_exit_status(EXIT_SYNTAX_ERROR);
+				return (2);
+			}
 			join_token(&tokens);
 			commands = parser(tokens);
 			heredoc = init_herdoc(tokens);
