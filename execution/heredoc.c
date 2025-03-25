@@ -14,7 +14,8 @@
 
 char	*get_random_name(void)
 {
-	char *name;
+	char	*name;
+
 	name = ft_strjoin(HEREDOC_NAME, ft_itoa((int)ft_malloc(1)));
 	return (name);
 }

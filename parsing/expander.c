@@ -26,7 +26,8 @@ static int	get_expand_len(char *line)
 	len = 0;
 	while (*line)
 	{
-		if (*line == DOLLAR && *(line + 1) && !ft_isin(*(line + 1), D_SEPARATORS))
+		if (*line == DOLLAR && *(line + 1) && !ft_isin(*(line + 1),
+				D_SEPARATORS))
 		{
 			start = ++line;
 			if (ft_isdigit(*line))
@@ -36,7 +37,7 @@ static int	get_expand_len(char *line)
 				line++;
 				expanded = ft_itoa(*ft_get_exit_status());
 			}
-			else 
+			else
 			{
 				line += ft_strcspn(line, " 	\'\"<>|");
 				expanded = ft_getenv(ft_copy(start, line));
@@ -64,7 +65,8 @@ char	*expand_str(char *line)
 	result_start = result;
 	while (*line)
 	{
-		if (*line == DOLLAR && *(line + 1) && !ft_isin(*(line + 1), D_SEPARATORS))
+		if (*line == DOLLAR && *(line + 1) && !ft_isin(*(line + 1),
+				D_SEPARATORS))
 		{
 			start = ++line;
 			if (ft_isdigit(*line))
@@ -72,7 +74,7 @@ char	*expand_str(char *line)
 			else if (*line == '?')
 			{
 				line++;
-				expanded = ft_itoa(*ft_get_exit_status());	
+				expanded = ft_itoa(*ft_get_exit_status());
 			}
 			else
 			{
@@ -89,12 +91,11 @@ char	*expand_str(char *line)
 	return (result_start);
 }
 
-
 void	expand_token(t_token **token, char *name, int after_space)
 {
-	char			*expanded;
-	char			*start;
-	char			*value;
+	char	*expanded;
+	char	*start;
+	char	*value;
 
 	if (!strncmp(name, EXIT_STATUS, 2))
 		expanded = ft_itoa(*ft_get_exit_status());
@@ -106,7 +107,8 @@ void	expand_token(t_token **token, char *name, int after_space)
 	if (!expanded)
 	{
 		value = ft_strdup("");
-		ft_lstadd_back_token(token, ft_lstnew_token(value, t_expanded, after_space));
+		ft_lstadd_back_token(token, ft_lstnew_token(value, t_expanded,
+				after_space));
 		return ;
 	}
 	while (expanded && *expanded)
@@ -114,7 +116,8 @@ void	expand_token(t_token **token, char *name, int after_space)
 		start = expanded;
 		expanded += get_next_token_len(start);
 		value = ft_copy(start, expanded);
-		ft_lstadd_back_token(token, ft_lstnew_token(value, t_expanded, after_space));
+		ft_lstadd_back_token(token, ft_lstnew_token(value, t_expanded,
+				after_space));
 		after_space = ft_isin(*expanded, BLANKS);
 		expanded += ft_strspn(expanded, BLANKS);
 	}

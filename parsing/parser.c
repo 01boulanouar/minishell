@@ -29,6 +29,7 @@ t_token	*parse_token(t_command *command, t_token *token, int *count)
 {
 	int	j;
 	int	index;
+
 	j = 0;
 	index = 0;
 	command->heredoc_pos = *count;
@@ -51,7 +52,6 @@ t_token	*parse_token(t_command *command, t_token *token, int *count)
 	}
 	return (command->tokens[j] = NULL, command->files[index] = NULL, token);
 }
-
 
 t_command	*parser(t_token *token)
 {

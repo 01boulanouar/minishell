@@ -10,19 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "minishell.h"
 
-int		*ft_get_exit_status()
+int	*ft_get_exit_status(void)
 {
-	static int status;
+	static int	status;
+
 	return (&status);
 }
 
-void ft_set_exit_status(int new_status)
+void	ft_set_exit_status(int new_status)
 {
-	int *status;
+	int	*status;
+
 	status = ft_get_exit_status();
 	*status = new_status;
 }
-

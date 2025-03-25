@@ -12,55 +12,55 @@
 
 #include "minishell.h"
 
-int is_valid_command(char *executable)
+int	is_valid_command(char *executable)
 {
-    struct stat cmd_stat;
+	struct stat	cmd_stat;
 
-    if (stat(executable, &cmd_stat) != 0)
-    {
-        print_error(1, executable, NULL, strerror(errno));
-        ft_set_exit_status(COMMAND_NOT_FOUND);
-        return (0);
-    }
-
-    if (S_ISDIR(cmd_stat.st_mode))
-    {
-        print_error(1, executable, NULL, "Is a directory");
-        ft_set_exit_status(COMMAND_NOT_EXECUTABLE);
-        return (0);
-    }
-
-    if (access(executable, X_OK) != 0)
-    {
-        print_error(1, executable, NULL, "Permission denied");
-        ft_set_exit_status(COMMAND_NOT_EXECUTABLE);
-        return (0);
-    }
-
-    return (1);
+	if (stat(executable, &cmd_stat) != 0)
+	{
+		print_error(1, executable, NULL, strerror(errno));
+		ft_set_exit_status(COMMAND_NOT_FOUND);
+		return (0);
+	}
+	if (S_ISDIR(cmd_stat.st_mode))
+	{
+		print_error(1, executable, NULL, "Is a directory");
+		ft_set_exit_status(COMMAND_NOT_EXECUTABLE);
+		return (0);
+	}
+	if (access(executable, X_OK) != 0)
+	{
+		print_error(1, executable, NULL, "Permission denied");
+		ft_set_exit_status(COMMAND_NOT_EXECUTABLE);
+		return (0);
+	}
+	return (1);
 }
 
-char *get_command_path(char *executable)
+char	*get_command_path(char *executable)
 {
-    char *path = ft_getenv("PATH");
-    char **split = ft_split(path, ':');
-    char *full_path = NULL;
-    int i = 0;
+	char	*path;
+	char	**split;
+	char	*full_path;
+	int		i;
 
-    if (executable && (executable[0] == '/' || !ft_strncmp(executable, "./", 2)))
-        return (is_valid_command(executable) ? executable : NULL);
-
-    while (split && split[i])
-    {
-        full_path = ft_strjoin(ft_strjoin(split[i], "/"), executable);
-        if (access(full_path, X_OK) == 0)
-            return (full_path);
-        i++;
-    }
-	
-    print_error(1, executable, NULL, "command not found");
-    ft_set_exit_status(COMMAND_NOT_FOUND);
-    return (NULL);
+	path = ft_getenv("PATH");
+	split = ft_split(path, ':');
+	full_path = NULL;
+	i = 0;
+	if (executable && (executable[0] == '/' || !ft_strncmp(executable, "./",
+				2)))
+		return (is_valid_command(executable) ? executable : NULL);
+	while (split && split[i])
+	{
+		full_path = ft_strjoin(ft_strjoin(split[i], "/"), executable);
+		if (access(full_path, X_OK) == 0)
+			return (full_path);
+		i++;
+	}
+	print_error(1, executable, NULL, "command not found");
+	ft_set_exit_status(COMMAND_NOT_FOUND);
+	return (NULL);
 }
 
 static int	get_command_len(t_command command)
@@ -111,4 +111,3 @@ char	**get_env_str(void)
 	arr[i] = NULL;
 	return (arr);
 }
-
