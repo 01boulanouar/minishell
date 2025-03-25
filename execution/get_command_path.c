@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 21:59:49 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/25 08:15:05 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/25 08:19:55 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,11 @@ char	*get_command_path(char *executable)
 	full_path = NULL;
 
 	i = 0;
-	while (split && split[i])
+	while (split && split[i] && ft_strncmp(executable, "./", 2) && executable[0] != '/')
 	{
 		full_path = ft_strjoin(ft_strjoin(split[i], "/"), executable);
 		if (access((const char *)full_path, X_OK) == 0)
-			return (full_path) ;	
+			return (full_path);	
 		i++;
 	}
 	if (!full_path)
@@ -77,7 +77,7 @@ char	*get_command_path(char *executable)
 		return (NULL);
 	}
 	
-	if (is_valid_command(executable) && (!ft_strncmp(executable, "./", 2) || executable[0] == '/'))
+	if (is_valid_command(executable))
 			return (executable);
 	return (full_path);
 }
