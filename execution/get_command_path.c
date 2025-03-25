@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 21:59:49 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/25 08:48:36 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/25 22:17:21 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,11 @@ char	*get_command_path(char *executable)
 	i = 0;
 	if (executable && (executable[0] == '/' || !ft_strncmp(executable, "./",
 				2)))
-		return (is_valid_command(executable) ? executable : NULL);
+	{
+		if (is_valid_command(executable))
+			return (executable);
+		return (NULL);
+	}
 	while (split && split[i])
 	{
 		full_path = ft_strjoin(ft_strjoin(split[i], "/"), executable);
@@ -59,8 +63,7 @@ char	*get_command_path(char *executable)
 		i++;
 	}
 	print_error(1, executable, NULL, "command not found");
-	ft_set_exit_status(COMMAND_NOT_FOUND);
-	return (NULL);
+	return (ft_set_exit_status(COMMAND_NOT_FOUND), NULL);
 }
 
 static int	get_command_len(t_command command)
