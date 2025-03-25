@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_open.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 21:28:58 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/25 05:27:42 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/25 22:40:44 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_open(const char *path, int oflag)
 	if (result == -1)
 	{
 		print_error(1, (char *)path, NULL, strerror(errno));
-		ft_exit(EXIT_FAILURE);
+		ft_set_exit_status(EXIT_FAILURE);
 	}
 	return (result);
 }
@@ -33,7 +33,7 @@ int	ft_open_create(const char *path, int oflag, int mode)
 	if (result == -1)
 	{
 		print_error(1, (char *)path, NULL, strerror(errno));
-		ft_exit(EXIT_FAILURE);
+		ft_set_exit_status(EXIT_FAILURE);
 	}
 	return (result);
 }

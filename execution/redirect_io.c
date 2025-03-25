@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 22:24:22 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/25 22:10:04 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/25 22:41:26 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ void	redirect_io(t_command cmd, char **heredoc, int heredoc_pos)
 	files = cmd.files;
 	if (!files || !*files)
 		return ;
-	in_fd = -1;
-	out_fd = -1;
+	in_fd = -2;
+	out_fd = -2;
 	i = 0;
-	while (files[i])
+	while (files[i] && in_fd!=-1 && out_fd!=-1) 
 	{
 		if (files[i]->type == t_double_greater || files[i]->type == t_greater)
 			handle_output_redirection(files[i], &out_fd);
