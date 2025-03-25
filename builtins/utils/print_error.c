@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_messages.c                                   :+:      :+:    :+:   */
+/*   print_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 22:10:40 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/07 23:52:54 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/25 02:21:09 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	print_error(int print_name, char *function, char *file, char *error)
 		ft_putstr_fd(function, STDERR_FILENO);
 		ft_putstr_fd(": ", STDERR_FILENO);
 	}
-	if (file)
+	if (function && file)
 	{
 		if (should_print_quotes(function))
 			ft_putchar_fd('`', STDERR_FILENO);
