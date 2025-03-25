@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:08 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/25 05:01:47 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/25 05:55:27 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int	main(int argc, char **argv, char **env)
 		if (!line)
 			ft_exit(EXIT_FAILURE);
 		int i = 0;
+		int last_exit_status = 0;  // Store the last exit status
+
 		while (line[i])
 		{
 			tokens = tokenize(ft_trim(line[i]));
@@ -43,9 +45,13 @@ int	main(int argc, char **argv, char **env)
 			heredoc = init_herdoc(tokens);
 			exec(commands, get_number_of_commands(tokens),
 				heredoc, get_number_of_herdocs(tokens));
-			//ft_free();
+
+			// Retrieve the exit status after executing the command
+			last_exit_status = *ft_get_exit_status();
 			i++;
 		}
+
+		return last_exit_status;  // Ensure the last command's exit status is returned
 	}
 	else
 	{

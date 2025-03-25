@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_gc_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 14:58:36 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/03/25 02:45:36 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/25 05:44:33 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ void	*ft_malloc_env(size_t size)
 	head = ft_gc_env();
 	ptr = malloc(size);
 	if (!ptr)
-		ft_exit(1);
+		ft_exit(EXIT_FAILURE);
 	new_node = malloc(sizeof(t_gc));
 	if (!new_node)
-		ft_exit(1);
+		ft_exit(EXIT_FAILURE);
 	new_node->ptr = ptr;
 	new_node->next = *head;
 	*head = new_node;

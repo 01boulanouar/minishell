@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/25 02:49:46 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/25 06:17:30 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,15 @@ t_token	*tokenize(char *line)
 		start = line;
 		line += get_next_token_len(line);
 		value = ft_copy(start, line);
-		if (!ft_strncmp(value, "$", 1) && ft_strlen(value) == 1)
-			continue ;
+			if ((!ft_strncmp(start, "$\"", 2) || !ft_strncmp(start, "$\'", 2) )&& ft_strlen(value) == 1)
+				continue ;
 		type = get_token_type(value);
 		if (type == t_double_quote)
 			value = expand_str(value);
 		if (type == t_dollar_expand || type == t_dollar_num || type == t_exit_status)
 			expand_token(&token, value, after_space);
 		if (type != t_dollar_expand && type != t_dollar_num
-			&& type != t_single_dollar && type != t_exit_status)
+			&& type != t_exit_status)
 			ft_lstadd_back_token(&token, ft_lstnew_token(value, type, after_space));
 		after_space = ft_isin(*line, BLANKS);
 		line += ft_strspn(line, BLANKS);
