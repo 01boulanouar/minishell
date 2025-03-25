@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:55:42 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/25 22:05:00 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/25 22:30:02 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,13 @@ int	exec_bin(t_command command, int input_fd, int is_last, char **herdoc,
 				ft_exit(exec_builtin(command));
 			if (!path)
 				ft_exit(*ft_get_exit_status());
+				
 			if (execve(path, arr, get_env_str()) == -1)
+			{
+				print_error(1, "", NULL, "command not found");
+				ft_set_exit_status(COMMAND_NOT_FOUND);
 				ft_exit(COMMAND_NOT_FOUND);
+			}
 		}
 		else
 			ft_exit(EXIT_SUCCESS);

@@ -42,5 +42,3 @@ t_token	*ft_lstnew_token(char *value, t_token_type type, int after_space)
 	t->next = NULL;
 	return (t);
 }
-
-

@@ -36,22 +36,21 @@ static size_t	get_next_quote_token_len(const char *line)
 
 static size_t	is_redirection_str(const char *line)
 {
-	return (!ft_strncmp(line, DOUBLE_LESS, 2)
-		|| !ft_strncmp(line, DOUBLE_GREATER, 2));
+	return (!ft_strncmp(line, DOUBLE_LESS, 2) || !ft_strncmp(line,
+			DOUBLE_GREATER, 2));
 }
 
 static size_t	is_operator_str(const char *line)
 {
-	return (line[0] == LESS || line[0] == GREATER
-		|| line[0] == PIPE || (line[0] == DOLLAR && !line[1]));
+	return (line[0] == LESS || line[0] == GREATER || line[0] == PIPE
+		|| (line[0] == DOLLAR && !line[1]));
 }
 
 static size_t	is_exit_status_str(const char *line)
 {
-	return (!ft_strncmp(line, EXIT_STATUS, 2)
-		|| (line[0] == DOLLAR && ft_isdigit(line[1])));
+	return (!ft_strncmp(line, EXIT_STATUS, 2) || (line[0] == DOLLAR
+			&& ft_isdigit(line[1])));
 }
-
 
 size_t	get_next_token_len(const char *line)
 {
