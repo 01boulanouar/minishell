@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 21:28:58 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/25 22:40:44 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/26 01:53:27 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_open(const char *path, int oflag)
 int	ft_open_create(const char *path, int oflag, int mode)
 {
 	int		result;
-	
+
 	result = open(path, oflag, mode);
 	if (result == -1)
 	{

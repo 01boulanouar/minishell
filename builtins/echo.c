@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:18:03 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/25 02:40:19 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/26 01:52:25 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ int	echo_builtin(t_command command)
 	}
 	while (command.tokens[i] && command.tokens[i]->value)
 	{
-		if (command.tokens[i]->after_space && i != (n_flag + 1))
+		if (command.tokens[i]->after_space
+			&& !(!ft_strcmp(command.tokens[i]->value, "")
+				&& command.tokens[i]->type == t_expanded) && i != (n_flag + 1))
 			ft_putchar_fd(' ', STDOUT_FILENO);
 		ft_putstr_fd(command.tokens[i]->value, STDOUT_FILENO);
 		i++;

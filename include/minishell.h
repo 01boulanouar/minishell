@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/26 01:00:46 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/26 01:53:13 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,7 @@ t_gc				**ft_gc_env(void);
 
 void				ft_lstadd_back_env(t_env *new);
 t_env				*ft_lstnew_env_from_str(char *str);
-t_env				*ft_lstnew_env(char *key, char *operator, char * value);
+t_env				*ft_lstnew_env(char *key, char *operator, char *value);
 void				ft_lstremove_env(char *key);
 int					ft_lstsize_env(t_env *env);
 int					ft_isvalid_expand(int c);
@@ -204,14 +204,15 @@ char				**get_env_str(void);
 char				*get_random_name(void);
 char				**init_herdoc(t_token *token);
 
-void				exec(t_command *commands, int n_commands, char **heredoc,
+void				execc(t_command *commands, int n_commands, char **heredoc,
 						int n_herdocs);
 
 // redirect_io.c
 void				cleanup_heredocs(char **heredoc, int num_herdocs);
 char				*read_from_heredoc(t_redirect *redirect, char **heredoc,
 						int heredoc_index);
-void				redirect_io(t_command *cmd, char **heredoc, int heredoc_pos);
+void				redirect_io(t_command *cmd, char **heredoc,
+						int heredoc_pos);
 /*---------helper----------*/
 
 // get_number_of_arguments.c
@@ -325,7 +326,6 @@ void				ft_free_one(void *ptr);
 int					*ft_get_exit_status(void);
 void				ft_set_exit_status(int new_status);
 
-
-char	*print_token_type(t_token_type type);
-void	print_commands(t_command *commands, int num_commands);
+char				*print_token_type(t_token_type type);
+void				print_commands(t_command *commands, int num_commands);
 #endif

@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 16:19:28 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/25 22:59:14 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/26 01:33:32 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ static void	get_expand_len_if(char **line, int *len)
 	}
 	else
 	{
-		*line += ft_strcspn(*line, " \t\'\"<>|");
+		while (ft_isvalid_expand(**line))
+			(*line)++;
 		expanded = ft_getenv(ft_copy(start, *line));
 	}
 	if (expanded)
@@ -37,7 +38,7 @@ static void	get_expand_len_if(char **line, int *len)
 
 static int	get_expand_len(char *line)
 {
-	int		len;
+	int	len;
 
 	len = 0;
 	while (*line)
@@ -69,7 +70,8 @@ static void	expand_str_if(char **line, char **result)
 	}
 	else
 	{
-		*line += ft_strcspn(*line, D_SEP);
+		while (ft_isvalid_expand(**line))
+			(*line)++;
 		expanded = ft_getenv(ft_copy(start, *line));
 	}
 	while (expanded && *expanded)
