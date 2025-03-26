@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/26 03:32:00 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/26 04:12:17 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ t_token	*lexer(void)
 	char	*line;
 
 	token = NULL;
-	line = ft_readline("minishell> ");
+	line = ft_readline("\033[32m→ \033[0m\033[96m aelkadirshell> \033[0m");
 	if (!is_valid_quotes(line))
 	{
 		print_error(1, NULL, NULL, SYNTAX_ERROR_STR);

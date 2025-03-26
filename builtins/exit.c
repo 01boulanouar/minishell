@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 23:01:41 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/03/26 03:30:11 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/26 04:08:37 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static int	exit_is_valid_status(char *str)
 	return (1);
 }
 
-int	exit_builtin(t_command command)
+int	exit_builtin(t_command command, int should_exit)
 {
 	int		ret;
 	char	*arg;
@@ -69,21 +69,24 @@ int	exit_builtin(t_command command)
 	ft_putendl_fd("exit", STDOUT_FILENO);
 	if (get_number_of_arguments(command) == 0)
 		ret = *ft_get_exit_status();
-	else if (command.tokens[1] && command.tokens[1]->value)
+	if (get_number_of_arguments(command) >= 1)
 	{
-		arg = command.tokens[1]->value;
-		if (exit_is_valid_status(arg))
-			ret = ft_atoi(arg);
-		else
-			print_error(1, "exit", arg, "numeric argument required");
+		if (command.tokens[1] && command.tokens[1]->value)
+		{
+			arg = command.tokens[1]->value;
+			if (!exit_is_valid_status(arg))
+			{
+				print_error(1, "exit", arg, "numeric argument required");
+				ret = 255;
+			}
+			else if (get_number_of_arguments(command) > 1)
+			{
+				print_error(1, "exit", NULL, "too may arguments");
+				return (EXIT_SUCCESS);
+			}
+		}
+	}
+	if (should_exit)
 		ft_exit(ret);
-	}
-	if (get_number_of_arguments(command) > 1)
-	{
-		print_error(1, "exit", NULL, "too may arguments");
-		return (ret);	
-	}
-	close_all_fds();
-	ft_exit(ret);
 	return (ret);
 }

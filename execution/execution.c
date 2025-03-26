@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:55:42 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/26 02:40:57 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/26 04:00:51 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,11 @@ void	exec_child(int input_fd, int fd[2], t_command command, char **heredoc)
 	redirect_io(&command, heredoc, command.heredoc_pos);
 	if (command.not_to_be_executed)
 		ft_exit(EXIT_FAILURE);
-	if (command.tokens[0] && ft_strcmp("exit", command.tokens[0]->value))
+	if (command.tokens[0])
 	{
-		if (is_builtin(command))
+		if (!ft_strcmp("exit", command.tokens[0]->value))
+			ft_exit(exit_builtin(command, 0));
+		else if (is_builtin(command))
 			ft_exit(exec_builtin(command));
 		ft_execve(command);
 	}
@@ -104,7 +106,10 @@ void	exec_builtin_alone(t_command command, char **heredoc)
 		ft_dup2(saved_stdout, STDOUT_FILENO);
 		return ;
 	}
-	exec_builtin(command);
+	if (!ft_strcmp("exit", command.tokens[0]->value))
+		exit_builtin(command, 1);
+	else
+		exec_builtin(command);
 	ft_dup2(saved_stdin, STDIN_FILENO);
 	ft_dup2(saved_stdout, STDOUT_FILENO);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/26 02:42:08 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/26 03:56:52 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ int					echo_builtin(t_command command);
 int					env_builtin(t_command command);
 
 // ft_exit.c
-int					exit_builtin(t_command command);
+int					exit_builtin(t_command command, int should_exit);
 
 // export.c
 void				ft_lstadd_back_env_copy(t_env **lst, t_env *new);
