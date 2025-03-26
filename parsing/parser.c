@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 20:33:07 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/03/25 05:03:10 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/26 01:10:10 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,13 @@ t_token	*parse_token(t_command *command, t_token *token, int *count)
 	j = 0;
 	index = 0;
 	command->heredoc_pos = *count;
+	command->not_to_be_executed = 0;
 	while (token)
 	{
 		if (token->type == t_pipe)
 			break ;
 		if (is_redirection(token))
 		{
-			if (token->next && token->next->next)
-				command->not_to_be_executed = 1;
 			if (token->type == t_double_less)
 				(*count)++;
 			handle_redirection(command, token, &index);

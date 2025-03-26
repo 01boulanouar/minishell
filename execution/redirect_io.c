@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 22:24:22 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/25 22:41:26 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/26 01:09:56 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,14 @@ static void	handle_input_redirection(t_redirect *file, char **heredoc,
 		*in_fd = ft_open(file->file.value, O_RDONLY);
 }
 
-void	redirect_io(t_command cmd, char **heredoc, int heredoc_pos)
+void	redirect_io(t_command *cmd, char **heredoc, int heredoc_pos)
 {
 	int			i;
 	int			in_fd;
 	int			out_fd;
 	t_redirect	**files;
 
-	files = cmd.files;
+	files = cmd->files;
 	if (!files || !*files)
 		return ;
 	in_fd = -2;
@@ -58,6 +58,8 @@ void	redirect_io(t_command cmd, char **heredoc, int heredoc_pos)
 			handle_input_redirection(files[i], heredoc, &heredoc_pos, &in_fd);
 		i++;
 	}
+	if (in_fd == -1 || out_fd == -1)
+		cmd->not_to_be_executed = 1;
 	if (in_fd != -1)
 		ft_dup2(in_fd, STDIN_FILENO);
 	if (out_fd != -1)

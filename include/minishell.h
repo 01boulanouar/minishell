@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/26 00:42:40 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/26 01:00:46 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,8 +211,7 @@ void				exec(t_command *commands, int n_commands, char **heredoc,
 void				cleanup_heredocs(char **heredoc, int num_herdocs);
 char				*read_from_heredoc(t_redirect *redirect, char **heredoc,
 						int heredoc_index);
-void				redirect_io(t_command cmd, char **heredoc, int heredoc_pos);
-
+void				redirect_io(t_command *cmd, char **heredoc, int heredoc_pos);
 /*---------helper----------*/
 
 // get_number_of_arguments.c

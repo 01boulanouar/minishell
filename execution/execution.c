@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:55:42 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/25 22:30:02 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/26 01:10:19 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,15 @@ int	exec_bin(t_command command, int input_fd, int is_last, char **herdoc,
 			ft_close(fd[0]);
 			ft_close(fd[1]);
 		}
-		redirect_io(command, herdoc, command.heredoc_pos);
+		redirect_io(&command, herdoc, command.heredoc_pos);
+		if (command.not_to_be_executed)
+			ft_exit(EXIT_FAILURE);
 		if (command.tokens[0] && ft_strcmp("exit", command.tokens[0]->value))
 		{
 			if (is_builtin(command))
 				ft_exit(exec_builtin(command));
 			if (!path)
 				ft_exit(*ft_get_exit_status());
-				
 			if (execve(path, arr, get_env_str()) == -1)
 			{
 				print_error(1, "", NULL, "command not found");
@@ -99,7 +100,14 @@ void	exec_builtin_alone(t_command command, char **heredoc)
 
 	saved_stdin = dup(STDIN_FILENO);
 	saved_stdout = dup(STDOUT_FILENO);
-	redirect_io(command, heredoc, 0);
+	redirect_io(&command, heredoc, 0);
+	if (command.not_to_be_executed)
+	{
+		ft_set_exit_status(EXIT_FAILURE);
+		ft_dup2(saved_stdin, STDIN_FILENO);
+		ft_dup2(saved_stdout, STDOUT_FILENO);
+		return ;
+	}
 	exec_builtin(command);
 	ft_dup2(saved_stdin, STDIN_FILENO);
 	ft_dup2(saved_stdout, STDOUT_FILENO);
