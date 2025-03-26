@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back_token.c                             :+:      :+:    :+:   */
+/*   ft_lst_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 10:36:47 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/25 02:49:13 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/25 23:00:14 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,16 @@ t_token	*ft_lstnew_token(char *value, t_token_type type, int after_space)
 	t->after_space = after_space;
 	t->next = NULL;
 	return (t);
+}
+
+int	get_number_of_arguments(t_command command)
+{
+	int	i;
+
+	if (!command.tokens || !command.tokens[0])
+		return (0);
+	i = 1;
+	while (command.tokens[i])
+		i++;
+	return (i - 1);
 }

@@ -1,0 +1,15 @@
+Makefile
+b
+builtins
+environment
+execution
+helper
+include
+libft
+main.c
+main.o
+minishell
+parsing
+test
+to_delete.c
+to_delete.o

@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 13:38:53 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/25 06:35:26 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/25 23:13:59 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,8 @@ int	export_builtin(t_command command)
 	t_env	*node;
 	char	*arg;
 	int		ret;
-	int	 	has_failed;
 	int		i;
 
-	has_failed = 0;
 	ret = EXIT_SUCCESS;
 	i = 1;
 	if (!get_number_of_arguments(command))
@@ -33,14 +31,12 @@ int	export_builtin(t_command command)
 		{
 			print_error(1, "export", arg, "not a valid identifier");
 			ft_set_exit_status(EXIT_FAILURE);
-			has_failed = 1;
+			ret = EXIT_FAILURE;
 		}
 		else
 			export_handle_argument(node);
 		i++;
 	}
-	if (has_failed)
-		return (EXIT_FAILURE);
 	return (ret);
 }
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstremove_env.c                                 :+:      :+:    :+:   */
+/*   ft_lst_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 17:05:30 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/25 02:44:42 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/25 23:04:21 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ t_env	*ft_lstnew_env_from_str(char *str)
 	value = ft_copy_env(start, str);
 	return (ft_lstnew_env(key, operator, value));
 }
-
 
 t_env	*ft_lstnew_env(char *key, char *operator, char *value)
 {

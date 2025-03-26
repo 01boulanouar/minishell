@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 21:04:48 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/25 02:42:52 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/25 23:04:27 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	set_shlvl(t_env *node)
 	shlvl = ft_itoa(new_shlvl);
 	node->value = ft_strdup_env(shlvl);
 }
-
 
 static void	init_empty_env(void)
 {

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit.c                                             :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/25 16:18:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/20 02:39:56 by aelkadir         ###   ########.fr       */
+/*   Created: 2025/03/25 23:01:41 by aelkadir          #+#    #+#             */
+/*   Updated: 2025/03/25 23:02:03 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,9 @@ static int	exit_is_valid_status(char *str)
 {
 	size_t	i;
 
-	if (!str || ft_isallspace(str) || !ft_strcmp(str, "-") || !ft_strcmp(str,
-			"+"))
+	if (!str || ft_isallspace(str)
+		|| !ft_strcmp(str, "-")
+		|| !ft_strcmp(str, "+"))
 		return (0);
 	i = 0;
 	while (ft_isspace(str[i]))
@@ -58,7 +59,6 @@ static int	exit_is_valid_status(char *str)
 		return (0);
 	return (1);
 }
-
 
 int	exit_builtin(t_command command)
 {
@@ -79,7 +79,6 @@ int	exit_builtin(t_command command)
 	}
 	else if (get_number_of_arguments(command) > 1)
 		print_error(1, "exit", NULL, "too may arguments");
-	// close fds
 	close_all_fds();
 	ft_exit(ret);
 	return (ret);

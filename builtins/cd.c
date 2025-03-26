@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:18:02 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/25 08:49:07 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/25 23:01:07 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ int	cd_builtin(t_command command)
 		print_error(1, "cd", NULL, "too many arguments");
 		return (ret);
 	}
-	if (!get_number_of_arguments(command) || cd_is_home(command) || !ft_strcmp(command.tokens[1]->value, "HOME"))
+	if (!get_number_of_arguments(command) || cd_is_home(command)
+		|| !ft_strcmp(command.tokens[1]->value, "HOME"))
 		cd_handle_home("HOME", NULL);
 	else if (!command.tokens[1])
 		return (ret);

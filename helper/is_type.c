@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_type.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 14:14:42 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/25 02:47:52 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/25 22:59:57 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,7 @@ int	is_operator(t_token *token)
 	return (is_redirection(token) || is_pipe(token));
 }
 
-int	get_number_of_arguments(t_command command)
+int	ft_isvalid_expand(int c)
 {
-	int	i;
-
-	if (!command.tokens || !command.tokens[0])
-		return (0);
-	i = 1;
-	while (command.tokens[i])
-		i++;
-	return (i - 1);
+	return (ft_isalnum(c) || c == UNDERSCORE);
 }

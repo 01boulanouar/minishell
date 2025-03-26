@@ -1,3 +1,0 @@
-//leaks in ft_exit 
-
-// ft_exit shouldnt execute in a pipeline 

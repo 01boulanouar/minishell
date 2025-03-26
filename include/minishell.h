@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/25 07:39:30 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/26 00:42:40 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@
 # define BLANKS " 	"
 # define D_BLANKS " 	$"
 # define SEPARATORS " 	\'\"<>|$"
-# define D_SEPARATORS " 	\'\"<>|"
+# define D_SEP " 	\'\"<>|"
 
 /*----------------ft_exit CODES--------------*/
 
@@ -183,7 +183,7 @@ t_env				*ft_lstnew_env_from_str(char *str);
 t_env				*ft_lstnew_env(char *key, char *operator, char * value);
 void				ft_lstremove_env(char *key);
 int					ft_lstsize_env(t_env *env);
-
+int					ft_isvalid_expand(int c);
 char				*ft_copy_env(const char *start, const char *end);
 char				*ft_strdup_env(const char *s1);
 char				*ft_strjoin_env(char const *s1, char const *s2);
