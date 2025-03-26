@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 23:01:41 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/03/26 04:08:37 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/26 21:20:37 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,9 @@ int	exit_builtin(t_command command, int should_exit)
 				ret = 255;
 			}
 			else if (get_number_of_arguments(command) > 1)
-			{
-				print_error(1, "exit", NULL, "too may arguments");
-				return (EXIT_SUCCESS);
-			}
+				return (print_error(1, "exit", NULL, "too may arguments"), 1);
+			else if (get_number_of_arguments(command) == 1)
+				ret = ft_atoi(arg);
 		}
 	}
 	if (should_exit)

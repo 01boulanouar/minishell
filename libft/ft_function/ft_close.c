@@ -16,8 +16,8 @@ int	ft_close(int fd)
 {
 	int	result;
 
-	result =-1 ; 
-	if(fd>=0)
+	result = -1;
+	if (fd >= 0)
 		result = close(fd);
 	return (result);
 }

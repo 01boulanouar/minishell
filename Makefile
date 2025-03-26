@@ -47,13 +47,16 @@ SRC = $(SRC_BUILTINS) $(SRC_ENVIRONMENT) $(SRC_EXECUTION) \
 
 OBJ = $(SRC:.c=.o)
 
+# READLINE_INC = -I$(shell brew --prefix readline)/include
+# READLINE_LIB = -L$(shell brew --prefix readline)/lib -lreadline
+
 all : $(NAME)
 
 $(NAME) : $(OBJ)
-	@$(CC) $(OBJ) -lreadline -o $@ $(SANITIZE)
+	@$(CC) $(OBJ) -lreadline -o $@ $(READLINE_LIB) $(SANITIZE)
 
 %.o : %.c include/minishell.h
-	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@ $(SANITIZE)
+	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@ $(READLINE_INC) $(SANITIZE)
 
 clean :
 	@$(RM) $(OBJ)

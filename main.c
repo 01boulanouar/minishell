@@ -3,14 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:08 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/26 02:24:04 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/26 21:34:29 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	sigint_handler(int signal)
+{
+	(void) signal;
+
+	ft_set_exit_status(130);
+	rl_on_new_line();
+	// rl_replace_line("", 0);
+	rl_redisplay();
+	return ;
+}
+
+void	sigquit_handler(int signal)
+{
+	(void) signal;
+	return ;
+}
 
 int	main(int argc, char **argv, char **env)
 {
@@ -25,6 +42,8 @@ int	main(int argc, char **argv, char **env)
 	// if (argc != 1 || !isatty(STDIN_FILENO))
 	// 	ft_exit(EXIT_FAILURE);
 	init_env(env);
+	signal(SIGINT, sigint_handler);
+	signal(SIGQUIT, sigquit_handler);
 	if (argc == 3 && ft_strcmp(argv[1], "-c") == 0 && argv[2])
 	{
 		line = ft_split(argv[2], ';');
