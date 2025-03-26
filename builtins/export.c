@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 13:38:53 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/25 23:13:59 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/26 03:16:47 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	export_print(void)
 		if (env->key && ft_strcmp(env->key, "_"))
 		{
 			printf("declare -x %s", env->key);
-			if (!ft_strcmp(env->operator, "="))
+			if (env->operator && !ft_strcmp(env->operator, "=") && env->value && ft_strcmp(env->value, ""))
 				printf("=\"%s\"", env->value);
 			printf("\n");
 		}

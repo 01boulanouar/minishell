@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 21:04:48 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/25 23:04:27 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/26 03:14:05 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ void	init_env(char **line)
 		node = ft_lstnew_env_from_str(line[i]);
 		if (!ft_strcmp(node->key, "SHLVL"))
 			set_shlvl(node);
+		if (!ft_strcmp(node->key, "OLDPWD"))
+			node->value = ft_strdup_env("");
 		ft_lstadd_back_env(node);
 		i++;
 	}

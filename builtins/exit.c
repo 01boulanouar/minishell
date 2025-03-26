@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 23:01:41 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/03/25 23:02:03 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/26 03:30:11 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,13 @@ int	exit_builtin(t_command command)
 			ret = ft_atoi(arg);
 		else
 			print_error(1, "exit", arg, "numeric argument required");
+		ft_exit(ret);
 	}
-	else if (get_number_of_arguments(command) > 1)
+	if (get_number_of_arguments(command) > 1)
+	{
 		print_error(1, "exit", NULL, "too may arguments");
+		return (ret);	
+	}
 	close_all_fds();
 	ft_exit(ret);
 	return (ret);
