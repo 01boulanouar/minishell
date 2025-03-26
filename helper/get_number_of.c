@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 14:14:15 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/26 02:01:23 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/26 02:24:04 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	get_number_of_files(t_token *token)
 	return (count);
 }
 
-int	get_number_of_herdocs(t_token *token)
+int	get_number_of_heredocs(t_token *token)
 {
 	int	count;
 

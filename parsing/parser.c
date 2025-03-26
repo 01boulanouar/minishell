@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 20:33:07 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/03/26 01:10:10 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/26 02:29:22 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ t_token	*parse_token(t_command *command, t_token *token, int *count)
 	index = 0;
 	command->heredoc_pos = *count;
 	command->not_to_be_executed = 0;
+	command->is_last = 0;
 	while (token)
 	{
 		if (token->type == t_pipe)
@@ -76,5 +77,6 @@ t_command	*parser(t_token *token)
 			token = token->next;
 		i++;
 	}
+	commands[i - 1].is_last = 1;
 	return (commands);
 }

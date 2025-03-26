@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:55:42 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/26 02:00:44 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/26 02:40:57 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,60 +37,56 @@ void	prepare_heredocs(t_command *commands, int n_commands, char **heredoc)
 	}
 }
 
-int	exec_bin(t_command command, int input_fd, int is_last, char **herdoc,
+void	exec_child(int input_fd, int fd[2], t_command command, char **heredoc)
+{
+	if (input_fd != STDIN_FILENO)
+		ft_dup2(input_fd, STDIN_FILENO);
+	if (!command.is_last)
+	{
+		if (dup2(fd[1], STDOUT_FILENO) == -1)
+			ft_exit(EXIT_FAILURE);
+	}
+	if (!command.is_last)
+	{
+		ft_close(fd[0]);
+		ft_close(fd[1]);
+	}
+	redirect_io(&command, heredoc, command.heredoc_pos);
+	if (command.not_to_be_executed)
+		ft_exit(EXIT_FAILURE);
+	if (command.tokens[0] && ft_strcmp("exit", command.tokens[0]->value))
+	{
+		if (is_builtin(command))
+			ft_exit(exec_builtin(command));
+		ft_execve(command);
+	}
+	else
+		ft_exit(EXIT_SUCCESS);
+}
+
+int	exec_bin(t_command command, int input_fd, char **heredoc,
 		int *last_pid)
 {
-	char	**arr;
-	char	*path;
+	int	pid;
+	int	fd[2];
 
-	arr = get_command_str(command);
-	path = get_command_path(arr[0]);
-	int pid, fd[2];
-	if (!is_last && pipe(fd) == -1)
+	if (!command.is_last && pipe(fd) == -1)
 	{
 		perror("minishell: pipe error");
 		return (EXIT_FAILURE);
 	}
 	pid = ft_fork();
 	if (pid == 0)
-	{
-		if (input_fd != STDIN_FILENO)
-			ft_dup2(input_fd, STDIN_FILENO);
-		if (!is_last)
-			dup2(fd[1], STDOUT_FILENO);
-		if (!is_last)
-		{
-			ft_close(fd[0]);
-			ft_close(fd[1]);
-		}
-		redirect_io(&command, herdoc, command.heredoc_pos);
-		if (command.not_to_be_executed)
-			ft_exit(EXIT_FAILURE);
-		if (command.tokens[0] && ft_strcmp("exit", command.tokens[0]->value))
-		{
-			if (is_builtin(command))
-				ft_exit(exec_builtin(command));
-			if (!path)
-				ft_exit(*ft_get_exit_status());
-			if (execve(path, arr, get_env_str()) == -1)
-			{
-				print_error(1, "", NULL, "command not found");
-				ft_set_exit_status(COMMAND_NOT_FOUND);
-				ft_exit(COMMAND_NOT_FOUND);
-			}
-		}
-		else
-			ft_exit(EXIT_SUCCESS);
-	}
+		exec_child(input_fd, fd, command, heredoc);
 	else
 	{
 		*last_pid = pid;
-		if (!is_last)
+		if (!command.is_last)
 			ft_close(fd[1]);
 		if (input_fd != STDIN_FILENO)
 			ft_close(input_fd);
 	}
-	return (!is_last * fd[0] + is_last * STDIN_FILENO);
+	return (!command.is_last * fd[0] + command.is_last * STDIN_FILENO);
 }
 
 void	exec_builtin_alone(t_command command, char **heredoc)
@@ -113,22 +109,10 @@ void	exec_builtin_alone(t_command command, char **heredoc)
 	ft_dup2(saved_stdout, STDOUT_FILENO);
 }
 
-static void	ft_wait(pid_t *last_pid)
-{
-	int		status;
-	pid_t	pid;
-
-	while ((pid = waitpid(-1, &status, 0)) > 0)
-	{
-		if (pid == *last_pid && WIFEXITED(status))
-			ft_set_exit_status(WEXITSTATUS(status));
-	}
-}
-
-void	exec(t_command *commands, int n_commands, char **heredoc, int n_herdocs)
+void	exec(t_command *commands, int n_commands, char **heredoc,
+		int n_heredocs)
 {
 	int		i;
-
 	int		input_fd;
 	pid_t	last_pid;
 
@@ -144,11 +128,10 @@ void	exec(t_command *commands, int n_commands, char **heredoc, int n_herdocs)
 	{
 		while (i < n_commands && commands[i].tokens)
 		{
-			input_fd = exec_bin(commands[i], input_fd, (i == n_commands - 1),
-					heredoc, &last_pid);
+			input_fd = exec_bin(commands[i], input_fd, heredoc, &last_pid);
 			i++;
 		}
 		ft_wait(&last_pid);
 	}
-	cleanup_heredocs(heredoc, n_herdocs);
+	cleanup_heredocs(heredoc, n_heredocs);
 }

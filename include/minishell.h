@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/26 02:09:44 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/26 02:42:08 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ typedef struct s_command
 	t_redirect		**files;
 	int				not_to_be_executed;
 	int				heredoc_pos;
+	int				is_last;
 }					t_command;
 
 /*---------environment----------*/
@@ -132,6 +133,12 @@ typedef struct s_gc
 	struct s_gc		*next;
 
 }					t_gc;
+
+typedef struct s_fd_gc
+{
+	int				fd;
+	struct s_fd_gc	*next;
+}					t_fd_gc;
 
 /*------------------FUNCTIONS-----------------*/
 
@@ -202,13 +209,13 @@ char				**get_command_str(t_command command);
 char				**get_env_str(void);
 
 char				*get_random_name(void);
-char				**init_herdoc(t_token *token);
+char				**init_heredoc(t_token *token);
 
 void				exec(t_command *commands, int n_commands, char **heredoc,
-						int n_herdocs);
+						int n_heredocs);
 
 // redirect_io.c
-void				cleanup_heredocs(char **heredoc, int num_herdocs);
+void				cleanup_heredocs(char **heredoc, int num_heredocs);
 char				*read_from_heredoc(t_redirect *redirect, char **heredoc,
 						int heredoc_index);
 void				redirect_io(t_command *cmd, char **heredoc,
@@ -222,7 +229,7 @@ int					get_number_of_arguments(t_command command);
 int					get_number_of_tokens(t_token *token);
 int					get_number_of_commands(t_token *token);
 int					get_number_of_files(t_token *token);
-int					get_number_of_herdocs(t_token *token);
+int					get_number_of_heredocs(t_token *token);
 
 // get_token_type.c
 t_token_type		get_token_type(const char *value);
@@ -236,7 +243,7 @@ int					is_operator(t_token *token);
 /*---------libft----------*/
 
 int					ft_close(int fd);
-int					ft_dup(int oldfd);
+void				ft_execve(t_command command);
 int					ft_dup2(int oldfd, int newfd);
 void				ft_exit(int status);
 int					ft_pipe(int fildes[2]);
@@ -277,6 +284,7 @@ size_t				ft_strlen(const char *s);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t				ft_strspn(const char *s, const char *accept);
 char				*ft_trim(char *line);
+void				ft_wait(pid_t *last_pid);
 
 /*---------parsing----------*/
 
@@ -308,12 +316,6 @@ int					is_valid_operator(t_token *token);
 void				ft_exit_failure(int exit_code, const char *message);
 
 // fd garbage colll
-typedef struct s_fd_gc
-{
-	int				fd;
-	struct s_fd_gc	*next;
-}					t_fd_gc;
-
 t_fd_gc				**ft_fd_gc(void);
 void				register_fd(int fd);
 void				close_all_fds(void);

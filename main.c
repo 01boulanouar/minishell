@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:08 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/26 02:08:34 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/26 02:24:04 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ int	main(int argc, char **argv, char **env)
 			}
 			join_token(&tokens);
 			commands = parser(tokens);
-			heredoc = init_herdoc(tokens);
+			heredoc = init_heredoc(tokens);
 			exec(commands, get_number_of_commands(tokens), heredoc,
-				get_number_of_herdocs(tokens));
+				get_number_of_heredocs(tokens));
 			last_exit_status = *ft_get_exit_status();
 			i++;
 		}
@@ -64,9 +64,9 @@ int	main(int argc, char **argv, char **env)
 			if (!tokens)
 				continue ;
 			commands = parser(tokens);
-			heredoc = init_herdoc(tokens);
+			heredoc = init_heredoc(tokens);
 			exec(commands, get_number_of_commands(tokens), heredoc,
-				get_number_of_herdocs(tokens));
+				get_number_of_heredocs(tokens));
 			ft_free();
 		}
 	}

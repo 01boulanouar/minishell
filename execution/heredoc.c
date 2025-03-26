@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   herdoc.c                                           :+:      :+:    :+:   */
+/*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/25 02:46:49 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/26 02:24:04 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,22 @@ char	*get_random_name(void)
 	return (name);
 }
 
-char	**init_herdoc(t_token *token)
+char	**init_heredoc(t_token *token)
 {
 	char	**heredoc;
-	int		n_herdocs;
+	int		n_heredocs;
 
-	n_herdocs = get_number_of_herdocs(token);
-	heredoc = ft_malloc(n_herdocs * sizeof(char *));
+	n_heredocs = get_number_of_heredocs(token);
+	heredoc = ft_malloc(n_heredocs * sizeof(char *));
 	return (heredoc);
 }
 
-void	cleanup_heredocs(char **heredoc, int num_herdocs)
+void	cleanup_heredocs(char **heredoc, int num_heredocs)
 {
 	int	i;
 
 	i = 0;
-	while (i < num_herdocs)
+	while (i < num_heredocs)
 	{
 		if (heredoc[i])
 		{
