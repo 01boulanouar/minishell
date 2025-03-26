@@ -50,7 +50,7 @@ void	redirect_io(t_command *cmd, char **heredoc, int heredoc_pos)
 	in_fd = -2;
 	out_fd = -2;
 	i = 0;
-	while (files[i] && in_fd!=-1 && out_fd!=-1) 
+	while (files[i] && in_fd != -1 && out_fd != -1)
 	{
 		if (files[i]->type == t_double_greater || files[i]->type == t_greater)
 			handle_output_redirection(files[i], &out_fd);

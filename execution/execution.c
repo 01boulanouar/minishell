@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:55:42 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/26 01:10:19 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/26 02:00:44 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,12 +113,23 @@ void	exec_builtin_alone(t_command command, char **heredoc)
 	ft_dup2(saved_stdout, STDOUT_FILENO);
 }
 
+static void	ft_wait(pid_t *last_pid)
+{
+	int		status;
+	pid_t	pid;
+
+	while ((pid = waitpid(-1, &status, 0)) > 0)
+	{
+		if (pid == *last_pid && WIFEXITED(status))
+			ft_set_exit_status(WEXITSTATUS(status));
+	}
+}
+
 void	exec(t_command *commands, int n_commands, char **heredoc, int n_herdocs)
 {
 	int		i;
-	int		status;
+
 	int		input_fd;
-	pid_t	pid;
 	pid_t	last_pid;
 
 	last_pid = -1;
@@ -137,13 +148,7 @@ void	exec(t_command *commands, int n_commands, char **heredoc, int n_herdocs)
 					heredoc, &last_pid);
 			i++;
 		}
-		while ((pid = waitpid(-1, &status, 0)) > 0)
-		{
-			if (pid == last_pid && WIFEXITED(status))
-			{
-				ft_set_exit_status(WEXITSTATUS(status));
-			}
-		}
+		ft_wait(&last_pid);
 	}
 	cleanup_heredocs(heredoc, n_herdocs);
 }

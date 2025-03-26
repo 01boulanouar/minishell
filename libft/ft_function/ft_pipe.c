@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 21:29:36 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/13 22:33:46 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/26 02:09:13 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,5 @@ int	ft_pipe(int fildes[2])
 	int	result;
 
 	result = pipe(fildes);
-	return (ft_error(result));
+	return (result);
 }

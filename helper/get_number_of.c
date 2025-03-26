@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_number_of.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 14:14:15 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/25 04:54:52 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/26 02:01:23 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ int	get_number_of_files(t_token *token)
 	{
 		if (token->type == t_pipe)
 			break ;
-		if (token->type == t_less || token->type == t_double_less || token->type == t_greater || token->type == t_double_greater)
+		if (token->type == t_less || token->type == t_double_less
+			|| token->type == t_greater || token->type == t_double_greater)
 			count++;
 		token = token->next;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fork.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 21:28:03 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/13 22:33:37 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/26 02:09:06 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,5 @@ int	ft_fork(void)
 	int	pid;
 
 	pid = fork();
-	return (ft_error(pid));
+	return (pid);
 }

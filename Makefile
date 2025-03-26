@@ -24,7 +24,7 @@ SRC_EXECUTION = execution/execution.c  execution/exit_status.c \
 SRC_HELPER = helper/get_number_of.c helper/is_type.c
 				
 
-SRC_LIBFT =		libft/ft_function/ft_error.c libft/ft_function/ft_close.c libft/ft_function/ft_dup.c \
+SRC_LIBFT =		libft/ft_function/ft_close.c libft/ft_function/ft_dup.c \
 				libft/ft_function/ft_dup2.c libft/ft_function/ft_exit.c libft/ft_function/ft_fork.c \
 				libft/ft_function/ft_pipe.c libft/ft_function/ft_chdir.c libft/ft_function/ft_getenv.c \
 				libft/ft_function/ft_open.c libft/ft_function/ft_readline.c \
@@ -43,7 +43,7 @@ SRC_PARSING =	parsing/expander.c parsing/lexer.c parsing/parser.c \
 
 SRC = $(SRC_BUILTINS) $(SRC_ENVIRONMENT) $(SRC_EXECUTION) \
 	$(SRC_HELPER) $(SRC_LIBFT) $(SRC_PARSING) \
-	main.c to_delete.c
+	main.c
 
 OBJ = $(SRC:.c=.o)
 

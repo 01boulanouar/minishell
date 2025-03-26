@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/26 01:53:13 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/26 02:09:44 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,7 +204,7 @@ char				**get_env_str(void);
 char				*get_random_name(void);
 char				**init_herdoc(t_token *token);
 
-void				execc(t_command *commands, int n_commands, char **heredoc,
+void				exec(t_command *commands, int n_commands, char **heredoc,
 						int n_herdocs);
 
 // redirect_io.c
@@ -235,7 +235,6 @@ int					is_operator(t_token *token);
 
 /*---------libft----------*/
 
-int					ft_error(int result);
 int					ft_close(int fd);
 int					ft_dup(int oldfd);
 int					ft_dup2(int oldfd, int newfd);
@@ -305,8 +304,6 @@ t_command			*parser(t_token *token);
 // syntax.c
 int					is_valid_quotes(const char *line);
 int					is_valid_operator(t_token *token);
-
-void				print_tokens(t_token *token);
 
 void				ft_exit_failure(int exit_code, const char *message);
 

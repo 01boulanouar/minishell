@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:08 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/25 08:59:11 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/26 02:08:34 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	main(int argc, char **argv, char **env)
 		if (!line)
 			ft_exit(EXIT_FAILURE);
 		i = 0;
-		int last_exit_status = 0; // Store the last exit status
+		int last_exit_status = 0;
 		while (line[i])
 		{
 			tokens = tokenize(ft_trim(line[i]));
@@ -47,17 +47,14 @@ int	main(int argc, char **argv, char **env)
 				return (2);
 			}
 			join_token(&tokens);
-			// print_tokens(tokens);
 			commands = parser(tokens);
 			heredoc = init_herdoc(tokens);
 			exec(commands, get_number_of_commands(tokens), heredoc,
 				get_number_of_herdocs(tokens));
-			// Retrieve the exit status after executing the command
 			last_exit_status = *ft_get_exit_status();
 			i++;
 		}
 		return (last_exit_status);
-			// Ensure the last command's exit status is returned
 	}
 	else
 	{
@@ -66,9 +63,7 @@ int	main(int argc, char **argv, char **env)
 			tokens = lexer();
 			if (!tokens)
 				continue ;
-			// print_tokens(tokens);
 			commands = parser(tokens);
-			// print_commands(commands, get_number_of_commands(tokens));
 			heredoc = init_herdoc(tokens);
 			exec(commands, get_number_of_commands(tokens), heredoc,
 				get_number_of_herdocs(tokens));
