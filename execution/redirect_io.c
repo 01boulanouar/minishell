@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 22:24:22 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/26 01:36:20 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/26 06:28:38 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	handle_output_redirection(t_redirect *file, int *out_fd)
 	int	flags;
 
 	if (*out_fd != -1)
-		close(*out_fd);
+		ft_close(*out_fd);
 	flags = O_WRONLY | O_CREAT;
 	if (file->type == t_double_greater)
 		flags |= O_APPEND;
@@ -30,7 +30,7 @@ static void	handle_input_redirection(t_redirect *file, char **heredoc,
 		int *heredoc_pos, int *in_fd)
 {
 	if (*in_fd != -1)
-		close(*in_fd);
+		ft_close(*in_fd);
 	if (file->type == t_double_less)
 		*in_fd = ft_open(heredoc[(*heredoc_pos)++], O_RDONLY);
 	else

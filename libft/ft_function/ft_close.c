@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 21:28:58 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/26 02:08:48 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/26 06:29:10 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	ft_close(int fd)
 {
 	int	result;
 
-	result = close(fd);
+	result =-1 ; 
+	if(fd>=0)
+		result = close(fd);
 	return (result);
 }
