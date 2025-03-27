@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/27 01:19:02 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/27 01:30:54 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 char	*get_random_name(void)
 {
 	char	*name;
+	int 	num;
 
-	name = ft_strjoin(HEREDOC_NAME, ft_itoa((int)ft_malloc(1)));
+	num = (int)ft_malloc(1);
+	name = ft_strjoin(HEREDOC_NAME, ft_itoa(num));
 	return (name);
 }
 
