@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:18:13 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/13 16:36:49 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/27 02:08:51 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,11 @@ int	pwd_builtin(void)
 	if (getcwd(cwd, PATH_MAX))
 	{
 		ft_putendl_fd(cwd, STDOUT_FILENO);
+		return (EXIT_SUCCESS);
+	}
+	else if (ft_getenv("PWD"))
+	{
+		ft_putendl_fd(ft_getenv("PWD"), STDOUT_FILENO);
 		return (EXIT_SUCCESS);
 	}
 	else

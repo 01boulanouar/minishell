@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_chdir.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 14:57:40 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/13 21:57:10 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/27 03:23:56 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,14 @@ int	ft_chdir(char *path)
 		return (strerror(errno), EXIT_FAILURE);
 	if (getcwd(pwd, PATH_MAX))
 	{
-		ft_update_env("OLDPWD", ft_getenv("PWD"));
-		ft_update_env("PWD", pwd);
+		if (ft_isin_env("OLDPWD"))
+			ft_update_env("OLDPWD", ft_getenv("PWD"));
+		else
+			ft_lstadd_back_env(ft_lstnew_env("OLDPWD", "=", ft_getenv("PWD")));
+		if (ft_isin_env("PWD"))
+			ft_update_env("PWD", pwd);
+		else
+			ft_lstadd_back_env(ft_lstnew_env("PWD", "=", ft_strdup_env(pwd)));
 	}
 	else
 		print_error(1, "cd", path, GETCWD_ERROR_STR);

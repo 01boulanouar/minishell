@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/27 01:40:59 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/27 03:08:46 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,6 +241,7 @@ int					is_redirection(t_token *token);
 int					is_pipe(t_token *token);
 int					is_quotes(t_token *token);
 int					is_operator(t_token *token);
+int					is_dollar_str(char *str);
 
 /*---------libft----------*/
 

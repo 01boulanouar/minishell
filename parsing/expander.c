@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 16:19:28 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/26 22:58:04 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/27 03:08:13 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ char	*expand_str(char *line)
 	result_start = result;
 	if (!line)
 		return (NULL);
+	if (is_dollar_str(line))
+		return (line);
 	while (*line)
 	{
 		if (*line == DOLLAR && *(line + 1) && !ft_isin(*(line + 1), D_SEP))
