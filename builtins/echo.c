@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:18:03 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/26 01:52:25 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/26 22:55:34 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	echo_is_n(char *str)
 	i = 0;
 	if (!str || !ft_strcmp(str, ""))
 		return (0);
-	if (str[0] == '-')
+	if (str[0] == '-' && str[1])
 		str++;
 	while (str[i] == 'n')
 		i++;

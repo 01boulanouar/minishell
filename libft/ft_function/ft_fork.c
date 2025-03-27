@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 21:28:03 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/26 02:09:06 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/26 23:22:46 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	ft_fork(void)
 {
 	int	pid;
 
+	g_in_shell = 0;
 	pid = fork();
 	return (pid);
 }

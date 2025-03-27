@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/26 02:24:04 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/27 00:04:32 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,18 @@ char	*read_from_heredoc(t_redirect *redirect, char **heredoc,
 
 	name = get_random_name();
 	fd = ft_open_create(name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	g_in_shell = 2;
 	while (1)
 	{
 		line = ft_readline("> ");
 		if (!is_quotes(&redirect->file))
 			line = expand_str(line);
-		if (!line || ft_strcmp(line, redirect->file.value) == 0)
+		if (!line || ft_strcmp(line, redirect->file.value) == 0 || g_in_shell == 3)
 			break ;
 		write(fd, line, ft_strlen(line));
 		write(fd, "\n", 1);
 	}
+	g_in_shell = 1;
 	close(fd);
 	heredoc[heredoc_index++] = ft_strdup(name);
 	return (name);

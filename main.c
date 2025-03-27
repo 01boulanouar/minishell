@@ -3,31 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:08 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/26 21:34:29 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/27 00:02:37 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+int			g_in_shell;
+
 void	sigint_handler(int signal)
 {
-	(void) signal;
-
-	ft_set_exit_status(130);
-	rl_on_new_line();
-	// rl_replace_line("", 0);
-	rl_redisplay();
+	ft_putendl_fd("", STDOUT_FILENO);
+	if (g_in_shell == 0)
+		ft_set_exit_status(128 + signal);
+	if (g_in_shell == 1)
+	{
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+		ft_set_exit_status(1);
+	}
+	else if (g_in_shell == 2)
+		g_in_shell = 3;
 	return ;
 }
 
-void	sigquit_handler(int signal)
-{
-	(void) signal;
-	return ;
-}
 
 int	main(int argc, char **argv, char **env)
 {
@@ -39,11 +42,12 @@ int	main(int argc, char **argv, char **env)
 
 	(void)env;
 	(void)argv;
+	g_in_shell = 1;
 	// if (argc != 1 || !isatty(STDIN_FILENO))
 	// 	ft_exit(EXIT_FAILURE);
 	init_env(env);
 	signal(SIGINT, sigint_handler);
-	signal(SIGQUIT, sigquit_handler);
+	signal(SIGQUIT, SIG_IGN);
 	if (argc == 3 && ft_strcmp(argv[1], "-c") == 0 && argv[2])
 	{
 		line = ft_split(argv[2], ';');

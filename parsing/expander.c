@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 16:19:28 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/26 01:33:32 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/26 22:58:04 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ static int	get_expand_len(char *line)
 	int	len;
 
 	len = 0;
+	if (!line)
+		return (0);
 	while (*line)
 	{
 		if (*line == DOLLAR && *(line + 1) && !ft_isin(*(line + 1), D_SEP))
@@ -85,6 +87,8 @@ char	*expand_str(char *line)
 
 	result = ft_malloc(get_expand_len(line) + 1);
 	result_start = result;
+	if (!line)
+		return (NULL);
 	while (*line)
 	{
 		if (*line == DOLLAR && *(line + 1) && !ft_isin(*(line + 1), D_SEP))

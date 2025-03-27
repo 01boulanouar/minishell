@@ -5,7 +5,7 @@ CFLAGS = -Wall -Wextra -Werror
 INCLUDE = -I./include
 RM = rm -f
 
-# SANITIZE = -fsanitize=address -g
+SANITIZE = -fsanitize=address -g
 
 
 SRC_BUILTINS = 	builtins/cd.c builtins/echo.c builtins/env.c builtins/exit.c \
@@ -47,13 +47,13 @@ SRC = $(SRC_BUILTINS) $(SRC_ENVIRONMENT) $(SRC_EXECUTION) \
 
 OBJ = $(SRC:.c=.o)
 
-# READLINE_INC = -I$(shell brew --prefix readline)/include
-# READLINE_LIB = -L$(shell brew --prefix readline)/lib -lreadline
+READLINE_INC = -I$(shell brew --prefix readline)/include
+READLINE_LIB = -L$(shell brew --prefix readline)/lib -lreadline
 
 all : $(NAME)
 
 $(NAME) : $(OBJ)
-	@$(CC) $(OBJ) -lreadline -o $@ $(READLINE_LIB) $(SANITIZE)
+	@$(CC) $(OBJ) -o $@ $(READLINE_LIB) $(SANITIZE)
 
 %.o : %.c include/minishell.h
 	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@ $(READLINE_INC) $(SANITIZE)

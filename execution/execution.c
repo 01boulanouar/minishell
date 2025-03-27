@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:55:42 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/26 04:00:51 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/26 23:22:42 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ void	exec(t_command *commands, int n_commands, char **heredoc,
 			i++;
 		}
 		ft_wait(&last_pid);
+		g_in_shell = 1;
 	}
 	cleanup_heredocs(heredoc, n_heredocs);
 }

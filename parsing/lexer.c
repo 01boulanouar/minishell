@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/26 20:54:28 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/26 23:34:20 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,12 +85,12 @@ t_token	*tokenize(char *line)
 }
 
 t_token	*lexer(void)
-{
+{ 
 	t_token	*token;
 	char	*line;
 
 	token = NULL;
-	line = ft_readline("\033[32m→ \033[0m\033[96m minishell> \033[0m");
+	line = ft_readline("minishell> ");
 	if (!is_valid_quotes(line))
 	{
 		print_error(1, NULL, NULL, SYNTAX_ERROR_STR);
