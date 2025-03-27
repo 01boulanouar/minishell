@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:08 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/27 00:02:37 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/27 01:09:14 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,14 @@ void	sigint_handler(int signal)
 		ft_set_exit_status(1);
 	}
 	else if (g_in_shell == 2)
+	{
 		g_in_shell = 3;
+		ft_set_exit_status(1);
+		rl_on_new_line();
+        rl_replace_line("", 0);
+        rl_redisplay();   
+		ioctl(STDIN_FILENO, TIOCSTI, "\n");
+	}
 	return ;
 }
 
@@ -89,7 +96,7 @@ int	main(int argc, char **argv, char **env)
 			commands = parser(tokens);
 			heredoc = init_heredoc(tokens);
 			exec(commands, get_number_of_commands(tokens), heredoc,
-				get_number_of_heredocs(tokens));
+					get_number_of_heredocs(tokens));
 			ft_free();
 		}
 	}

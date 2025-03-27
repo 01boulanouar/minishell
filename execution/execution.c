@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:55:42 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/26 23:22:42 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/27 01:03:42 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,11 @@ void	exec(t_command *commands, int n_commands, char **heredoc,
 	if (!commands)
 		return ;
 	prepare_heredocs(commands, n_commands, heredoc);
+	if (g_in_shell == 3)
+	{
+		g_in_shell = 1;
+		return ;
+	}
 	if (n_commands == 1 && is_builtin(commands[0]))
 		exec_builtin_alone(commands[0], heredoc);
 	else

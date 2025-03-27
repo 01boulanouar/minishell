@@ -6,13 +6,14 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/26 23:23:43 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/27 00:56:09 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+#include <sys/ioctl.h>
 # include <stdio.h>
 # include <errno.h>
 # include <fcntl.h>
