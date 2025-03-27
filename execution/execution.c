@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:55:42 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/27 02:03:47 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/27 05:36:19 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,12 @@ int	exec_bin(t_command command, int input_fd, char **heredoc,
 	int	pid;
 	int	fd[2];
 
+	g_in_shell = 0;
 	if (!command.is_last && pipe(fd) == -1)
-	{
-		perror("minishell: pipe error");
-		return (EXIT_FAILURE);
-	}
-	pid = ft_fork();
+		return (perror("minishell: pipe error"), EXIT_FAILURE);
+	pid = fork();
+	if (pid == -1)
+		return (perror("minishell: fork error"), EXIT_FAILURE);
 	if (pid == 0)
 		exec_child(input_fd, fd, command, heredoc);
 	else

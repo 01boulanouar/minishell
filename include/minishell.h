@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/27 04:44:00 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/27 05:50:00 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,8 @@
 # include <limits.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include <stdarg.h>
 # include <stdlib.h>
-# include <string.h>
 # include <sys/stat.h>
-# include <sys/wait.h>
 # include <sys/ioctl.h>
 # include <unistd.h>
 
@@ -250,7 +247,6 @@ void				ft_execve(t_command command);
 int					ft_dup2(int oldfd, int newfd);
 void				ft_exit(int status);
 int					ft_pipe(int fildes[2]);
-int					ft_fork(void);
 int					ft_chdir(char *path);
 char				*ft_getenv(char *name);
 int					ft_open(const char *path, int oflag);
