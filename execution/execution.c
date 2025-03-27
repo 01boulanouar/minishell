@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:55:42 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/27 01:03:42 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/27 01:20:54 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void	exec_builtin_alone(t_command command, char **heredoc)
 	ft_dup2(saved_stdout, STDOUT_FILENO);
 }
 
-void	exec(t_command *commands, int n_commands, char **heredoc,
+int	exec(t_command *commands, int n_commands, char **heredoc,
 		int n_heredocs)
 {
 	int		i;
@@ -125,13 +125,10 @@ void	exec(t_command *commands, int n_commands, char **heredoc,
 	i = 0;
 	input_fd = STDIN_FILENO;
 	if (!commands)
-		return ;
+		return (0);
 	prepare_heredocs(commands, n_commands, heredoc);
 	if (g_in_shell == 3)
-	{
-		g_in_shell = 1;
-		return ;
-	}
+		return (g_in_shell = 1, 0);
 	if (n_commands == 1 && is_builtin(commands[0]))
 		exec_builtin_alone(commands[0], heredoc);
 	else
@@ -142,7 +139,7 @@ void	exec(t_command *commands, int n_commands, char **heredoc,
 			i++;
 		}
 		ft_wait(&last_pid);
-		g_in_shell = 1;
 	}
 	cleanup_heredocs(heredoc, n_heredocs);
+	return (0);
 }

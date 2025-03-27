@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/26 23:34:20 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/27 01:15:14 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ t_token	*tokenize(char *line)
 }
 
 t_token	*lexer(void)
-{ 
+{
 	t_token	*token;
 	char	*line;
 

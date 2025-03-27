@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_wait.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 02:41:07 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/03/26 21:08:53 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/27 01:20:10 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,5 @@ void	ft_wait(pid_t *last_pid)
 		}
 		pid = waitpid(-1, &status, 0);
 	}
+	g_in_shell = 1;
 }

@@ -6,14 +6,14 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/27 00:56:09 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/27 01:24:55 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-#include <sys/ioctl.h>
+# include <sys/ioctl.h>
 # include <stdio.h>
 # include <errno.h>
 # include <fcntl.h>
@@ -27,7 +27,7 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
-extern int g_in_shell;
+extern int	g_in_shell;
 
 /*---------------HEREDOC----------------*/
 
@@ -214,7 +214,7 @@ char				**get_env_str(void);
 char				*get_random_name(void);
 char				**init_heredoc(t_token *token);
 
-void				exec(t_command *commands, int n_commands, char **heredoc,
+int					exec(t_command *commands, int n_commands, char **heredoc,
 						int n_heredocs);
 
 // redirect_io.c
@@ -223,6 +223,8 @@ char				*read_from_heredoc(t_redirect *redirect, char **heredoc,
 						int heredoc_index);
 void				redirect_io(t_command *cmd, char **heredoc,
 						int heredoc_pos);
+
+void				sigint_handler(int signal);
 /*---------helper----------*/
 
 // get_number_of_arguments.c

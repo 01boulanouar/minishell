@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 23:01:41 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/03/26 21:20:37 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/27 01:22:39 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ int	exit_builtin(t_command command, int should_exit)
 	int		ret;
 	char	*arg;
 
-	ret = EXIT_BUILTIN_BAD_USAGE;
 	ft_putendl_fd("exit", STDOUT_FILENO);
 	if (get_number_of_arguments(command) == 0)
 		ret = *ft_get_exit_status();
