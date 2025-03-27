@@ -18,7 +18,7 @@ SRC_ENVIRONMENT	= environment/ft_gc_env.c environment/ft_lst_env.c \
 				environment/ft_string_env.c environment/ft_update_env.c environment/init_env.c 
 
 SRC_EXECUTION = execution/execution.c  execution/exit_status.c \
-				execution/get_command_path.c execution/heredoc.c \
+				execution/get_command_path.c execution/get_command_str.c execution/heredoc.c \
 				execution/print_error.c execution/redirect_io.c execution/signal.c
 
 

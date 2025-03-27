@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 21:59:49 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/27 05:03:00 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/27 05:23:31 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int	is_valid_command(char *executable)
 		ft_set_exit_status(COMMAND_NOT_FOUND);
 		return (0);
 	}
-	if (S_ISDIR(cmd_stat.st_mode) || executable[ft_strlen(executable)
-			- 1] == '/')
+	if (S_ISDIR(cmd_stat.st_mode)
+		|| executable[ft_strlen(executable) - 1] == '/')
 	{
 		print_error(1, executable, NULL, "Is a directory");
 		ft_set_exit_status(COMMAND_NOT_EXECUTABLE);
@@ -38,6 +38,13 @@ int	is_valid_command(char *executable)
 	return (1);
 }
 
+static int	is_local(char *executable)
+{
+	return ((executable[0] == '/'
+			|| executable[ft_strlen(executable) - 1] == '/'
+			|| !ft_strncmp(executable, ".", 1)));
+}
+
 char	*get_command_path(char *executable)
 {
 	char	*path;
@@ -49,8 +56,7 @@ char	*get_command_path(char *executable)
 	split = ft_split(path, ':');
 	full_path = NULL;
 	i = 0;
-	if (executable && (executable[0] == '/' || executable[ft_strlen(executable)
-				- 1] == '/' || !ft_strncmp(executable, ".", 1)))
+	if (executable && *executable && is_local(executable))
 	{
 		if (is_valid_command(executable))
 			return (executable);
@@ -65,53 +71,4 @@ char	*get_command_path(char *executable)
 	}
 	print_error(1, executable, NULL, "command not found");
 	return (ft_set_exit_status(COMMAND_NOT_FOUND), NULL);
-}
-
-static int	get_command_len(t_command command)
-{
-	int	i;
-
-	if (!command.tokens)
-		return (0);
-	i = 0;
-	while (command.tokens[i] && command.tokens[i]->value)
-		i++;
-	return (i);
-}
-
-char	**get_command_str(t_command command)
-{
-	int		i;
-	char	**arr;
-
-	arr = ft_malloc(sizeof(char *) * (get_command_len(command) + 1));
-	i = 0;
-	while (command.tokens[i] && command.tokens[i]->value)
-	{
-		arr[i] = ft_strdup(command.tokens[i]->value);
-		i++;
-	}
-	arr[i] = NULL;
-	return (arr);
-}
-
-char	**get_env_str(void)
-{
-	int		i;
-	char	**arr;
-	t_env	**env;
-	t_env	*node;
-
-	env = get_env_list();
-	node = *env;
-	arr = ft_malloc(sizeof(char *) * (ft_lstsize_env(node) + 1));
-	i = 0;
-	while (node)
-	{
-		arr[i] = ft_strjoin(node->key, ft_strjoin("=", node->value));
-		i++;
-		node = node->next;
-	}
-	arr[i] = NULL;
-	return (arr);
 }
