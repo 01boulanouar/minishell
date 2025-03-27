@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 01:23:24 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/03/27 02:45:37 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/27 04:41:59 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	sigint_handler(int signal)
 	if (g_in_shell == 1)
 	{
 		rl_on_new_line();
-		// rl_replace_line("", 0);
+		rl_replace_line("", 0);
 		rl_redisplay();
 		ft_set_exit_status(1);
 	}
@@ -31,7 +31,7 @@ void	sigint_handler(int signal)
 		g_in_shell = 3;
 		ft_set_exit_status(1);
 		rl_on_new_line();
-		// rl_replace_line("", 0);
+		rl_replace_line("", 0);
 		rl_redisplay();
 		ioctl(STDIN_FILENO, TIOCSTI, "\n");
 	}

@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   ft_chdir.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 14:57:40 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/27 03:23:56 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/27 04:47:34 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	update_path(char *pwd)
+{
+	if (ft_isin_env("OLDPWD"))
+		ft_update_env("OLDPWD", ft_getenv("PWD"));
+	else
+		ft_lstadd_back_env(ft_lstnew_env("OLDPWD", "=", ft_getenv("PWD")));
+	if (ft_isin_env("PWD"))
+		ft_update_env("PWD", pwd);
+	else
+		ft_lstadd_back_env(ft_lstnew_env("PWD", "=", ft_strdup_env(pwd)));
+}
 
 int	ft_chdir(char *path)
 {
@@ -30,16 +42,7 @@ int	ft_chdir(char *path)
 	if (chdir(path) == -1)
 		return (strerror(errno), EXIT_FAILURE);
 	if (getcwd(pwd, PATH_MAX))
-	{
-		if (ft_isin_env("OLDPWD"))
-			ft_update_env("OLDPWD", ft_getenv("PWD"));
-		else
-			ft_lstadd_back_env(ft_lstnew_env("OLDPWD", "=", ft_getenv("PWD")));
-		if (ft_isin_env("PWD"))
-			ft_update_env("PWD", pwd);
-		else
-			ft_lstadd_back_env(ft_lstnew_env("PWD", "=", ft_strdup_env(pwd)));
-	}
+		update_path(pwd);
 	else
 		print_error(1, "cd", path, GETCWD_ERROR_STR);
 	return (EXIT_SUCCESS);

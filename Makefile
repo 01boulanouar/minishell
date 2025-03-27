@@ -2,7 +2,8 @@ NAME = minishell
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-INCLUDE = -I./include
+INCLUDE = -I./include -I/mnt/homes/moboulan/.brew/opt/readline/include
+READLINE = -L/mnt/homes/moboulan/.brew/opt/readline/lib -lreadline
 RM = rm -f
 
 SANITIZE = -fsanitize=address -g
@@ -46,17 +47,15 @@ SRC = $(SRC_BUILTINS) $(SRC_ENVIRONMENT) $(SRC_EXECUTION) \
 	main.c
 
 OBJ = $(SRC:.c=.o)
-
-READLINE_INC = -I$(shell ~/.brew/opt/readline)
-READLINE_LIB = -L$(shell ~/.brew/opt/readline) -lreadline
+ 
 
 all : $(NAME)
 
 $(NAME) : $(OBJ)
-	$(CC) $(OBJ) -lreadline -o $@ $(READLINE_LIB) $(SANITIZE)
+	$(CC) $(OBJ) $(READLINE) -o $@ $(SANITIZE)
 
 %.o : %.c include/minishell.h
-	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@ $(READLINE_INC) $(SANITIZE)
+	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@  $(SANITIZE)
 
 clean :
 	@$(RM) $(OBJ)

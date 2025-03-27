@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_type.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 14:14:42 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/27 03:15:33 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/27 04:47:59 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,4 @@ int	is_operator(t_token *token)
 int	ft_isvalid_expand(int c)
 {
 	return (ft_isalnum(c) || c == UNDERSCORE);
-}
-
-int	is_dollar_str(char *str)
-{
-	size_t i;
-
-	i = 0;
-	if (!str)
-		return (0);
-	while (str[i] == DOLLAR || str[i] == SINGLE_QUOTE || str[i] == DOUBLE_QUOTE)
-		i++;
-	return (ft_strlen(str) == i);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 23:01:41 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/03/27 02:03:25 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/27 04:48:54 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ int	exit_builtin(t_command command, int should_exit)
 		{
 			arg = command.tokens[1]->value;
 			if (!exit_is_valid_status(arg))
-				ret = 255, print_error(1, "exit", arg,
-					"numeric argument required");
+				(1) && (ret = 255, print_error(1, "exit", arg,
+					"numeric argument required"));
 			else if (get_number_of_arguments(command) > 1)
 				return (print_error(1, "exit", NULL, "too may arguments"), 1);
 			else if (get_number_of_arguments(command) == 1)
