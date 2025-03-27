@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 23:01:41 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/03/27 04:48:54 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/27 04:52:24 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,9 @@ int	exit_builtin(t_command command, int should_exit)
 	{
 		if (command.tokens[1] && command.tokens[1]->value)
 		{
-			arg = command.tokens[1]->value;
+			(1) && (ret = 255, arg = command.tokens[1]->value);
 			if (!exit_is_valid_status(arg))
-				(1) && (ret = 255, print_error(1, "exit", arg,
-					"numeric argument required"));
+				print_error(1, "exit", arg, "numeric argument required");
 			else if (get_number_of_arguments(command) > 1)
 				return (print_error(1, "exit", NULL, "too may arguments"), 1);
 			else if (get_number_of_arguments(command) == 1)

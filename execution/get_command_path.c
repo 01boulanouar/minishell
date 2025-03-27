@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_command_path.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 21:59:49 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/25 22:17:21 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/27 05:03:00 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int	is_valid_command(char *executable)
 		ft_set_exit_status(COMMAND_NOT_FOUND);
 		return (0);
 	}
-	if (S_ISDIR(cmd_stat.st_mode))
+	if (S_ISDIR(cmd_stat.st_mode) || executable[ft_strlen(executable)
+			- 1] == '/')
 	{
 		print_error(1, executable, NULL, "Is a directory");
 		ft_set_exit_status(COMMAND_NOT_EXECUTABLE);
@@ -48,8 +49,8 @@ char	*get_command_path(char *executable)
 	split = ft_split(path, ':');
 	full_path = NULL;
 	i = 0;
-	if (executable && (executable[0] == '/' || !ft_strncmp(executable, "./",
-				2)))
+	if (executable && (executable[0] == '/' || executable[ft_strlen(executable)
+				- 1] == '/' || !ft_strncmp(executable, ".", 1)))
 	{
 		if (is_valid_command(executable))
 			return (executable);

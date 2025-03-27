@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 14:57:40 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/27 04:47:34 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/27 04:54:46 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	ft_chdir(char *path)
 		return (EXIT_FAILURE);
 	}
 	if (chdir(path) == -1)
-		return (strerror(errno), EXIT_FAILURE);
+		return (EXIT_FAILURE);
 	if (getcwd(pwd, PATH_MAX))
 		update_path(pwd);
 	else
