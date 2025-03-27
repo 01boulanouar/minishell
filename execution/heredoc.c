@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/27 01:30:54 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/27 02:02:42 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	*get_random_name(void)
 {
 	char	*name;
-	int 	num;
+	int		num;
 
 	num = (int)ft_malloc(1);
 	name = ft_strjoin(HEREDOC_NAME, ft_itoa(num));
@@ -61,7 +61,7 @@ char	*read_from_heredoc(t_redirect *redirect, char **heredoc,
 	while (1)
 	{
 		line = ft_readline("> ");
-		if (!is_quotes(&redirect->file))
+		if (!is_quotes(&redirect->file) && ft_strcmp(line, "$$"))
 			line = expand_str(line);
 		if (!line || ft_strcmp(line, redirect->file.value) == 0
 			|| g_in_shell == 3)
