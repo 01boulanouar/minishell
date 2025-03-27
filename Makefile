@@ -47,8 +47,8 @@ SRC = $(SRC_BUILTINS) $(SRC_ENVIRONMENT) $(SRC_EXECUTION) \
 
 OBJ = $(SRC:.c=.o)
 
-# READLINE_INC = -I$(shell brew --prefix readline)/include
-# READLINE_LIB = -L$(shell brew --prefix readline)/lib -lreadline
+READLINE_INC = -I$(shell ~/.brew/opt/readline)
+READLINE_LIB = -L$(shell ~/.brew/opt/readline) -lreadline
 
 all : $(NAME)
 

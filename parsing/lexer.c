@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/27 03:19:45 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/27 03:29:44 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ static int	handle_special_cases(const char *start, char *value)
 static void	add_token_to_list(t_token **token, char *value, t_token_type type,
 		int after_space)
 {
-
 	if (type == t_double_quote && !is_dollar_str(value))
 		value = expand_str(value);
 	if (type == t_dollar_expand || type == t_dollar_num
