@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 23:01:41 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/03/27 01:22:39 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/27 01:44:49 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,8 @@ static int	exit_is_valid_status(char *str)
 {
 	size_t	i;
 
-	if (!str || ft_isallspace(str)
-		|| !ft_strcmp(str, "-")
-		|| !ft_strcmp(str, "+"))
+	if (!str || ft_isallspace(str) || !ft_strcmp(str, "-") || !ft_strcmp(str,
+			"+"))
 		return (0);
 	i = 0;
 	while (ft_isspace(str[i]))
@@ -65,7 +64,8 @@ int	exit_builtin(t_command command, int should_exit)
 	int		ret;
 	char	*arg;
 
-	ft_putendl_fd("exit", STDOUT_FILENO);
+	if (should_exit)
+		ft_putendl_fd("exit", STDOUT_FILENO);
 	if (get_number_of_arguments(command) == 0)
 		ret = *ft_get_exit_status();
 	if (get_number_of_arguments(command) >= 1)
@@ -74,10 +74,8 @@ int	exit_builtin(t_command command, int should_exit)
 		{
 			arg = command.tokens[1]->value;
 			if (!exit_is_valid_status(arg))
-			{
-				print_error(1, "exit", arg, "numeric argument required");
-				ret = 255;
-			}
+				(1), ret = 255, print_error(1, "exit", arg,
+						"numeric argument required");
 			else if (get_number_of_arguments(command) > 1)
 				return (print_error(1, "exit", NULL, "too may arguments"), 1);
 			else if (get_number_of_arguments(command) == 1)

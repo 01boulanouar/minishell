@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/27 01:24:55 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/03/27 01:40:59 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,7 @@ extern int	g_in_shell;
 /*---------------ERROR STRINGS------------*/
 
 # define SYNTAX_ERROR_STR "syntax error near unexpected token"
-# define GETCWD_ERROR_STR \
-	"error retrieving current directory: \
-							getcwd: cannot access parent directories: \
-							No such file or directory"
+# define GETCWD_ERROR_STR "PWD not set in environment"
 
 /*------------------ENUMS-----------------*/
 
