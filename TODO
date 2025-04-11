@@ -1,0 +1,110 @@
+minishell> export x="   "
+minishell> $x
+minishell: : command not found
+
+
+DOOOOOOONNNNNEEEEEE 
+
+-----------------------------------
+minishell> export x=" "
+minishell> $x
+minishell: : command not found
+
+
+DOOOOOOONNNNNEEEEEE 
+
+
+
+-----------------------------------
+minishell> $l $p $f $f $s 
+minishell: : command not found
+minishell> bash
+
+The default interactive shell is now zsh.
+To update your account to use zsh, please run `chsh -s /bin/zsh`.
+For more details, please visit https://support.apple.com/kb/HT208050.
+bash-3.2$ $l $p $f $f
+
+DOOOOOOONNNNNEEEEEE
+
+
+-----------------------------------
+minishell> echo -n   nnnnn n  yassine
+yassineminishell> 
+-----------------------------------
+minishell> gfdk
+minishell: gfdk: command not found
+minishell> < ctrl - D >
+exit
+➜  mini_shell git:(master) ✗ echo $?
+0 (expected 127)
+-----------------------------------
+minishell> << l << p << k << j << k
+> ^C (ctrl - c)
+> 
+
+> ^C
+> 
+
+> ^C
+> 
+
+> ^C
+> 
+
+> ^C
+-----------------------------------
+minishell> cat | ls
+Makefile        builtins        folder          libft           minishell
+TODO            environment     helper          main.c          parsing
+a               execution       include         main.o
+^C
+minishell> echo $?
+130
+minishell> bash
+
+The default interactive shell is now zsh.
+To update your account to use zsh, please run `chsh -s /bin/zsh`.
+For more details, please visit https://support.apple.com/kb/HT208050.
+bash-3.2$ cat | ls
+Makefile        builtins        folder          libft           minishell
+TODO            environment     helper          main.c          parsing
+a               execution       include         main.o
+^C
+bash-3.2$ echo $?
+0
+bash-3.2$ 
+-----------------------------------
+bash-3.2$ cat
+^\Quit: 3
+-----------------------------------
+minishell> ls >> $x
+ls: c: No such file or directory
+minishell> export x="a b"
+minishell> ls >> $x
+minishell: a: Is a directory
+minishell> echo $?
+1
+minishell> ls
+Makefile        b               folder          main.c
+TODO            builtins        helper          minishell
+a               environment     include         parsing
+a.out           execution       libft           t.c
+-----------------------------------
+minishell> cat << $USER
+> aelkadir
+minishell> bash
+
+The default interactive shell is now zsh.
+To update your account to use zsh, please run `chsh -s /bin/zsh`.
+For more details, please visit https://support.apple.com/kb/HT208050.
+bash-3.2$ cat << $USER
+> aelkadir
+> $USER
+aelkadir
+-----------------------------------
+minishell> cd /bin/
+minishell> unset PATH
+minishell> ls
+minishell: ls: command not found
+-----------------------------------
