@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 16:19:28 by moboulan          #+#    #+#             */
-/*   Updated: 2025/04/11 19:58:36 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/04/11 20:30:25 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,6 @@ int	expand_token(t_token **token, char *name, int a_s)
 	char	*expanded;
 	char	*start;
 	char	*value;
-
 	if (!ft_strncmp(name, EXIT_STATUS, 2))
 		expanded = ft_itoa(*ft_get_exit_status());
 	else

@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/04/11 19:24:28 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/04/11 20:28:54 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -294,6 +294,7 @@ char				*expand_str(char *line);
 void				ft_lstadd_back_token(t_token **lst, t_token *new);
 t_token				*ft_lstnew_token(char *value, t_token_type type,
 						int after_space);
+t_token				*ft_last_token(t_token **lst);
 size_t				get_next_token_len(const char *line);
 void				join_token(t_token **token);
 t_token				*tokenize(char *line);

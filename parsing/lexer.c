@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/04/11 19:58:58 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/04/11 20:31:19 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,8 @@ static void	add_token_to_list(t_token **token, char *value, t_token_type type,
 	}
 	if (type == t_double_quote && !is_dollar_str(value))
 		value = expand_str(value);
-	if (type == t_dollar_expand || type == t_dollar_num
-		|| type == t_exit_status)
+	if ((type == t_dollar_expand || type == t_dollar_num
+		|| type == t_exit_status) && ft_last_token(token)->type!=t_double_less)
 	{
 		a_s = expand_token(token, value, after_space);
 	}
