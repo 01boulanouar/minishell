@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/27 03:10:17 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/04/11 20:42:32 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	*read_from_heredoc(t_redirect *redirect, char **heredoc,
 	while (1)
 	{
 		line = ft_readline("> ");
-		if (!is_quotes(&redirect->file))
+		if (!is_quotes(&redirect->file) && (&redirect->file)->type!=t_dollar_expand)
 			line = expand_str(line);
 		if (!line || !ft_strcmp(line, redirect->file.value) || g_in_shell == 3)
 			break ;
