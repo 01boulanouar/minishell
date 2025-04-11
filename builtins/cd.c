@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:18:02 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/27 02:14:45 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/04/02 12:30:44 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ int	cd_builtin(t_command command)
 		print_error(1, "cd", NULL, "too many arguments");
 		return (ret);
 	}
-	if (!get_number_of_arguments(command) || cd_is_home(command)
-		|| !ft_strcmp(command.tokens[1]->value, "HOME"))
+	if (!get_number_of_arguments(command) || cd_is_home(command))
 		cd_handle_home("HOME", NULL);
 	else if (!ft_strncmp(command.tokens[1]->value, "~", 1))
 		cd_handle_home("HOME", ++(command.tokens[1]->value));
@@ -52,5 +51,5 @@ int	cd_builtin(t_command command)
 		cd_handle_home("OLDPWD", NULL);
 	else if (command.tokens[1] && command.tokens[1]->value)
 		ret = ft_chdir(command.tokens[1]->value);
-	return (EXIT_SUCCESS);
+	return (ret);
 }

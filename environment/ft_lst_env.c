@@ -51,7 +51,7 @@ t_env	*ft_lstnew_env_from_str(char *str)
 		str++;
 	if (*str == EQUAL)
 		str++;
-	operator = ft_copy_env(start, str);
+	operator= ft_copy_env(start, str);
 	start = str;
 	while (*str)
 		str++;
@@ -59,14 +59,14 @@ t_env	*ft_lstnew_env_from_str(char *str)
 	return (ft_lstnew_env(key, operator, value));
 }
 
-t_env	*ft_lstnew_env(char *key, char *operator, char *value)
+t_env	*ft_lstnew_env(char *key, char *operator, char * value)
 {
 	t_env	*t;
 
 	t = ft_malloc_env(sizeof(t_env));
 	t->key = key;
 	t->value = value;
-	t->operator = operator;
+	t->operator= operator;
 	t->next = NULL;
 	return (t);
 }

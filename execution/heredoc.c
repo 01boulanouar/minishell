@@ -63,8 +63,7 @@ char	*read_from_heredoc(t_redirect *redirect, char **heredoc,
 		line = ft_readline("> ");
 		if (!is_quotes(&redirect->file))
 			line = expand_str(line);
-		if (!line || !ft_strcmp(line, redirect->file.value)
-			|| g_in_shell == 3)
+		if (!line || !ft_strcmp(line, redirect->file.value) || g_in_shell == 3)
 			break ;
 		write(fd, line, ft_strlen(line));
 		write(fd, "\n", 1);

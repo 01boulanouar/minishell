@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back_env_copy.c                          :+:      :+:    :+:   */
+/*   export_sort.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 16:30:08 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/25 02:38:20 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/04/06 14:39:40 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ t_env	*ft_lstsort_copy_env(void)
 	{
 		swapped = 0;
 		node = env;
-		while (node->next != tmp)
+		while (node && node->next != tmp)
 		{
 			if (ft_strcmp(node->key, node->next->key) > 0)
 			{
@@ -89,8 +89,8 @@ void	ft_lstswap_copy_env(t_env *node, t_env *next)
 	tmp_operator = node->operator;
 	node->key = next->key;
 	node->value = next->value;
-	node->operator = next->operator;
+	node->operator= next->operator;
 	next->key = tmp_key;
 	next->value = tmp_value;
-	next->operator = tmp_operator;
+	next->operator= tmp_operator;
 }

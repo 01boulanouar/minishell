@@ -1,17 +1,14 @@
 NAME = minishell
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
-INCLUDE = -I./include -I/mnt/homes/moboulan/.brew/opt/readline/include
-READLINE = -L/mnt/homes/moboulan/.brew/opt/readline/lib -lreadline
+# CFLAGS = -Wall -Wextra -Werror -fsanitize=address
+INCLUDE = -I./include -I/mnt/homes/aelkadir/.brew/opt/readline/include
+READLINE = -L/mnt/homes/aelkadir/.brew/opt/readline/lib -lreadline
 RM = rm -f
-
-SANITIZE = -fsanitize=address -g
-
 
 SRC_BUILTINS = 	builtins/cd.c builtins/echo.c builtins/env.c builtins/exit.c \
 				builtins/export_sort.c builtins/export.c builtins/pwd.c builtins/unset.c \
-				builtins/builtin.c
+				builtins/builtin.c to_delete.c
 			  
 
 SRC_ENVIRONMENT	= environment/ft_gc_env.c environment/ft_lst_env.c \
@@ -26,9 +23,9 @@ SRC_HELPER = helper/get_number_of.c helper/is_type.c
 				
 
 SRC_LIBFT =		libft/ft_function/ft_close.c libft/ft_function/ft_execve.c \
-				libft/ft_function/ft_dup2.c libft/ft_function/ft_exit.c  \
+				libft/ft_function/ft_dup2.c libft/ft_function/ft_exit.c libft/ft_function/ft_getcwd.c \
 				libft/ft_function/ft_pipe.c libft/ft_function/ft_chdir.c libft/ft_function/ft_getenv.c \
-				libft/ft_function/ft_open.c libft/ft_function/ft_readline.c libft/ft_function/ft_wait.c \
+				libft/ft_function/ft_open.c libft/ft_function/ft_realpath.c libft/ft_function/ft_readline.c libft/ft_function/ft_wait.c \
 				libft/ft_is/ft_isallspace.c libft/ft_is/ft_isalnum.c libft/ft_is/ft_isalpha.c \
 				libft/ft_is/ft_isdigit.c libft/ft_is/ft_isin.c libft/ft_is/ft_isspace.c \
 				libft/gc/fd_gc.c libft/gc/ft_free.c libft/gc/ft_gc.c libft/gc/ft_malloc.c \
@@ -47,21 +44,20 @@ SRC = $(SRC_BUILTINS) $(SRC_ENVIRONMENT) $(SRC_EXECUTION) \
 	main.c
 
 OBJ = $(SRC:.c=.o)
- 
 
 all : $(NAME)
 
 $(NAME) : $(OBJ)
-	$(CC) $(OBJ) $(READLINE) -o $@ $(SANITIZE)
+	$(CC) $(OBJ) -fsanitize=address $(READLINE) -o $@
 
 %.o : %.c include/minishell.h
-	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@  $(SANITIZE)
+	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 clean :
-	@$(RM) $(OBJ)
+	$(RM) $(OBJ)
 
 fclean : clean
-	@$(RM) $(NAME)
+	$(RM) $(NAME)
 
 re : fclean all
 

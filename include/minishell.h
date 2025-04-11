@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/27 05:50:00 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/04/11 19:24:28 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ extern int	g_in_shell;
 /*---------------ERROR STRINGS------------*/
 
 # define SYNTAX_ERROR_STR "syntax error near unexpected token"
-# define GETCWD_ERROR_STR "PWD not set in environment"
 
 /*------------------ENUMS-----------------*/
 
@@ -131,12 +130,6 @@ typedef struct s_gc
 
 }					t_gc;
 
-typedef struct s_fd_gc
-{
-	int				fd;
-	struct s_fd_gc	*next;
-}					t_fd_gc;
-
 /*------------------FUNCTIONS-----------------*/
 
 /*---------builtins----------*/
@@ -163,6 +156,9 @@ int					export_print(void);
 int					export_builtin(t_command command);
 
 // pwd.c
+char				**ft_get_path(void);
+char				*ft_real_path(char *path);
+void				ft_set_path(char *new_path);
 int					pwd_builtin(void);
 
 // unset.c
@@ -246,11 +242,13 @@ int					ft_close(int fd);
 void				ft_execve(t_command command);
 int					ft_dup2(int oldfd, int newfd);
 void				ft_exit(int status);
+char				*ft_getcwd(void);
 int					ft_pipe(int fildes[2]);
 int					ft_chdir(char *path);
 char				*ft_getenv(char *name);
 int					ft_open(const char *path, int oflag);
 int					ft_open_create(const char *path, int oflag, int mode);
+char				*ft_real_path(char *path);
 char				*ft_readline(const char *prompt);
 
 int					ft_isallspace(char *str);
@@ -289,7 +287,7 @@ void				ft_wait(pid_t *last_pid);
 
 // expander.c
 int					ft_isvalid_expand(int c);
-void				expand_token(t_token **token, char *name, int after_space);
+int	expand_token(t_token **token, char *name, int a_s);
 char				*expand_str(char *line);
 
 // lexer.c
@@ -312,18 +310,16 @@ t_command			*parser(t_token *token);
 int					is_valid_quotes(const char *line);
 int					is_valid_operator(t_token *token);
 
-void				ft_exit_failure(int exit_code, const char *message);
-
-// fd garbage colll
-t_fd_gc				**ft_fd_gc(void);
-void				register_fd(int fd);
 void				close_all_fds(void);
-void				unregister_fd(int fd);
 
-void				ft_free_one(void *ptr);
 int					*ft_get_exit_status(void);
 void				ft_set_exit_status(int new_status);
 
-char				*print_token_type(t_token_type type);
-void				print_commands(t_command *commands, int num_commands);
+
+// to delete 
+
+void	print_tokens(t_token *token);
+
+
+
 #endif

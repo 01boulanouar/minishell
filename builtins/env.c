@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:18:06 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/14 02:42:04 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/04/06 15:02:54 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	env_builtin(t_command command)
 	}
 	while (node)
 	{
-		if (node->key && ft_strcmp(node->key, "OLDPWD"))
+		if (node->key && node->operator&& ft_strcmp(node->operator, ""))
 		{
 			ft_putstr_fd(node->key, STDOUT_FILENO);
 			ft_putchar_fd(EQUAL, STDOUT_FILENO);

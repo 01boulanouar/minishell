@@ -26,8 +26,7 @@ int	is_pipe(t_token *token)
 
 int	is_quotes(t_token *token)
 {
-	return (token->type == t_single_quote
-		|| token->type == t_double_quote);
+	return (token->type == t_single_quote || token->type == t_double_quote);
 }
 
 int	is_operator(t_token *token)

@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 21:59:49 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/27 05:23:31 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/04/02 15:55:29 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,33 +16,34 @@ int	is_valid_command(char *executable)
 {
 	struct stat	cmd_stat;
 
+	if (executable && (!ft_strcmp(executable, ".") || !ft_strcmp(executable,
+				"..")))
+	{
+		print_error(1, executable, NULL, "command not found");
+		return (ft_set_exit_status(COMMAND_NOT_FOUND), 0);
+	}
 	if (stat(executable, &cmd_stat) != 0)
 	{
 		print_error(1, executable, NULL, strerror(errno));
-		ft_set_exit_status(COMMAND_NOT_FOUND);
-		return (0);
+		return (ft_set_exit_status(COMMAND_NOT_FOUND), 0);
 	}
-	if (S_ISDIR(cmd_stat.st_mode)
-		|| executable[ft_strlen(executable) - 1] == '/')
+	if (S_ISDIR(cmd_stat.st_mode) || executable[ft_strlen(executable)
+		- 1] == '/')
 	{
 		print_error(1, executable, NULL, "Is a directory");
-		ft_set_exit_status(COMMAND_NOT_EXECUTABLE);
-		return (0);
+		return (ft_set_exit_status(COMMAND_NOT_EXECUTABLE), 0);
 	}
 	if (access(executable, X_OK) != 0)
 	{
 		print_error(1, executable, NULL, "Permission denied");
-		ft_set_exit_status(COMMAND_NOT_EXECUTABLE);
-		return (0);
+		return (ft_set_exit_status(COMMAND_NOT_EXECUTABLE), 0);
 	}
 	return (1);
 }
 
 static int	is_local(char *executable)
 {
-	return ((executable[0] == '/'
-			|| executable[ft_strlen(executable) - 1] == '/'
-			|| !ft_strncmp(executable, ".", 1)));
+	return (executable[0] == '/' || !ft_strncmp(executable, "./", 2));
 }
 
 char	*get_command_path(char *executable)

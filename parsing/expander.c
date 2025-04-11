@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 16:19:28 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/27 04:45:56 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/04/11 19:58:36 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,24 +102,23 @@ char	*expand_str(char *line)
 	return (result_start);
 }
 
-void	expand_token(t_token **token, char *name, int a_s)
+int	expand_token(t_token **token, char *name, int a_s)
 {
 	char	*expanded;
 	char	*start;
 	char	*value;
 
-	if (!strncmp(name, EXIT_STATUS, 2))
+	if (!ft_strncmp(name, EXIT_STATUS, 2))
 		expanded = ft_itoa(*ft_get_exit_status());
 	else
 		expanded = ft_getenv(++name);
 	if (!expanded)
-	{
-		value = ft_strdup("");
-		ft_lstadd_back_token(token, ft_lstnew_token(value, t_expanded, a_s));
-		return ;
-	}
+		return (0);
+	if (ft_isallspace(expanded))
+		return (1);
 	while (expanded && *expanded)
 	{
+		expanded += ft_strspn(expanded, BLANKS);
 		start = expanded;
 		expanded += get_next_token_len(start);
 		value = ft_copy(start, expanded);
@@ -127,5 +126,5 @@ void	expand_token(t_token **token, char *name, int a_s)
 		a_s = ft_isin(*expanded, BLANKS);
 		expanded += ft_strspn(expanded, BLANKS);
 	}
-	return ;
+	return (0);
 }

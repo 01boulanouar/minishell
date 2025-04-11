@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 02:08:09 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/03/25 02:53:28 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/04/02 12:30:22 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	close_all_fds(void)
 	int	i;
 
 	i = 3;
-	while (i < FOPEN_MAX)
+	while (i < OPEN_MAX)
 	{
 		ft_close(i);
 		i++;

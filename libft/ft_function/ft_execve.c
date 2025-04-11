@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execve.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 21:29:36 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/26 02:33:26 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/04/06 16:06:45 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ void	ft_execve(t_command command)
 
 	arr = get_command_str(command);
 	path = get_command_path(arr[0]);
-	if (!arr || !path)
+	if (!arr || !arr[0] || !path)
 		ft_exit(*ft_get_exit_status());
 	if (execve(path, arr, get_env_str()) == -1)
 	{
-		print_error(1, "", NULL, "command not found");
+		print_error(1, arr[0], NULL, "command not found");
 		ft_exit(COMMAND_NOT_FOUND);
 	}
 }

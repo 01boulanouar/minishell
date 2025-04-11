@@ -1,40 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   ft_getcwd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/25 16:18:13 by moboulan          #+#    #+#             */
-/*   Updated: 2025/04/02 16:24:40 by moboulan         ###   ########.fr       */
+/*   Created: 2025/04/02 16:17:06 by moboulan          #+#    #+#             */
+/*   Updated: 2025/04/02 16:21:35 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**ft_get_path(void)
+char	*ft_getcwd(void)
 {
-	static char	*path;
+	char	cwd[PATH_MAX];
 
-	return (&path);
-}
-
-void	ft_set_path(char *new_path)
-{
-	char	**path;
-
-	path = ft_get_path();
-	*path = ft_strdup_env(new_path);
-}
-
-int	pwd_builtin(void)
-{
-	char	**path;
-
-	path = ft_get_path();
-	if (!*path)
-		ft_putendl_fd(ft_getcwd(), STDOUT_FILENO);
-	else
-		ft_putendl_fd(*path, STDOUT_FILENO);
-	return (EXIT_SUCCESS);
+	if (!getcwd(cwd, PATH_MAX))
+		return (NULL);
+	return (ft_strdup_env(cwd));
 }

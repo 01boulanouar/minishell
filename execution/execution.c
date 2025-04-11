@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:55:42 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/27 05:36:19 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/03/27 06:12:07 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,7 @@ void	exec_child(int input_fd, int fd[2], t_command command, char **heredoc)
 		ft_exit(EXIT_SUCCESS);
 }
 
-int	exec_bin(t_command command, int input_fd, char **heredoc,
-		int *last_pid)
+int	exec_bin(t_command command, int input_fd, char **heredoc, int *last_pid)
 {
 	int	pid;
 	int	fd[2];
@@ -107,15 +106,14 @@ void	exec_builtin_alone(t_command command, char **heredoc)
 		return ;
 	}
 	if (!ft_strcmp("exit", command.tokens[0]->value))
-		exit_builtin(command, 1);
+		ft_set_exit_status(exit_builtin(command, 1));
 	else
-		exec_builtin(command);
+		ft_set_exit_status(exec_builtin(command));
 	ft_dup2(saved_stdin, STDIN_FILENO);
 	ft_dup2(saved_stdout, STDOUT_FILENO);
 }
 
-int	exec(t_command *commands, int n_commands, char **heredoc,
-		int n_heredocs)
+int	exec(t_command *commands, int n_commands, char **heredoc, int n_heredocs)
 {
 	int		i;
 	int		input_fd;

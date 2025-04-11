@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_chdir.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 14:57:40 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/27 04:54:46 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/04/11 15:22:36 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	update_path(char *pwd)
+static void	update_path_env(char *pwd)
 {
 	if (ft_isin_env("OLDPWD"))
 		ft_update_env("OLDPWD", ft_getenv("PWD"));
@@ -26,24 +26,27 @@ static void	update_path(char *pwd)
 
 int	ft_chdir(char *path)
 {
-	char		pwd[PATH_MAX];
 	struct stat	stat_path;
+	char		*real_path;
 
-	if (stat(path, &stat_path) == -1)
+	real_path = ft_real_path(path);
+	if (!real_path || stat(real_path, &stat_path) == -1
+		|| !S_ISDIR(stat_path.st_mode) || access(real_path, X_OK) == -1
+		|| chdir(real_path) == -1)
 	{
-		print_error(1, "cd", path, "No such file or directory");
+		if (!real_path)
+			print_error(1, "cd", path, "Path resolution failed");
+		else if (stat(real_path, &stat_path) == -1)
+			print_error(1, "cd", path, "No such file or directory");
+		else if (!S_ISDIR(stat_path.st_mode))
+			print_error(1, "cd", path, "Not a directory");
+		else if (access(real_path, X_OK) == -1)
+			print_error(1, "cd", path, "Permission denied");
+		else
+			;
 		return (EXIT_FAILURE);
 	}
-	if (!S_ISDIR(stat_path.st_mode))
-	{
-		print_error(1, "cd", path, "Not a directory");
-		return (EXIT_FAILURE);
-	}
-	if (chdir(path) == -1)
-		return (EXIT_FAILURE);
-	if (getcwd(pwd, PATH_MAX))
-		update_path(pwd);
-	else
-		print_error(1, "cd", path, GETCWD_ERROR_STR);
+	ft_set_path(real_path);
+	update_path_env(real_path);
 	return (EXIT_SUCCESS);
 }
