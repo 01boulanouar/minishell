@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:55:42 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/27 06:12:07 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/04/12 15:56:03 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	prepare_heredocs(t_command *commands, int n_commands, char **heredoc)
 			{
 				heredoc[heredoc_index] = read_from_heredoc(*files, heredoc,
 						heredoc_index);
+				if(!heredoc[heredoc_index])
+					return ; 
 				heredoc_index++;
 			}
 			files++;
@@ -77,8 +79,11 @@ int	exec_bin(t_command command, int input_fd, char **heredoc, int *last_pid)
 	pid = fork();
 	if (pid == -1)
 		return (perror("minishell: fork error"), EXIT_FAILURE);
-	if (pid == 0)
+	if (pid == 0){
+		signal(SIGINT, SIG_DFL);
+  		signal(SIGQUIT, SIG_DFL);
 		exec_child(input_fd, fd, command, heredoc);
+	}
 	else
 	{
 		*last_pid = pid;

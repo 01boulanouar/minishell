@@ -106,6 +106,10 @@ bash-3.2$ cat << $USER
 > aelkadir
 > $USER
 aelkadir
+
+
+DOOOOOOONNEEEE
+
 -----------------------------------
 minishell> cd /bin/
 minishell> unset PATH
