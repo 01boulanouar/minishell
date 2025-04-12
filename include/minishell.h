@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/04/11 20:28:54 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/04/12 16:01:13 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -322,5 +322,7 @@ void				ft_set_exit_status(int new_status);
 void	print_tokens(t_token *token);
 
 
+void save_terminal_settings(void);
+void restore_terminal_settings(void);
 
 #endif

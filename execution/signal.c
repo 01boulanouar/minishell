@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 01:23:24 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/04/12 15:51:06 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/04/12 16:00:42 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,16 @@ void	sigint_handler(int signal)
 		ioctl(STDIN_FILENO, TIOCSTI, "\n");
 	}
 	return ;
+}
+
+#include <termios.h>
+
+struct termios g_saved_termios;
+
+void save_terminal_settings(void) {
+    tcgetattr(STDIN_FILENO, &g_saved_termios);
+}
+
+void restore_terminal_settings(void) {
+    tcsetattr(STDIN_FILENO, TCSANOW, &g_saved_termios);
 }

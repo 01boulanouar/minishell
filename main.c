@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:08 by moboulan          #+#    #+#             */
-/*   Updated: 2025/04/11 20:42:50 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/04/12 16:01:49 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	main(int argc, char **argv, char **env)
 	init_env(env);
 	while (1)
 	{
+		save_terminal_settings();
 		tokens = lexer();
 		// print_tokens(tokens);
 		if (!tokens)

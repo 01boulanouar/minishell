@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 02:41:07 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/03/27 01:20:10 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/04/12 16:02:10 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ void	ft_wait(pid_t *last_pid)
 		}
 		pid = waitpid(-1, &status, 0);
 	}
+	restore_terminal_settings();
 	g_in_shell = 1;
 }
