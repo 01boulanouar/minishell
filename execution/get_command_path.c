@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 21:59:49 by moboulan          #+#    #+#             */
-/*   Updated: 2025/04/02 15:55:29 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/04/12 16:33:45 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*get_command_path(char *executable)
 	split = ft_split(path, ':');
 	full_path = NULL;
 	i = 0;
-	if (executable && *executable && is_local(executable))
+	if (executable && *executable && (path && is_local(executable) || !path))
 	{
 		if (is_valid_command(executable))
 			return (executable);

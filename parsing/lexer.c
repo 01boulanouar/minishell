@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/04/11 20:31:19 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/04/12 16:35:09 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,21 +98,22 @@ static void	add_token_to_list(t_token **token, char *value, t_token_type type,
 		int after_space)
 {
 	static int	a_s;
+	static t_token_type previous_type = t_word;
 
 	if (a_s == 1)
 	{
 		after_space = a_s;
 		a_s = 0;
 	}
-	if (type == t_double_quote && !is_dollar_str(value))
+	if (type == t_double_quote && !is_dollar_str(value) && previous_type != t_double_less)
 		value = expand_str(value);
 	if ((type == t_dollar_expand || type == t_dollar_num
-		|| type == t_exit_status) && ft_last_token(token)->type!=t_double_less)
-	{
+		|| type == t_exit_status) && previous_type != t_double_less)
 		a_s = expand_token(token, value, after_space);
-	}
 	else
 		ft_lstadd_back_token(token, ft_lstnew_token(value, type, after_space));
+	if (token && *token)
+		previous_type = type;
 }
 
 t_token	*tokenize(char *line)

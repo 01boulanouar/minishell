@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/04/12 15:55:14 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/04/12 16:33:19 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	*read_from_heredoc(t_redirect *redirect, char **heredoc,
 	while (1)
 	{
 		line = ft_readline("> ");
-		if (!is_quotes(&redirect->file) && (&redirect->file)->type!=t_dollar_expand)
+		if (!is_quotes(&redirect->file) && (line && ft_strcmp(line, redirect->file.value)))
 			line = expand_str(line);
 		if (!line || !ft_strcmp(line, redirect->file.value))
 			break ;
