@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/04/12 16:33:19 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/04/12 22:22:44 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ char	**init_heredoc(t_token *token)
 	int		n_heredocs;
 
 	n_heredocs = get_number_of_heredocs(token);
+	if(n_heredocs>16){
+		print_error(1, NULL, NULL, "maximum here-document count exceeded");
+		ft_exit(2);
+	}
 	heredoc = ft_malloc(n_heredocs * sizeof(char *));
 	return (heredoc);
 }
