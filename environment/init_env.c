@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 21:04:48 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/26 03:14:05 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/04/13 15:01:44 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	init_env(char **line)
 		if (!ft_strcmp(node->key, "SHLVL"))
 			set_shlvl(node);
 		if (!ft_strcmp(node->key, "OLDPWD"))
-			node->value = ft_strdup_env("");
+			node->value = NULL;
 		ft_lstadd_back_env(node);
 		i++;
 	}

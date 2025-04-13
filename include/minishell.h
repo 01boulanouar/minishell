@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/04/12 16:01:13 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/04/13 14:54:30 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ extern int	g_in_shell;
 /*---------------ERROR STRINGS------------*/
 
 # define SYNTAX_ERROR_STR "syntax error near unexpected token"
+# define GETCWD_ERROR_STR "error retrieving current directory: getcwd: cannot access parent directories: No such file or directory"
 
 /*------------------ENUMS-----------------*/
 
@@ -156,9 +157,6 @@ int					export_print(void);
 int					export_builtin(t_command command);
 
 // pwd.c
-char				**ft_get_path(void);
-char				*ft_real_path(char *path);
-void				ft_set_path(char *new_path);
 int					pwd_builtin(void);
 
 // unset.c

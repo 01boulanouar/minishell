@@ -6,7 +6,7 @@
 /*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:18:06 by moboulan          #+#    #+#             */
-/*   Updated: 2025/04/06 15:02:54 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/04/12 16:38:35 by moboulan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	env_builtin(t_command command)
 	{
 		print_error(0, "env", command.tokens[1]->value,
 			"No such file or directory");
-		return (EXIT_FAILURE);
+		return (COMMAND_NOT_FOUND);
 	}
 	while (node)
 	{
