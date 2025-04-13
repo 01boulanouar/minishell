@@ -2,8 +2,8 @@ NAME = minishell
 
 CC = cc
 # CFLAGS = -Wall -Wextra -Werror -fsanitize=address
-INCLUDE = -I./include -I/mnt/homes/moboulan/.brew/opt/readline/include
-READLINE = -L/mnt/homes/moboulan/.brew/opt/readline/lib -lreadline
+INCLUDE = -I./include -I/mnt/homes/aelkadir/.brew/opt/readline/include
+READLINE = -L/mnt/homes/aelkadir/.brew/opt/readline/lib -lreadline
 RM = rm -f
 
 SRC_BUILTINS = 	builtins/cd.c builtins/echo.c builtins/env.c builtins/exit.c \

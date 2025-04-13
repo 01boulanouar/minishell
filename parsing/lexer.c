@@ -137,6 +137,8 @@ t_token	*tokenize(char *line)
 		if (handle_special_cases(start, value))
 			continue ;
 		type = get_token_type(value);
+		if(type==t_pipe)
+			ft_set_exit_status(0);
 		add_token_to_list(&token, value, type, after_space);
 		after_space = ft_isin(*line, BLANKS);
 		line += ft_strspn(line, BLANKS);
