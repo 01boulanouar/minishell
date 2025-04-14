@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:18:06 by moboulan          #+#    #+#             */
-/*   Updated: 2025/04/12 16:38:35 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/04/14 13:50:50 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	env_builtin(t_command command)
 	}
 	while (node)
 	{
-		if (node->key && node->operator&& ft_strcmp(node->operator, ""))
+		if (node->key && node->operator && ft_strcmp(node->operator, ""))
 		{
 			ft_putstr_fd(node->key, STDOUT_FILENO);
 			ft_putchar_fd(EQUAL, STDOUT_FILENO);

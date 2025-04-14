@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 17:05:30 by moboulan          #+#    #+#             */
-/*   Updated: 2025/03/25 23:04:21 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/04/14 14:04:10 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_env	*ft_lstnew_env_from_str(char *str)
 		str++;
 	if (*str == EQUAL)
 		str++;
-	operator= ft_copy_env(start, str);
+	operator = ft_copy_env(start, str);
 	start = str;
 	while (*str)
 		str++;
@@ -59,14 +59,14 @@ t_env	*ft_lstnew_env_from_str(char *str)
 	return (ft_lstnew_env(key, operator, value));
 }
 
-t_env	*ft_lstnew_env(char *key, char *operator, char * value)
+t_env	*ft_lstnew_env(char *key, char *operator, char *value)
 {
 	t_env	*t;
 
 	t = ft_malloc_env(sizeof(t_env));
 	t->key = key;
 	t->value = value;
-	t->operator= operator;
+	t->operator = operator;
 	t->next = NULL;
 	return (t);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_command_path.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 21:59:49 by moboulan          #+#    #+#             */
-/*   Updated: 2025/04/12 16:33:45 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/04/14 13:51:41 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ int	is_valid_command(char *executable)
 		print_error(1, executable, NULL, strerror(errno));
 		return (ft_set_exit_status(COMMAND_NOT_FOUND), 0);
 	}
-	if (S_ISDIR(cmd_stat.st_mode) || executable[ft_strlen(executable)
-		- 1] == '/')
+	if (S_ISDIR(cmd_stat.st_mode)
+		|| executable[ft_strlen(executable) - 1] == '/')
 	{
 		print_error(1, executable, NULL, "Is a directory");
 		return (ft_set_exit_status(COMMAND_NOT_EXECUTABLE), 0);
@@ -57,7 +57,7 @@ char	*get_command_path(char *executable)
 	split = ft_split(path, ':');
 	full_path = NULL;
 	i = 0;
-	if (executable && *executable && (path && is_local(executable) || !path))
+	if (executable && *executable && ((path && is_local(executable)) || !path))
 	{
 		if (is_valid_command(executable))
 			return (executable);

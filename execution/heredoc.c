@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/04/12 22:22:44 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/04/14 13:06:00 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ char	**init_heredoc(t_token *token)
 	int		n_heredocs;
 
 	n_heredocs = get_number_of_heredocs(token);
-	if(n_heredocs>16){
+	if (n_heredocs > 16)
+	{
 		print_error(1, NULL, NULL, "maximum here-document count exceeded");
 		ft_exit(2);
 	}
@@ -60,21 +61,22 @@ char	*read_from_heredoc(t_redirect *redirect, char **heredoc,
 	char	*name;
 
 	name = get_random_name();
+	heredoc[heredoc_index++] = ft_strdup(name);
 	fd = ft_open_create(name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	g_in_shell = 2;
 	while (1)
 	{
 		line = ft_readline("> ");
-		if (!is_quotes(&redirect->file) && (line && ft_strcmp(line, redirect->file.value)))
+		if (!is_quotes(&redirect->file) && (line && ft_strcmp(line,
+					redirect->file.value)))
 			line = expand_str(line);
 		if (!line || !ft_strcmp(line, redirect->file.value))
 			break ;
-		if(g_in_shell == 3)
-			return NULL ; 
+		if (g_in_shell == 3)
+			return (NULL);
 		write(fd, line, ft_strlen(line));
 		write(fd, "\n", 1);
 	}
 	close(fd);
-	heredoc[heredoc_index++] = ft_strdup(name);
 	return (name);
 }

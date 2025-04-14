@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_chdir.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 14:57:40 by moboulan          #+#    #+#             */
-/*   Updated: 2025/04/13 15:06:49 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/04/14 13:59:58 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	ft_chdir(char *path)
 		return (EXIT_FAILURE);
 	}
 	else if (access(path, X_OK) == -1)
-			print_error(1, "cd", path, "Permission denied");
+		print_error(1, "cd", path, "Permission denied");
 	if (chdir(path) == -1)
 		return (EXIT_FAILURE);
 	if (getcwd(pwd, PATH_MAX))

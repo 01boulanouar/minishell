@@ -29,8 +29,8 @@ void	prepare_heredocs(t_command *commands, int n_commands, char **heredoc)
 			{
 				heredoc[heredoc_index] = read_from_heredoc(*files, heredoc,
 						heredoc_index);
-				if(!heredoc[heredoc_index])
-					return ; 
+				if (!heredoc[heredoc_index])
+					return ;
 				heredoc_index++;
 			}
 			files++;
@@ -79,9 +79,10 @@ int	exec_bin(t_command command, int input_fd, char **heredoc, int *last_pid)
 	pid = fork();
 	if (pid == -1)
 		return (perror("minishell: fork error"), EXIT_FAILURE);
-	if (pid == 0){
+	if (pid == 0)
+	{
 		signal(SIGINT, SIG_DFL);
-  		signal(SIGQUIT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		exec_child(input_fd, fd, command, heredoc);
 	}
 	else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:27:05 by moboulan          #+#    #+#             */
-/*   Updated: 2025/04/13 14:54:30 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/04/14 14:06:40 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,15 @@
 # include <errno.h>
 # include <fcntl.h>
 # include <limits.h>
-# include <readline/readline.h>
 # include <readline/history.h>
+# include <readline/readline.h>
 # include <stdlib.h>
-# include <sys/stat.h>
 # include <sys/ioctl.h>
+# include <sys/stat.h>
+# include <termios.h>
 # include <unistd.h>
 
-extern int	g_in_shell;
+int					g_in_shell;
 
 /*---------------HEREDOC----------------*/
 
@@ -61,7 +62,9 @@ extern int	g_in_shell;
 /*---------------ERROR STRINGS------------*/
 
 # define SYNTAX_ERROR_STR "syntax error near unexpected token"
-# define GETCWD_ERROR_STR "error retrieving current directory: getcwd: cannot access parent directories: No such file or directory"
+# define GETCWD_ERROR_STR "error retrieving current directory: \
+getcwd: cannot access parent directories: \
+No such file or directory"
 
 /*------------------ENUMS-----------------*/
 
@@ -285,7 +288,7 @@ void				ft_wait(pid_t *last_pid);
 
 // expander.c
 int					ft_isvalid_expand(int c);
-int	expand_token(t_token **token, char *name, int a_s);
+int					expand_token(t_token **token, char *name, int a_s);
 char				*expand_str(char *line);
 
 // lexer.c
@@ -314,13 +317,7 @@ void				close_all_fds(void);
 int					*ft_get_exit_status(void);
 void				ft_set_exit_status(int new_status);
 
-
-// to delete 
-
-void	print_tokens(t_token *token);
-
-
-void save_terminal_settings(void);
-void restore_terminal_settings(void);
+void				save_terminal_settings(void);
+void				restore_terminal_settings(void);
 
 #endif

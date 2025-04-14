@@ -107,6 +107,7 @@ int	expand_token(t_token **token, char *name, int a_s)
 	char	*expanded;
 	char	*start;
 	char	*value;
+
 	if (!ft_strncmp(name, EXIT_STATUS, 2))
 		expanded = ft_itoa(*ft_get_exit_status());
 	else

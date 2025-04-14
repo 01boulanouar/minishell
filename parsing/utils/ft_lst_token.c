@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 10:36:47 by moboulan          #+#    #+#             */
-/*   Updated: 2025/04/11 20:32:11 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/04/14 14:02:53 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,17 @@ void	ft_lstadd_back_token(t_token **lst, t_token *new)
 		t->next = new;
 	}
 }
-t_token*	ft_last_token(t_token **lst)
+
+t_token	*ft_last_token(t_token **lst)
 {
 	t_token	*t;
 
 	if (!lst)
-		return NULL ;
+		return (NULL);
 	t = (*lst);
 	while (t->next)
-			t = t->next;
-	return t ; 
+		t = t->next;
+	return (t);
 }
 
 t_token	*ft_lstnew_token(char *value, t_token_type type, int after_space)

@@ -3,46 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:24:00 by moboulan          #+#    #+#             */
-/*   Updated: 2025/04/12 16:35:09 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/04/14 14:01:19 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// void	join_token(t_token **token)
-// {
-// 	t_token	*current;
-// 	t_token	*next_token;
-
-// 	current = *token;
-// 	while (current && current->next)
-// 	{
-// 		next_token = current->next;
-// 		if (next_token && !next_token->after_space && !is_operator(current)
-// 			&& !is_operator(next_token))
-// 			{
-// 			if(next_token->type==t_expanded && next_token->value
-// 					&& !ft_strcmp(next_token->value, "")){
-// 					printf("1");
-// 					next_token->after_space = 1;
-// 				}
-// 			if (current->next->type == t_double_quote
-// 				|| current->next->type == t_single_quote)
-// 				current->type = current->next->type;
-
-// 			else
-// 				{current->value = ft_strjoin(current->value, next_token->value);
-// 				}
-// 				current->next = next_token->next;
-// 				next_token->after_space = current->after_space;
-// 		}
-// 		else
-// 			current = current->next;
-// 	}
-// }
 
 void	join_token(t_token **token)
 {
@@ -53,26 +21,9 @@ void	join_token(t_token **token)
 	while (current && current->next)
 	{
 		next_token = current->next;
-		if (next_token->type == t_expanded && next_token->value
-			&& !ft_strcmp(next_token->value, ""))
-		{
-			// If no after_space, treat it as a splitter:
-			// mark the token after it with after_space = 1
-			if (!next_token->after_space && next_token->next)
-				next_token->next->after_space = 1;
-			current = current->next;
-			continue ;
-		}
-		if (current->type == t_expanded && current->value
-			&& !ft_strcmp(current->value, ""))
-		{
-			current = current->next;
-			continue ;
-		}
 		if (!next_token->after_space && !is_operator(current)
 			&& !is_operator(next_token))
 		{
-			// Inherit quote type if applicable
 			if (next_token->type == t_double_quote
 				|| next_token->type == t_single_quote)
 				current->type = next_token->type;
@@ -80,16 +31,14 @@ void	join_token(t_token **token)
 			current->next = next_token->next;
 		}
 		else
-		{
 			current = current->next;
-		}
 	}
 }
 
 static int	handle_special_cases(const char *start, char *value)
 {
 	if ((!ft_strncmp(start, "$\"", 2) || !ft_strncmp(start, "$\'", 2))
-				&& ft_strlen(value) == 1)
+		&& ft_strlen(value) == 1)
 		return (1);
 	return (0);
 }
@@ -97,18 +46,19 @@ static int	handle_special_cases(const char *start, char *value)
 static void	add_token_to_list(t_token **token, char *value, t_token_type type,
 		int after_space)
 {
-	static int	a_s;
-	static t_token_type previous_type = t_word;
+	static int			a_s;
+	static t_token_type	previous_type = t_word;
 
 	if (a_s == 1)
 	{
 		after_space = a_s;
 		a_s = 0;
 	}
-	if (type == t_double_quote && !is_dollar_str(value) && previous_type != t_double_less)
+	if (type == t_double_quote && !is_dollar_str(value)
+		&& previous_type != t_double_less)
 		value = expand_str(value);
 	if ((type == t_dollar_expand || type == t_dollar_num
-		|| type == t_exit_status) && previous_type != t_double_less)
+			|| type == t_exit_status) && previous_type != t_double_less)
 		a_s = expand_token(token, value, after_space);
 	else
 		ft_lstadd_back_token(token, ft_lstnew_token(value, type, after_space));
@@ -120,7 +70,6 @@ t_token	*tokenize(char *line)
 {
 	const char		*start;
 	t_token			*token;
-	t_token_type	type;
 	int				after_space;
 	char			*value;
 
@@ -136,10 +85,9 @@ t_token	*tokenize(char *line)
 		value = ft_copy(start, line);
 		if (handle_special_cases(start, value))
 			continue ;
-		type = get_token_type(value);
-		if(type==t_pipe)
+		if (get_token_type(value) == t_pipe)
 			ft_set_exit_status(0);
-		add_token_to_list(&token, value, type, after_space);
+		add_token_to_list(&token, value, get_token_type(value), after_space);
 		after_space = ft_isin(*line, BLANKS);
 		line += ft_strspn(line, BLANKS);
 	}

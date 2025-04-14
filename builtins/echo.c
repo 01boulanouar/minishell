@@ -19,8 +19,8 @@ static int	echo_is_n(char *str)
 	i = 0;
 	if (!str || !ft_strcmp(str, ""))
 		return (0);
-	if(str[0] != '-')
-		return 0; 
+	if (str[0] != '-')
+		return (0);
 	if (str[0] == '-' && str[1])
 		str++;
 	while (str[i] == 'n')

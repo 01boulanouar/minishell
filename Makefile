@@ -1,14 +1,14 @@
 NAME = minishell
 
 CC = cc
-# CFLAGS = -Wall -Wextra -Werror -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror 
 INCLUDE = -I./include -I/mnt/homes/aelkadir/.brew/opt/readline/include
 READLINE = -L/mnt/homes/aelkadir/.brew/opt/readline/lib -lreadline
 RM = rm -f
 
 SRC_BUILTINS = 	builtins/cd.c builtins/echo.c builtins/env.c builtins/exit.c \
 				builtins/export_sort.c builtins/export.c builtins/pwd.c builtins/unset.c \
-				builtins/builtin.c to_delete.c
+				builtins/builtin.c
 			  
 
 SRC_ENVIRONMENT	= environment/ft_gc_env.c environment/ft_lst_env.c \

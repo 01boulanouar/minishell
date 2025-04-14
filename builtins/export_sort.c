@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_sort.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moboulan <moboulan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 16:30:08 by moboulan          #+#    #+#             */
-/*   Updated: 2025/04/06 14:39:40 by moboulan         ###   ########.fr       */
+/*   Updated: 2025/04/14 13:51:13 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,8 @@ void	ft_lstswap_copy_env(t_env *node, t_env *next)
 	tmp_operator = node->operator;
 	node->key = next->key;
 	node->value = next->value;
-	node->operator= next->operator;
+	node->operator = next->operator;
 	next->key = tmp_key;
 	next->value = tmp_value;
-	next->operator= tmp_operator;
+	next->operator = tmp_operator;
 }
